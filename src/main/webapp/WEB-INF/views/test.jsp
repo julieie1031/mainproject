@@ -13,6 +13,11 @@
 	padding: 0px;
 }
 
+
+ul, li{
+	list-style:none;
+}
+
 .background {
 	width: 100%;
 }
@@ -34,7 +39,7 @@ html {
 
 .mainLeft {
 	position:absolute;
-	overflow: hidden;
+	overflow:auto scroll;
 	margin: 0 calc(50vw - 1px) 0 100px;
 	border-width: 0 1px;
 	border-style: solid;
@@ -46,7 +51,13 @@ html {
 	max-width: 500px;
 	height: 100%;
 	z-index: 0;
+	font-size:100px;
 }
+
+.mainLeft::-webkit-scrollbar {
+    display: none;
+}
+
 
 .logo img {
 	width: 140px;
@@ -58,9 +69,37 @@ html {
 
 .header{
 	position: fixed;
+	top:0px;
 	width: 500.5px;
 	height: 30px;
 	background-color: #bfdfbf;
+}
+
+.footer{
+	position: fixed;
+    width: 498.5px;
+    height: 70px;
+    background-color: #fafafa;
+    bottom: 0px;
+    border-style: solid;
+    border-width: thin;
+    border-color: #e1e1e1;
+}
+
+.bottom_bar{
+	position:relative;
+	overflow:hidden;
+	margin:3px;
+	width: 494.5px;
+    height: 60px;
+    background-color: #fafafa;
+}
+
+.bottom_bar ul li img{
+	float:left;
+	width:50px;
+	padding:5px 23px;
+	
 }
 
 </style>
@@ -77,9 +116,23 @@ html {
 		</div>
 		<!-- 왼쪽 -->
 		<div class="mainLeft">
+			화이팅!
 			<div class="header"></div>
 			
-			<div class="footer"></div>
+			<div class="footer">
+				<div class="bottom_bar">
+					<ul>
+						<li><img src="/resources/images/attach.png"></li>
+						<li><img src="/resources/images/attach.png"></li>
+						<li><img src="/resources/images/logo2.png"></li>
+						<li><img src="/resources/images/attach.png"></li>
+						<li><img src="/resources/images/attach.png"></li>
+					</ul>
+					
+					
+				</div>
+			</div>
+			
 		</div>
 
 
