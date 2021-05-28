@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>Insert title here</title>
+
 <script>
 $(document).ready(function(){
 	
@@ -16,7 +18,7 @@ $(document).ready(function(){
 		var scrollTop = $(this).scrollTop()
 	   
 	    if(Math.abs(lastScrollTop - scrollTop) <= delta)
-	    return; // ~ 리턴
+	    return; 
 
 	    if ((scrollTop > lastScrollTop) && (lastScrollTop>0)) {
 	        $(".header").css("top","-100px");
@@ -51,52 +53,20 @@ $(document).ready(function(){
 
 
 </script>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/layout.css">
 
 
 </head>
 <body style="height: 100vh; overflow: hidden;">
-	<div class="background">
-		<!-- 오른쪽 -->
+	
 		<div class="mainRight">
 			<div class="logo">
 				<img src="/resources/images/logo.png" />
 			</div>
 		</div>
-		<!-- 왼쪽 -->
+	
 		<div class="mainLeft">
-			화이팅!
 			<div class="header"></div>
-
-			<div class="footer">
-				<div class="bottom_bar">
-					<ul>
-						<li><a href="/category"><img src="resources/images/category.png"></a></li>
-						<li><a href="/hotel"><img src="resources/images/hotel.png"></a></li>
-						<li><a href="/home"><img src="resources/images/logo2.png"></a></li>
-						<li><a href="/community"><img src="resources/images/community.png"></a></li>
-						<li><a href="/login"><img src="resources/images/login.png"></a></li>
-					</ul>
-
-
-				</div>
-			</div>
-
-		</div>
-
-	</div>
-	
-	
-	  <div class="fixed"
-  id="kakao-talk-channel-chat-button"
-  data-channel-public-id="_xiTUZs"
-  data-title="consult"
-  data-size="small"
-  data-color="yellow"
-  data-shape="pc"
-  data-support-multiple-densities="true"
-></div>
-
 </body>
 </html>

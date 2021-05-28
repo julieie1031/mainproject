@@ -17,4 +17,8 @@ public class TestController {
 	public void Map() {
 		log.info("map");
 	}
+	@GetMapping("/main")
+	public void Main() {
+		log.info("main");
+	}
 }
