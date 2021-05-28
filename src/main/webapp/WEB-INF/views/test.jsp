@@ -144,7 +144,7 @@ html {
 					<ul>
 						<li><img src="/resources/images/attach.png"></li>
 						<li><img src="/resources/images/attach.png"></li>
-						<li><img src="/resources/images/logo2.png"></li>
+						<li><img src="resources/images/logo2.png"></li>
 						<li><img src="/resources/images/attach.png"></li>
 						<li><img src="/resources/images/attach.png"></li>
 					</ul>
