@@ -4,8 +4,34 @@
 <html>
 <head>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>Insert title here</title>
+<script>
+$(document).ready(function(){
+	
+	
+	var lastScrollTop=0;
+	var delta = 5;
+	$(".mainLeft").scroll(function(){
+		var scrollTop = $(this).scrollTop()
+	   
+	    if(Math.abs(lastScrollTop - scrollTop) <= delta)
+	    return; // ~ 리턴
+
+	    if ((scrollTop > lastScrollTop) && (lastScrollTop>0)) {
+	        $(".header").css("top","-100px");
+	    } else {
+	        $(".header").css("top","0px");
+	    }
+	    lastScrollTop = scrollTop;
+	});
+	
+	
+});
+
+
+
+</script>
 
 <style>
 * {
@@ -13,9 +39,8 @@
 	padding: 0px;
 }
 
-
-ul, li{
-	list-style:none;
+ul, li {
+	list-style: none;
 }
 
 .background {
@@ -23,7 +48,6 @@ ul, li{
 }
 
 html {
-
 	background-image: url(/resources/images/background.jpg);
 	background-size: 100% 100%;
 }
@@ -38,8 +62,8 @@ html {
 }
 
 .mainLeft {
-	position:absolute;
-	overflow:auto scroll;
+	position: absolute;
+	overflow: auto scroll;
 	margin: 0 calc(50vw - 1px) 0 100px;
 	border-width: 0 1px;
 	border-style: solid;
@@ -51,13 +75,12 @@ html {
 	max-width: 500px;
 	height: 100%;
 	z-index: 0;
-	font-size:100px;
+	font-size: 500px;
 }
 
 .mainLeft::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
-
 
 .logo img {
 	width: 140px;
@@ -67,47 +90,44 @@ html {
 	z-index: 0;
 }
 
-.header{
+.header {
 	position: fixed;
-	top:0px;
+	top: 0px;
 	width: 500.5px;
 	height: 30px;
 	background-color: #bfdfbf;
+	transition: top 0.2s ease-in-out;
 }
 
-.footer{
+.footer {
 	position: fixed;
-    width: 498.5px;
-    height: 70px;
-    background-color: #fafafa;
-    bottom: 0px;
-    border-style: solid;
-    border-width: thin;
-    border-color: #e1e1e1;
+	width: 498.5px;
+	height: 70px;
+	background-color: #fafafa;
+	bottom: 0px;
+	border-style: solid;
+	border-width: thin;
+	border-color: #e1e1e1;
 }
 
-.bottom_bar{
-	position:relative;
-	overflow:hidden;
-	margin:3px;
+.bottom_bar {
+	position: relative;
+	overflow: hidden;
+	margin: 3px;
 	width: 494.5px;
-    height: 60px;
-    background-color: #fafafa;
+	height: 60px;
+	background-color: #fafafa;
 }
 
-.bottom_bar ul li img{
-	float:left;
-	width:50px;
-	padding:5px 23px;
-	
+.bottom_bar ul li img {
+	float: left;
+	width: 50px;
+	padding: 5px 23px;
 }
-
 </style>
 </head>
 <body style="height: 100vh; overflow: hidden;">
 	<div class="background">
-		<!-- 배경 -->
-		<div class="fullImage"></div>
 		<!-- 오른쪽 -->
 		<div class="mainRight">
 			<div class="logo">
@@ -118,7 +138,7 @@ html {
 		<div class="mainLeft">
 			화이팅!
 			<div class="header"></div>
-			
+
 			<div class="footer">
 				<div class="bottom_bar">
 					<ul>
@@ -128,11 +148,11 @@ html {
 						<li><img src="/resources/images/attach.png"></li>
 						<li><img src="/resources/images/attach.png"></li>
 					</ul>
-					
-					
+
+
 				</div>
 			</div>
-			
+
 		</div>
 
 
