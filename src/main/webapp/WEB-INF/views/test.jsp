@@ -142,7 +142,7 @@ html {
 
 div.fixed {
   position: fixed;
-  top: 800px;
+  bottom: 0px;
   right: 0;
   width: 100px;
  }
@@ -154,7 +154,7 @@ div.fixed {
 		<!-- 오른쪽 -->
 		<div class="mainRight">
 			<div class="logo">
-				<img src="/resources/images/logo.png" />
+				<img src="resources/images/logo3.png" />
 			</div>
 		</div>
 		<!-- 왼쪽 -->
