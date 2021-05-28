@@ -12,4 +12,9 @@ public class TestController {
 	public void Test() {
 		log.info("test");
 	}
+	
+	@GetMapping("/map")
+	public void Map() {
+		log.info("map");
+	}
 }
