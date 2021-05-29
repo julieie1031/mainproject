@@ -237,11 +237,46 @@ margin-top:30px;
   outline: 0;
   opacity: 0.9;
 }
+
+.top{
+	overflow:hidden;
+	width:100%;
+	height:300px;
+
+}
+
+
+div.category {
+ 	margin: 10px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+
+div.category img {
+
+ 	display: block;
+    width: 80px;
+    height: auto;
+    margin-left:8px
+}
+
+div.desc {
+  padding: 10px;
+  text-align: center;
+  font-size:10px;
+}
+
+
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <%@include file="layout/header.jsp" %>
 
+<!-- 배너 -->
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -263,6 +298,42 @@ margin-top:30px;
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+
+<!-- 배너 끝 -->
+
+<!-- 카테고리 -->
+<div class="top">
+	
+	<div class="category">
+	<img src="resources/images/category/cafe.png">
+	<div class="desc">카페</div>
+	</div>
+	<div class="category">
+	<img src="resources/images/category/hospital.png">
+	<div class="desc">동물병원</div>
+	</div>
+	<div class="category">
+	<img src="resources/images/category/park.png">	
+	<div class="desc">공원</div>
+	</div>
+	<div class="category">
+	<img src="resources/images/category/pet hotel.png">
+	<div class="desc">호텔</div>
+	</div>
+	<div class="category">
+	<img src="resources/images/category/restaurant.png">
+	<div class="desc">맛집</div>
+	</div>
+	<div class="category">
+	<img src="resources/images/category/school.png">
+	<div class="desc">유치원</div>
+	</div>
+	<div class="category">
+	<img src="resources/images/category/salon.png">
+	<div class="desc">미용</div>
+	</div>
+</div>
+<!-- 카테고리 끝 -->
 
 
 <%@include file="layout/footer.jsp" %>
