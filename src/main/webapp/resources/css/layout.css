@@ -59,7 +59,7 @@ html {
 .header {
 	position: fixed;
 	top: 0px;
-	width: 500.5px;
+	width: 500px;
 	height: 30px;
 	background-color: #bfdfbf;
 	transition: top 0.2s ease-in-out;
@@ -67,7 +67,7 @@ html {
 
 .footer {
 	position: fixed;
-	width: 498.5px;
+	width: 498px;
 	height: 70px;
 	background-color: #fafafa;
 	bottom: 0px;

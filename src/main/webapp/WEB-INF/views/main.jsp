@@ -241,7 +241,7 @@ margin-top:30px;
 .top{
 	overflow:hidden;
 	width:100%;
-	height:300px;
+	height:270px;
 
 }
 
@@ -269,6 +269,18 @@ div.desc {
   font-size:10px;
 }
 
+div.test{
+	width:100%;
+	font-size:300px;
+
+}
+
+.notice{
+	width:500px; 
+	height:45px; 
+	align:center;
+	
+}
 
 
 </style>
@@ -334,6 +346,19 @@ div.desc {
 	</div>
 </div>
 <!-- 카테고리 끝 -->
+
+<!-- 공지 -->
+
+<div style="width:500; height:45; background-color:#0FF; border:2px solid red;" align=center>
+     <table width="90%" border="3" cellpadding="0" cellspacing="0" bordercolor=red bgcolor="#99cc00">
+     	<tr>
+        	<td width=33% height=30 align=left border=4px solid=#555;">a</td>
+          	<td width=34% align=left border=2px>b</td>
+          	<td align=left border=4px>c</td>
+		</tr>
+     </table>
+</div>
+<!-- 공지 끝 -->
 
 
 <%@include file="layout/footer.jsp" %>
