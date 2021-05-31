@@ -8,6 +8,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>Insert title here</title>
 
+
+<link rel="stylesheet" href="resources/css/layout.css">
+
 <script>
 $(document).ready(function(){
 	
@@ -54,16 +57,22 @@ $(document).ready(function(){
 
 </script>
 
-<link rel="stylesheet" href="resources/css/layout.css">
+
 
 
 </head>
 <body style="height: 100vh; overflow: hidden;">
+<div class="fixed" id="kakao-talk-channel-chat-button"
+		data-channel-public-id="_xiTUZs" data-title="consult"
+		data-size="small" data-color="yellow" data-shape="pc"
+		data-support-multiple-densities="true"></div>
 	
 		<div class="mainRight">
 			<div class="logo">
 				<img src="/resources/images/logo.png" />
 			</div>
+			
+			
 		</div>
 	
 		<div class="mainLeft">

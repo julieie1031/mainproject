@@ -3,7 +3,29 @@
 * {
 	margin: 0px;
 	padding: 0px;
+	
 }
+
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+     font-family: 'S-CoreDream-3Light';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
+body{
+	
+	font-family: 'S-CoreDream-3Light';
+	
+}
+
 
 ul, li {
 	list-style: none;
@@ -97,3 +119,13 @@ div.fixed {
   right: 0;
   width: 100px;
  }
+ 
+ 
+.m_footer{
+	background: #f1f0f0;
+    width: 100%;
+    height: 400px;
+    font-size:13px;
+	
+	
+}

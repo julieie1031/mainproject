@@ -258,6 +258,7 @@ div.category {
 	float: left;
 	width: 100px;
 	height: 100px;
+	font-family: 'BMJUA';
 }
 
 div.category img {
@@ -270,7 +271,7 @@ div.category img {
 div.desc {
 	padding: 10px;
 	text-align: center;
-	font-size: 10px;
+	font-size: 14px;
 }
 
 div.test {
@@ -293,6 +294,7 @@ div.test {
 	font-size:10px;
 	margin-bottom:10px;
 	margin-left:25px;
+	color: #6b6a6a;
 }
 
 .rankTable{
@@ -315,8 +317,35 @@ div.test {
 
 .tip {
 	width: 100%;
-	height: 270px;
+	height: 430px;
+	margin: 10px;
 }
+
+div.tipContent {
+	margin: 10px;
+	padding-left: 5px;
+	padding-bottom: 40px;
+	float: left;
+	width: 130px;
+	height: 130px;
+}
+.tipContent img{
+	display: block;
+	width: 130px;
+	height: 130px;
+	margin-left: 4px
+
+}
+
+.tip_desc{
+
+	padding: 10px;
+    font-size: 13px;
+
+}
+
+
+
 </style>
 
 <script
@@ -326,8 +355,7 @@ div.test {
 <%@include file="layout/header.jsp"%>
 
 <!-- 배너 -->
-<div id="carouselExampleControls" class="carousel slide"
-	data-bs-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner">
 		<div class="carousel-item active">
 			<img src="resources/images/banner2.png" class="d-block w-100"
@@ -337,9 +365,9 @@ div.test {
 			<img src="resources/images/banner3.png" class="d-block w-100"
 				alt="...">
 		</div>
-		<!-- <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div> -->
+		<div class="carousel-item">
+      <img src="resources/images/banner1.png" class="d-block w-100" alt="...">
+    	</div>
 	</div>
 	<button class="carousel-control-prev" type="button"
 		data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -454,36 +482,28 @@ div.test {
 <!-- 상식팁 -->
 <div style="clear:both; margin-top:50px">
 <div class="title">
-		<h3>상식 팁</h3>
+		<h3>오늘의 상식 TIP!</h3>
 	</div>
 <div class="tip">
-	<div class="category">
-		<img src="resources/images/category/cafe.png">
-		<div class="desc">카페</div>
+	<div class="tipContent">
+		<img src="resources/images/tip/apple.jpg">
+		<div class="tip_desc">강아지 사과 먹어도 될까?</div>
 	</div>
-	<div class="category">
-		<img src="resources/images/category/hospital.png">
-		<div class="desc">동물병원</div>
+	<div class="tipContent">
+		<img src="resources/images/tip/burdock.jpg">
+		<div class="tip_desc">강아지 우엉 먹어도 될까?</div>
 	</div>
-	<div class="category">
-		<img src="resources/images/category/park.png">
-		<div class="desc">공원</div>
+	<div class="tipContent">
+		<img src="resources/images/tip/dog.jpg">
+		<div class="tip_desc">혓바닥 색으로 알아보는 강아지의 건강 상태</div>
 	</div>
-	<div class="category">
-		<img src="resources/images/category/pet hotel.png">
-		<div class="desc">호텔</div>
+	<div class="tipContent">
+		<img src="resources/images/tip/dog1.PNG">
+		<div class="tip_desc">강아지와 여행 가기</div>
 	</div>
-	<div class="category">
-		<img src="resources/images/category/restaurant.png">
-		<div class="desc">맛집</div>
-	</div>
-	<div class="category">
-		<img src="resources/images/category/school.png">
-		<div class="desc">유치원</div>
-	</div>
-	<div class="category">
-		<img src="resources/images/category/salon.png">
-		<div class="desc">미용</div>
+	<div class="tipContent">
+		<img src="resources/images/tip/dog2.jpg">
+		<div class="tip_desc">강아지가 아플 때 보내는 신호</div>
 	</div>
 
 	
@@ -491,6 +511,10 @@ div.test {
 
 </div>
 </div>
+
+<!-- 상식팁 끝  -->
+
+
 
 
 
