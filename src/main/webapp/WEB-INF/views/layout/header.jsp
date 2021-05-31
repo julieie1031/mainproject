@@ -80,7 +80,7 @@ $(document).ready(function(){
 				<img src="/resources/images/logo3.png" />
 			</div>
 			
-			
+			 
 		</div>
 	
 		<div class="mainLeft">
