@@ -115,7 +115,7 @@ html {
 
 div.fixed {
   position: fixed;
-  top: 800px;
+  bottom: 0;
   right: 0;
   width: 100px;
  }
