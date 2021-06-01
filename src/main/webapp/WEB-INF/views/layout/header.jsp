@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 
 
-<link rel="stylesheet" href="resources/css/layout.css">
+<link rel="stylesheet" href="/resources/css/layout.css">
 
 <script>
 $(document).ready(function(){
