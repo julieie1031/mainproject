@@ -2,21 +2,25 @@
     pageEncoding="UTF-8"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--     <%@ taglib prefix="fmt" uri=" http://java.sun.com/jsp/jstl/fmt "%> --%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
- <h2>상품 상세정보</h2>
+
+<style>
+
+.jb-x-small { font-size: x-small; }
+
+</style>
+
+<%@include file="layout/header.jsp"%>
+
+<div>
     <table border="1">
         <tr>
-            <td>
-                <img src="${path}/images/${vo.restImage}" width="340" height="300">
+            <td> 
+                <img src="../../resources/images/hotel/${vo.restImage}" width="495" height="300">
             </td>
+            </table>
+            <table border="1">
             <td>
-                <table border="1" style="height: 300px; width: 400px;">
+                <table border="1" style="height: 300px; width: 495px;">
                     <tr align="center">
                         <td>상품명</td>
                         <td>${vo.restName}</td>
@@ -41,12 +45,15 @@
                                 </select>&nbsp;개
                                 <input type="submit" value="장바구니에 담기">
                             </form>
-                            <a href="${path}/shop/product/list.do">상품목록</a>
+                            <a href="${path}/hotel/list">상품목록</a>
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
     </table>
+ </div>
+
+<%@include file="layout/footer.jsp"%>
 </body>
 </html>

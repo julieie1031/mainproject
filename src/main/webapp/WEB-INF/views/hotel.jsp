@@ -2,42 +2,50 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<style>
+
+.jb-x-small { font-size: x-small; }
+s
+</style>
 
 
 <%@include file="layout/header.jsp"%>
 
 
 
+		<div class="carousel-item active">
+			
+		</div>
+
+<img src="../resources/images/banner1.png" alt="..." width="520px" height="200px">
 <div>
-<h2>상품목록</h2>
-    <table border="1">
-        <tr>
-            <th>상품ID번호</th>
-            <th>상품이미지</th>
-            <th>상품명</th>
-            <th>가격</th>
-        </tr>
+
+ <table border="1">
+    
         <c:forEach var="row" items="${list}">
+  
+      
+     
         <tr>
-            <td>
-                ${row.restId}
-            </td>
-            <td>
-                <a href="${path}hotelDetail/${row.restId}">
-                    <img src="${path}/images/${row.restImage}" width="120ox" height="110px">
+          <td>
+             
+                <a href="${path}detail/${row.restId}">
+                    <img src="../resources/images/hotel/${row.restImage}" width="120ox" height="110px">
                 </a>
             </td>
             <td>
                 <a href="${path}detail/${row.restId}">${row.restName}</a>
             </td>
-            <td>
+            <td  class="jb-x-small">
             ${row.restPrice}
             <%--  <fmt:formatNumber value="${row.restPrice}" pattern="###,###,###"/> --%>
             </td>
         </tr>
         </c:forEach>
     </table>
+ 
 </div>
+
 <%@include file="layout/footer.jsp"%>
 </body>
 </html>
