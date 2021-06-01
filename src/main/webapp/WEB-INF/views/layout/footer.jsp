@@ -31,7 +31,7 @@
 			<ul>
 				<li><a href="/category"><img
 						src="resources/images/category.png"></a></li>
-				<li><a href="/hotel"><img src="resources/images/hotel.png"></a></li>
+				<li><a href="/hotel/list"><img src="resources/images/hotel.png"></a></li>
 				<li><a href="/home"><img src="resources/images/logo2.png"></a></li>
 				<li><a href="/community"><img
 						src="resources/images/community.png"></a></li>
