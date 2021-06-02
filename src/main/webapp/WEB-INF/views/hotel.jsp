@@ -4,8 +4,19 @@
 
 <style>
 
+*{margin: 0; padding: 0;}
+
+.table-x {margin-left: 30px;}
+
 .jb-x-small { font-size: x-small; }
-s
+
+.text-x {text-align: right; vertical-align : bottom;}
+
+a {
+  text-decoration-line: none;
+  color: black;
+ }
+
 </style>
 
 
@@ -20,7 +31,7 @@ s
 <img src="../resources/images/banner1.png" alt="..." width="520px" height="200px">
 <div>
 
- <table border="1">
+ <table class="table-x">
     
         <c:forEach var="row" items="${list}">
   
@@ -28,20 +39,25 @@ s
      
         <tr>
           <td>
-             
+               <br><br> 
                 <a href="${path}detail/${row.restId}">
                     <img src="../resources/images/hotel/${row.restImage}" width="120ox" height="110px">
-                </a>
+                </a>  
+                             <br><br>     
             </td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td>
                 <a href="${path}detail/${row.restId}">${row.restName}</a>
             </td>
-            <td  class="jb-x-small">
-            ${row.restPrice}
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td  class="text-x" colspan="5">
+            <a href="${path}detail/${row.restId}">${row.restAddress}</a>
             <%--  <fmt:formatNumber value="${row.restPrice}" pattern="###,###,###"/> --%>
             </td>
         </tr>
+ 
         </c:forEach>
+         
     </table>
  
 </div>
