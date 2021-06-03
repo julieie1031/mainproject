@@ -38,10 +38,10 @@ a {
                        <%--  <td><fmt:formatNumber value="${vo.restPrice}" pattern="###,###,###"/></td> --%>
                     </tr>
                     <tr align="center">
-                    <td>${vo.restContent}<br>${vo.restNumber}</td>
+                    <td>${vo.restContent}</td>
                     </tr>
                     <tr>
-                    <td class="text-b">${vo.restPrice}</td>
+                    <td class="text-b">${vo.restNumber}<br>${vo.restPrice}</td>
                     </tr>
                     <tr align="center">
                         <td colspan="2">
