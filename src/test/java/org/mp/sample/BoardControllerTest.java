@@ -36,8 +36,8 @@ public class BoardControllerTest {
 	
 	@Test
 	public void testRegister() throws Exception {
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register").param("title", "애견호텔 추천 좀 해주세요")
-			.param("content", "추천부탁드려요").param("userId", "11233")).andReturn().getModelAndView().getViewName();
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register").param("title", "test from controller")
+			.param("content", "test from controller").param("id", "user0000")).andReturn().getModelAndView().getViewName();
 		log.info(resultPage);
 	}
 	
@@ -50,24 +50,15 @@ public class BoardControllerTest {
 	@Test
 	public void testModify() throws Exception {
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/modify").param("bno", "7")
-				.param("title", "7번7번").param("content", "7번 내용").param("userId", "7번 유저"))
+				.param("title", "7번7번").param("content", "7번 내용").param("id", "7번 유저"))
 				.andReturn().getModelAndView().getViewName();
 		log.info(resultPage);
 	}
-	
+	 
 	@Test
 	public void testRemove() throws Exception {
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove").param("bno", "8"))
 				.andReturn().getModelAndView().getViewName();
 		log.info(resultPage);
-	}
-	
-	@Test
-	public void testListPaging() throws Exception{
-		log.info(mockMvc.perform(
-				MockMvcRequestBuilders.get("/board/list")
-				.param("pageNum", "2")
-				.param("amount", "50"))
-				.andReturn().getModelAndView().getModelMap());
 	}
 }
