@@ -3,9 +3,12 @@ package org.mp.sample;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mp.domain.BoardVO;
+import org.mp.domain.Criteria;
 import org.mp.mapper.BoardMapper;
 import org.mp.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,7 @@ public class BoardMapperTest {
 	@Test
 	public void testInsert() {
 		BoardVO board = new BoardVO();
-		board.setId("작성자 02");
+		board.setUserId("작성자 02");
 		board.setTitle("새로 작성");
 		board.setContent("새로 작성한 내용");
 		board.setHit(2);
@@ -56,7 +59,7 @@ public class BoardMapperTest {
 	public void testUpdate() {
 		BoardVO board = new BoardVO();
 		board.setBno(5L);
-		board.setId("수정된 아이디");
+		board.setUserId("수정된 아이디");
 		board.setTitle("수정된 제목");
 		board.setContent("수정된 내용");
 		
@@ -68,5 +71,16 @@ public class BoardMapperTest {
 	public void testExist() {
 		log.info(service);
 		assertNotNull(service);
+	}
+	
+	@Test
+	public void testPaging() {
+		Criteria cri = new Criteria();
+		//3개씩 5페이지
+		cri.setPageNum(3);
+		cri.setAmount(5);
+		
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		list.forEach(board->log.info(board));
 	}
 }

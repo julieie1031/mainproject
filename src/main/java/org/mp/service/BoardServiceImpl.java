@@ -2,9 +2,9 @@ package org.mp.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
 import org.mp.domain.BoardVO;
+import org.mp.domain.Criteria;
 import org.mp.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,16 +20,11 @@ import lombok.extern.log4j.Log4j;
 public class BoardServiceImpl implements BoardService{
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
-	@Inject
-	private BoardDAO dao;
+	
+	
 	@Override
 	public BoardVO get(Long bno) {
 		log.info("get.....");
-		try {
-			dao.boardHit(bno);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return mapper.read(bno);
 	}
 	@Override
@@ -48,11 +43,14 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.delete(bno)==1;
 	}
 	@Override
-	public List<BoardVO> getList() {
-		log.info("getList....");
-		return mapper.getList();
+	public List<BoardVO> getList(Criteria cri) {
+		log.info("get List with criteria : " + cri);
+		return mapper.getListWithPaging(cri);
+	}
+	@Override
+	public boolean plusHit(Long bno) {
+		return mapper.plusHit(bno);
 	}
 	
-
 	
 }
