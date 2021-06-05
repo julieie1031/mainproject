@@ -2,6 +2,7 @@ package org.mp.sample;
 
 import org.mp.service.BoardService;
 import org.mp.domain.BoardVO;
+import org.mp.domain.Criteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,15 @@ public class BoardServiceTest {
 	private BoardService service;
 	@Test
 	public void testGetList() {
-		 service.getList().forEach(board->log.info(board)); 
+		/* service.getList().forEach(board->log.info(board)); */
+		service.getList(new Criteria(2,5)).forEach(board -> log.info(board));
 	}
 	@Test
 	public void testRegister() {
 		BoardVO board = new BoardVO();
-		board.setId("새 작성자");
+		board.setUserId("새 작성자");
 		board.setTitle("새 제목");
 		board.setContent("새 내용");
-		board.setHit(2);
-		board.setGood(3);
 		service.register(board);
 		log.info("생성된 게시물의 번호 : " + board.getBno());
 	}
