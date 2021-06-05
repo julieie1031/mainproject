@@ -11,17 +11,11 @@
 
 <link rel="stylesheet" href="/resources/css/layout.css">
 <style>
-.headerlogo {
-   position: relative;
-   bottom: 400px;
-   left: 185px;
+.header2 img{
+	display:block;
+	float:left;
 }
 
-.back {
-   position: relative;
-   bottom: 1070px;
-   left: 15px;
-}
 </style>
 
 <script>
@@ -37,9 +31,9 @@ $(document).ready(function(){
 	    return; 
 
 	    if ((scrollTop > lastScrollTop) && (lastScrollTop>0)) {
-	        $(".header").css("top","-100px");
+	        $(".header2").css("top","-100px");
 	    } else {
-	        $(".header").css("top","0px");
+	        $(".header2").css("top","0px");
 	    }
 	    lastScrollTop = scrollTop;
 	});
@@ -97,12 +91,11 @@ $(document).ready(function(){
 		</div>
 	
 		<div class="mainLeft">
-			<div class="headerlogo">
-         <img src="/resources/images/logo.png" width="150" height="150">
-      </div>
-      <div class="back">
-         <a href="/main"><img src="/resources/images/back.png" width="60"
-            height="60"></a>
+		<div class="header2" style="width:100%; height:200px;">
+        		<img src="/resources/images/back.png" width="100"
+            height="100">
+        		<img src="/resources/images/logo.png" style="padding-left:110px;"width="100" height="100">
+         		
       </div>
 			
 
