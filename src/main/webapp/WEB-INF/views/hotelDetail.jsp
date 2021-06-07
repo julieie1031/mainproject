@@ -45,7 +45,7 @@ a {
                     </tr>
                     <tr align="center">
                         <td colspan="2">
-                            <form name="form1" method="post" action="${path}/shop/cart/insert.do">
+                            <form name="form1" method="post" action="${path}/addSchedule">
                                 <input type="hidden" name="restId" value="${vo.restId}">
                                 <input type="submit" value="예약하기">
                             </form>
