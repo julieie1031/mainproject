@@ -110,7 +110,7 @@ textarea:focus {
 <table class="table1">
 	<tr style="margin-top: 10px">
 		<td height=100;><input type="text" name="title"
-			readonly="readonly" value='<c:out value = "${board.title }"/>'></td>
+			readonly="readonly" value='<c:out value = "${board.title }"/>'</td>
 	</tr>
 	<tr>
 		<td><textarea style="height: 300px" name="content"
