@@ -111,7 +111,7 @@ textarea:focus {
 
 		<tr>
 			<td height=100;><input type="text" name="title"
-				value='<c:out value = "${board.title }"/>'</td>
+				value='<c:out value = "${board.title }"/>'></td>
 		</tr>
 		<tr>
 			<td><textarea style="height: 300px" name="content"><c:out
