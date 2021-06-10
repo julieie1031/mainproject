@@ -6,20 +6,18 @@
 <mapper namespace = "com.management.dao.ScheduleDAO">
  	<select id="showSchedule" resultType = "ScheduleDTO">
  		SELECT
-    			subject,startDate,endDate,memo
-    		FROM
-    			schedule
-    		WHERE
-    			id = #{id}
-    		ORDER BY
-    			num
-    		DESC
+ 			subject,startDate,endDate,memo
+ 		FROM
+ 			schedule
+ 		ORDER BY
+ 			num
+ 		DESC
  	</select>
  	<insert id="addSchedule" parameterType = "ScheduleDTO">
 	    	INSERT INTO
-	    		schedule(num,subject,startDate,endDate,memo,id)
+	    		schedule(subject,startDate,endDate,memo)
 	    	VALUES
-	    		(seq_schedule.nextval,#{subject, jdbcType=VARCHAR},#{startDate, jdbcType=VARCHAR},#{endDate, jdbcType=VARCHAR},#{memo, jdbcType=VARCHAR},#{id,jdbcType=VARCHAR })
+	    		(#{subject, jdbcType=VARCHAR},#{startDate, jdbcType=VARCHAR},#{endDate, jdbcType=VARCHAR},#{memo, jdbcType=VARCHAR})
  	</insert>
  </mapper>
  
