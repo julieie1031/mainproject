@@ -32,7 +32,7 @@ a {
 }
 
 .table1 {
-	border-top: 1px solid #444444;
+	/* border-top: 1px solid #444444; */
 	border-bottom: 1px solid #444444;
 }
 
@@ -66,8 +66,9 @@ textarea {
 	cursor: pointer;
 	outline: 0;
 	float: right;
-	margin-top: 30px;
+	margin-top: 35px;
 	margin-bottom: 10px;
+	margin-right : 10px;
 }
 
 input:focus {
@@ -76,6 +77,35 @@ input:focus {
 
 textarea:focus {
 	outline: none;
+}
+.attach {
+width : 42px;
+height : 42px;
+margin-top : 10px;
+margin-left : 10px;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.inputstyle {
+  border-radius: 5px;
+  background-color: white;
+
+}
+
+textarea {
+ padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
 }
 </style>
 
@@ -88,14 +118,14 @@ textarea:focus {
 		width="40px" height="40px" align="right" class = "img1" type = "submit"> -->
 
 	<input type="submit" value="" class="btn_submit">
-
+<div class = "inputstyle">
 	<table class="table1">
 		<tr>
 			<td height=50><input type="text" name="title"
 				placeholder="제목을 입력해주세요"></td>
 		</tr>
 		<tr>
-			<td><textarea style="height: 300px" name="content"
+			<td><textarea style="height: 300px; font-size : 15px;" name="content" 
 					placeholder="내용을 입력해주세요"></textarea></td>
 		</tr>
 
@@ -104,12 +134,27 @@ textarea:focus {
 		</tr>
 
 	</table>
+	</div>
+	<table>
+<tr>
+<td><a id="" href="javascript:fnUpload();"><img src="../resources/images/community/attach.png" 
+alt="찾아보기" class = "attach" /></a>
+<input type="file" id="fileUpload" style="display:none" onchange="$('#fileNm').val(this.value)"/></td>
+<td><input type="text" id="fileNm" readonly style = "margin-left : 10px; margin-top : 20px;" placeholder = "사진을 첨부해주세요"/></td>
+</tr>
+</table>
+<script>
 
-	<input type=file name='file1' style='display: none;'> <input
-		type='text' name='file2' id='file2'> <img
-		src='../resources/images/community/attach.png' width="60px"
-		height="60px" style="margin-left: 10px" border='0'
-		onclick='document.all.file1.click(); document.all.file2.value=document.all.file1.value'>
+function fnUpload(){
+
+	$('#fileUpload').click();
+
+}
+
+</script>
+
+
+
 
 
 </form>

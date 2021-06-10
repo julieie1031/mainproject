@@ -51,6 +51,11 @@ public class BoardServiceImpl implements BoardService{
 	public boolean plusHit(Long bno) {
 		return mapper.plusHit(bno);
 	}
+	@Override
+	public int getTotal(Criteria cri) {
+		log.info("get total count");
+		return mapper.getTotalCount(cri);
+	}
 	
 	
 }

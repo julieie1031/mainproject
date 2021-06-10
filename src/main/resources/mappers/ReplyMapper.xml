@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "org.mp.mapper.ReplyMapper">
+
+ <insert id = "insert">
+insert into reply(rno, bno, userId, reply_content)
+values(sqs_reply.nextval, #{bno}, #{userId}, #{reply_content})
+</insert>
+
+<select id = "read" resultType = "org.mp.domain.ReplyVO">
+select * from reply where rno=#{rno}
+</select>
+
+<delete id = "delete">
+delete from reply where rno=#{rno}
+</delete>
+
+<update id = "update">
+update reply set 
+reply_content=#{reply_content},
+userId=#{userId}, 
+reply_updateDate = sysdate
+where rno=#{rno}
+</update>
+
+
+
+
+<!-- 특정한 게시물의 댓글만을 대상으로 하기 떄문에 게시글 번호가 필요함 -->
+<select id = "getListWithPaging" resultType = "org.mp.domain.ReplyVO">
+
+select rno, bno, reply_content, userid, reply_Date, reply_updateDate
+from reply where bno=#{bno} order by rno asc
+<!-- (
+select /*+ INDEX(tbl_reply idx_reply)*/
+rownum rn, rno, bno, reply_content, userid, reply_date, reply_updateDate 
+from reply
+where bno=#{bno}
+and rno > 0
+and rownum <= #{cri.pageNum}*#{cri.amount}
+)
+where rn > (#{cri.pageNum}-1)*#{cri.amount} -->
+
+
+</select>
+<!--
+<select id = "getCountByBno" resultType = "int">
+select count(*) from tbl_reply
+</select> -->
+
+</mapper>
