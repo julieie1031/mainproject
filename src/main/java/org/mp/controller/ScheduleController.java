@@ -1,5 +1,6 @@
 package org.mp.controller;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import org.mp.domain.ScheduleDTO;
 import org.mp.service.*;
 
 
-@Controller
+@Controller //view를 반환하기 위한 어노테이션
 public class ScheduleController {
 
 	@Inject
@@ -29,21 +30,23 @@ public class ScheduleController {
 		
 		model.addAttribute("showSchedule" , service.showSchedule());
 		
-		return "/main/schedule";
+		return "/schedule";
 	}
 	
 	//일정 추가 팝업
 	@RequestMapping(value = "/schedulePopup")
 	public String test2() throws Exception {
-		return "/main/schedulePopup";
+		return "/schedulePopup";
 	}
 	
 	//일정 추가 버튼 클릭 Ajax
-	@ResponseBody
+	@ResponseBody //데이터를 반환 하기 위해서는 @ReponsBody를 써야하며 controller는 Json 형태로 반환할 수 있다.
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST)
-	public Map<Object,Object> addSchedule(ScheduleDTO dto) throws Exception{
+	public Map<Object,Object> addSchedule(@RequestBody ScheduleDTO dto) throws Exception{
 		Map<Object,Object>map = new HashMap<Object,Object>();
 
+		System.out.println(dto);
+		dto.setId("TEST");
 		service.addSchedule(dto);
 	
 		return map;
