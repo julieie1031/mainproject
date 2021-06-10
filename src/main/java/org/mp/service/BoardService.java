@@ -14,6 +14,8 @@ public interface BoardService {
 	/* public List<BoardVO> getList(); */
 	public List<BoardVO> getList(Criteria cri);
 	public boolean plusHit(Long bno);
+	
+	public int getTotal(Criteria cri);
 
 	
 	
