@@ -92,11 +92,13 @@ $(document).ready(function(){
 	
 		<div class="mainLeft">
 		<div class="header2" style="width:100%; height:200px;">
-        		<img src="/resources/images/back.png" width="100"
-            height="100">
-        		<img src="/resources/images/logo.png" style="padding-left:110px;"width="100" height="100">
+        		<img src="/resources/images/back.png" width="50"
+            height="50">
+        		<img src="/resources/images/logo.png" style="padding-left:150px;"width="120" height="50">
          		
       </div>
+      
+
 			
 
 </body>
