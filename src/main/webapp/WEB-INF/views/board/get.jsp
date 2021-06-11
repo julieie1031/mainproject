@@ -80,7 +80,7 @@ textarea:focus {
 .img1 {
 	position: relative;
 	float: right;
-	margin-top: 30px;
+	margin-top: 34px;
 	margin-right: 10px;
 	margin-bottom: 6px;
 }
@@ -90,6 +90,28 @@ textarea:focus {
 	float: right;
 	margin-top: 10px;
 	margin-right: 10px;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.inputstyle {
+  border-radius: 5px;
+  background-color: white;
+
+}
+
+textarea {
+ padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
 }
 </style>
 
@@ -101,7 +123,7 @@ textarea:focus {
 <!-- <img src="../resources/images/community/submit.png" alt="..."
 		width="40px" height="40px" align="right" class = "img1" type = "submit"> -->
 
-<a href='/board/modify?bno=<c:out value = "${board.bno }"/>'><img
+<a href= "#"><img
 	src="../resources/images/community/register.png" alt="..." width="40px"
 	height="39px" class="img1" data-oper='modify'></a>
 
@@ -113,7 +135,7 @@ textarea:focus {
 			readonly="readonly" value='<c:out value = "${board.title }"/>'></td>
 	</tr>
 	<tr>
-		<td><textarea style="height: 300px" name="content"
+		<td><textarea style="height: 300px; font-size : 15px;" name="content"
 				readonly="readonly"><c:out value="${board.content }" /></textarea></td>
 	</tr>
 
@@ -126,30 +148,36 @@ textarea:focus {
 		</tr> -->
 </table>
 
-<a href='/board/list'><img
+<a href= "#"><img
 	src="../resources/images/community/board.png" alt="..." width="40px"
 	height="39px" class="img2" align="left" data-oper='list'></a>
 
 <form id='operForm' action="/board/modify" method="get">
-	<input type='hidden' id='bno' name='bno'
-		value='<c:out value = "${board.bno }"/>'>
+	<input type='hidden' id='bno' name='bno' value='<c:out value = "${board.bno }"/>'>
+		<input type = "hidden" name = 'pageNum' value = '<c:out value = "${cri.pageNum }"/>'>
+		<input type = "hidden" name = 'amount' value = '<c:out value = "${cri.amount }"/>'>
+		<!-- 키워드와 타입 추가 -->
+		<input type = 'hidden' name = 'keyword' value = '<c:out value = "${cri.keyword }"/>'>
+        <input type = 'hidden' name = 'type' value = '<c:out value = "${cri.type }"/>'>
 </form>
 
-
+<script src = "/resources/js/reply.js"></script> 
 <script type="text/javascript">
 $(document).ready(function(){
 	var operForm = $('#operForm');
-	$('a[data-oper="modify"]').on("click",function(e){
+	$('a img[data-oper="modify"]').on("click",function(e){
 		operForm.attr("action","/board/modify").submit();
 	});
 	
-	 $('a[data-oper="list"]').on("click",function(e){
+	 $('a img[data-oper="list"]').on("click",function(e){
 		operForm.find("#bno").remove();
 		operForm.attr("action","/board/list");
 		operForm.submit(); 
+		
 	});
 });//end javascript
 </script>
+
 
 </body>
 </html>

@@ -64,8 +64,8 @@ textarea {
 	cursor: pointer;
 	outline: 0;
 	float: right;
-	margin-top: 30px;
-	margin-bottom: 10px;
+	margin-top: 35px;
+	margin-bottom: 9px;
 	margin-right: 10px;
 	outline: 0;
 	border: 0;
@@ -79,7 +79,7 @@ textarea {
 	cursor: pointer;
 	outline: 0;
 	float: right;
-	margin-top: 30px;
+	margin-top: 10px;
 	margin-right: 10px;
 	outline: 0;
 	border: 0;
@@ -91,6 +91,28 @@ input:focus {
 
 textarea:focus {
 	outline: none;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.inputstyle {
+  border-radius: 5px;
+  background-color: white;
+
+}
+
+textarea {
+ padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
 }
 </style>
 
@@ -107,6 +129,13 @@ textarea:focus {
 	</button>
 	<input type="hidden" name="bno" readonly="readonly"
 		value='<c:out value = "${board.bno }"/>'>
+		<input type = "hidden" name = 'pageNum' value = '<c:out value = "${cri.pageNum }"/>'>
+		<input type = "hidden" name = 'amount' value = '<c:out value = "${cri.amount }"/>'>
+		<!-- 키워드와 타입 추가 -->
+		<input type = 'hidden' name = 'keyword' value = '<c:out value = "${cri.keyword }"/>'>
+        <input type = 'hidden' name = 'type' value = '<c:out value = "${cri.type }"/>'>
+        
+        
 	<table class="table1">
 
 		<tr>
@@ -114,7 +143,7 @@ textarea:focus {
 				value='<c:out value = "${board.title }"/>'></td>
 		</tr>
 		<tr>
-			<td><textarea style="height: 300px" name="content"><c:out
+			<td><textarea style="height: 300px; font-size : 15px;" name="content"><c:out
 						value="${board.content }" /></textarea></td>
 		</tr>
 
@@ -131,6 +160,7 @@ textarea:focus {
 
 	<input type="hidden" name="userId" readonly="readonly"
 		value='<c:out value = "${board.userId }"/>'>
+		
 
 	<button type="submit" data-oper='remove' class='btn_remove'>
 		<img src="../resources/images/community/remove.png">
@@ -150,10 +180,18 @@ textarea:focus {
 				if (operation === 'remove') {
 					formObj.attr("action", "/board/remove");
 				} /* else if (operation === 'list') {
-					//move to list
-					self.location = "/board/list";
-					return;
-				} */
+					 //move to list
+					formObj.attr("action", "/board/list").attr("method", "get");
+					var pageNumTag = $("input[name='pageNum']").clone();	//잠시 보관용
+					var amountTag = $("input[name='amount']").clone();
+					var keywordTag = $("input[name='keyword']").clone();
+					var typeTag = $("input[name='type']").clone();
+					formObj.empty();	//제거
+					formObj.append(pageNumTag);
+					formObj.append(amountTag); 
+					formObj.append(keywordTag);
+					formObj.append(typeTag); //필요한 태그들만 추가 } */
+				 
 				formObj.submit();
 			});
 		});//end javascript
