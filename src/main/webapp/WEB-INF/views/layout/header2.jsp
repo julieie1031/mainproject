@@ -57,9 +57,22 @@ $(document).ready(function(){
 	  $('#regBtn').on("click",function(){
 	 		self.location="/test";
 	 	});
+	  
+	  
+	  
 });
 
 
+
+</script>
+
+<script>
+
+function back() {
+     history.back(); //방법 2
+
+
+}
 
 </script>
 
@@ -91,11 +104,12 @@ $(document).ready(function(){
 		</div>
 	
 		<div class="mainLeft">
-		<div class="header2" style="width:100%; height:200px;">
+		<div class="header2" style="width:100%; height:60px;">
         		<img src="/resources/images/back.png" width="50"
-            height="50">
+            height="50" onclick="back()">
+            	<a href="../main">
         		<img src="/resources/images/logo.png" style="padding-left:150px;"width="120" height="50">
-         		
+         		</a>
       </div>
       
 
