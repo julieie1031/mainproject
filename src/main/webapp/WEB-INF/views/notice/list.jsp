@@ -10,41 +10,16 @@
 <title>Insert title here</title>
 </head>
 <script>
-	$(document).ready(
-			function() {
-
-				$('.bookRow a').on(
-						"click",
-						function(e) {
-							console.log($('.bookRow'));
-							var bookId = $(this).data('bookid')
-							console.log(bookId);
-
-							$.ajax({
-								type : 'get',
-								url : '/book/get/' + Number(bookId),
-								contentType : "application/json;charset=utf-8",
-								success : function(result, status, xhr) {
-									console.log(result)
-									alert("bookId : " + result.bookId
-											+ ", bookName : " + result.bookName
-											+ ", publisher : "
-											+ result.publisher + ", price : "
-											+ result.price);
-								},
-								error : function(xhr, status, er) {
-									if (error) {
-										error(er);
-									}
-								}
-							})
-						});
-
-			});
+$(document).ready(function(){
+	$('.adminregister img').on("click",function(){
+		alert("hi")
+	})
+})
 </script>
 <style>
 .carousel {
 	position: relative;
+	height:150px;
 }
 
 .carousel.pointer-event {
@@ -262,7 +237,7 @@
 	width: 100%;
 	height: 150px;
 	display: block;
-	margin-top: 30px;
+/* 	margin-top: 30px; */
 }
 
 .visually-hidden, .visually-hidden-focusable:not(:focus):not(:focus-within)
@@ -306,14 +281,16 @@
 
 .adminregister {
 	width: 100%;
-	height: 50px;
+	height: 35px;
+	
 }
 
 .adminregister img {
-	width: 50px;
-	height: 50px;
-	padding-left: 440px;
+	width: 35px;
+	height: 35px;
+	margin-left: 445px;
 	display: flex;
+	z-index:3;
 }
 </style>
 <body>
@@ -350,17 +327,17 @@
 				class="visually-hidden">Next</span>
 		</button>
 		<!-- 배너 끝 -->
-		<!-- admin전용 글작성 버튼 보이기! -->
+	</div>
+	<!-- admin전용 글작성 버튼 보이기! -->
 		<div class="adminregister">
 			<img src="/resources/images/community/register.png" />
 		</div>
 		<!-- 공지판 시작 -->
-	</div>
 	<div class="notice-board">
 		<c:forEach var="list" items="${list}">
 			<div class="notice-body">
-				${list.nTitle}<br>
-				<p>${list.nDate}</p>
+				${list.ntitle}<br>
+				 <p>${list.ndate}</p> 
 			</div>
 		</c:forEach>
 	</div>
