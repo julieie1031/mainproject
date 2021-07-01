@@ -17,7 +17,7 @@ a {
 
 </style>
 
-<%@include file="layout/header.jsp"%>
+<%@include file="layout/header2.jsp"%>
 
 <div>
     <table>
@@ -41,15 +41,16 @@ a {
                     <td>${vo.restContent}</td>
                     </tr>
                     <tr>
-                    <td class="text-b">${vo.restNumber}<br>${vo.restPrice}</td>
+                    <td class="text-b"><%-- ${vo.restNumber}<br>${vo.restPrice} --%></td>
                     </tr>
                     <tr align="center">
                         <td colspan="2">
-                            <form name="form1" method="post" action="${path}/addSchedule">
+                           <form name="form1" method="get" action="/room/list">
+                            	<input type="hidden" name="id" value="${id}">
                                 <input type="hidden" name="restId" value="${vo.restId}">
                                 <input type="submit" value="예약하기">
                             </form>
-                                               <a href="${path}/hotel/list">이전으로</a>
+                             <a href="javascript:history.back();">이전으로</a>
                         </td>
                     </tr>
 

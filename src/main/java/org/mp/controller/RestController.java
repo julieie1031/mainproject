@@ -1,31 +1,55 @@
 package org.mp.controller;
 
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpSession;
+
+import org.mp.domain.Criteria;
+import org.mp.domain.PageDTO;
 import org.mp.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+import lombok.AllArgsConstructor;
+
+@Controller // view를 반환하기 위한 어노테이션
 @RequestMapping("/hotel/*")
+@AllArgsConstructor
 public class RestController {
 
 	    @Autowired
-	    RestService restService;
+	    private RestService service;
+	    
+	    
 
 	    // 1. 상품 전체 목록
-	    @RequestMapping("/list")
-	    public ModelAndView list(ModelAndView mav) {
+	    @GetMapping("/list")
+	    public ModelAndView list(Criteria cri ,ModelAndView mav, HttpServletRequest request) {
+	    	HttpSession session = request.getSession();
+	    	session.setAttribute("id", "TEST");
 	        mav.setViewName("hotel");
-	        mav.addObject("list", restService.listRest());
+	        mav.addObject("list", service.listRestPaging(cri));
+	        mav.addObject("pageMaker", new PageDTO(cri,123));
 	        return mav;
 	    }
 	    // 2. 상품 상세보기
-	    @RequestMapping("/detail/{restId}")
-	    public ModelAndView detail(@PathVariable("restId") String restId, ModelAndView mav){
-	        mav.setViewName("hotelDetail");
-	        mav.addObject("vo", restService.detailRest(restId));
+	   
+	    @GetMapping("/detail")
+	    public ModelAndView detail(@RequestParam("restId") Long restId, @ModelAttribute("cri") Criteria cri, ModelAndView mav,HttpServletRequest request){
+	    	HttpSession session = request.getSession();
+	    
+	    	mav.setViewName("hotelDetail");
+	        mav.addObject("vo", service.detailRest(restId));
+			/*
+			 * rttr.addAttribute("pageNum",cri.getPageNum());
+			 * rttr.addAttribute("amount",cri.getAmount());
+			 */
 	        return mav;
 	    }
 	
