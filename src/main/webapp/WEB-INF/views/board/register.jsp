@@ -66,9 +66,9 @@ textarea {
 	cursor: pointer;
 	outline: 0;
 	float: right;
-	margin-top: 35px;
+	margin-top: 5px;
 	margin-bottom: 10px;
-	margin-right : 10px;
+	margin-right: 10px;
 }
 
 input:focus {
@@ -78,39 +78,64 @@ input:focus {
 textarea:focus {
 	outline: none;
 }
+
 .attach {
-width : 42px;
-height : 42px;
-margin-top : 10px;
-margin-left : 10px;
+	width: 42px;
+	height: 42px;
+	margin-left: 10px;
 }
 
 input[type=text] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
 }
 
 .inputstyle {
-  border-radius: 5px;
-  background-color: white;
-
+	border-radius: 5px;
+	background-color: white;
 }
 
 textarea {
- padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid white;
-  border-radius: 4px;
-  background-color: white;
-  font-size: 16px;
-  resize: none;
+	padding: 12px 20px;
+	box-sizing: border-box;
+	border: 2px solid white;
+	border-radius: 4px;
+	background-color: white;
+	font-size: 16px;
+	resize: none;
+}
+.uploadResult {
+	width: 100%;
+	
+}
+.uploadResult ul {
+	display: flex;
+	flex-folw: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+}
+
+.uploadResult ul li img {
+	width: 110px;
+	height : 100px;
+} 
+.button{
+background-color : white;
+border : 0;
+outline : 0;
+cursor : pointer;
 }
 </style>
 
 
-<%@include file="../layout/header.jsp"%>
+<%@include file="../layout/header2.jsp"%>
 <div class="carousel-item active"></div>
 
 <form role="form" action="/board/register" method="post">
@@ -118,40 +143,164 @@ textarea {
 		width="40px" height="40px" align="right" class = "img1" type = "submit"> -->
 
 	<input type="submit" value="" class="btn_submit">
-<div class = "inputstyle">
-	<table class="table1">
-		<tr>
-			<td height=50><input type="text" name="title"
-				placeholder="제목을 입력해주세요"></td>
-		</tr>
-		<tr>
-			<td><textarea style="height: 300px; font-size : 15px;" name="content" 
-					placeholder="내용을 입력해주세요"></textarea></td>
-		</tr>
+	<div class="inputstyle">
+		<table class="table1">
+			<tr>
+				<td height=50><input type="text" name="title"
+					placeholder="제목을 입력해주세요"></td>
+			</tr>
+			<tr>
+				<td><textarea style="height: 300px; font-size: 15px;"
+						name="content" placeholder="내용을 입력해주세요"></textarea></td>
+			</tr>
 
-		<tr>
-			<td><input type="text" name="userId" placeholder="작성자를 입력해주세요"></td>
-		</tr>
+			<tr>
+				<td><input type="text" name="userId" placeholder="아이디를 입력해주세요"></td>
+			</tr>
 
-	</table>
+		</table>
 	</div>
-	<table>
-<tr>
-<td><a id="" href="javascript:fnUpload();"><img src="../resources/images/community/attach.png" 
-alt="찾아보기" class = "attach" /></a>
-<input type="file" id="fileUpload" style="display:none" onchange="$('#fileNm').val(this.value)"/></td>
-<td><input type="text" id="fileNm" readonly style = "margin-left : 10px; margin-top : 20px;" placeholder = "사진을 첨부해주세요"/></td>
-</tr>
-</table>
-<script>
+	<table style = "height : 150px;">
+		<tr>
+			<td><a id="" href="javascript:fnUpload();"><img
+					src="../resources/images/community/attach.png" alt="찾아보기"
+					class="attach" /></a> <input name="uploadFile" type="file"
+				id="fileUpload" style="display: none; float : top;" multiple 
+				onchange="$('#fileNm').val(this.value)" /></td>
+			<!-- <td><input type="text" id="fileNm" readonly
+				style="margin-left: 10px; margin-top: 20px;"
+				placeholder="사진을 첨부해주세요" /></td> -->
+				
+	
+		<td><div class = "uploadResult">
+					<ul></ul></div></td>
+						</tr>
+	</table>
+	<script>
+		function fnUpload() {
 
-function fnUpload(){
+			$('#fileUpload').click();
 
-	$('#fileUpload').click();
+		}
+		$(document).ready(function(e) {
+			//form 전송 시 <input type = 'hidden'> 태그들을 첨부된 파일의 수 만큼 생성해서 같이 전송
+			var formObj = $("form[role='form']");
+			$("input[type='submit']").on("click", function(e) {
+				e.preventDefault();
+				console.log("submit clicked");
+				var str = "";
+				
+				$(".uploadResult ul li").each(function(i, obj){
+					var jobj = $(obj);
+					console.dir(jobj);
+					
+					str += "<input type = 'hidden' name = 'attachList["+i+"].fileName' value = '" + jobj.data("filename")+"'>";
+					str += "<input type = 'hidden' name = 'attachList["+i+"].uuid' value = '" + jobj.data("uuid") + "'>";
+					str += "<input type = 'hidden' name = 'attachList["+i+"].uploadPath' value = '" + jobj.data("path") + "'>";
+					str += "<input type = 'hidden' name = 'attachList["+i+"].fileType' value = '" + jobj.data("type") + "'>";
 
-}
+			
+				});
+				formObj.append(str).submit();
+			});//button submit
 
-</script>
+			//uploadAjax의 checkExtension 부분 복사
+			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+			var maxSize = 5242880; //5MB
+
+			function checkExtension(fileName, fileSize) {
+				if (fileSize >= maxSize) {
+					alert("파일 사이즈 초과");
+					return false;
+				}
+
+				if (regex.test(fileName)) {
+					alert("해당 종류의 파일은 업로드 할 수 없음");
+					return false;
+				}
+				return true;
+			}//checkExtension
+
+			$("input[type='file']").change(function(e) {
+				//FormData 사용
+				var formData = new FormData();
+				//선택된 파일
+				var inputFile = $("input[name='uploadFile']");
+				var files = inputFile[0].files;
+
+				//formData에 파일데이터 추가
+				for (var i = 0; i < files.length; i++) {
+					//파일의 확장자와 크기 검사
+					if (!checkExtension(files[i].name, files[i].size)) {
+						return false;
+					}
+					formData.append("uploadFile", files[i]);
+				}
+
+				$.ajax({
+					url : '/uploadAjaxAction',
+					processData : false,
+					contentType : false,
+					data : formData,
+					type : 'POST',
+					dataType : 'json',
+					success : function(result) {
+					
+						console.log(result);
+						showUploadedFile(result);
+					}
+				});//$.ajax
+				
+				function showUploadedFile(uploadResultArr){
+					  if(!uploadResultArr || uploadResultArr.length == 0){return ;}
+					  var uploadUL = $(".uploadResult ul");
+					  var str = "";
+					$(uploadResultArr).each(function(i, obj) {
+						if(!obj.image) {	//이미지가 아닌 경우
+							
+							  var fileCallPath = encodeURIComponent( obj.uploadPath+ "/"+obj.uuid +"_"+obj.fileName);
+							  str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
+					          + obj.fileName + "'data-type='" + obj.image + "'><div>";
+					          str += "<span> "+ obj.fileName+"</span>";
+					          str += "<button class = 'button' type='button' data-file=\'"+ fileCallPath +"\' data-type='file'>&nbsp;X</button><br>";
+					          str += "<img src='/resources/images/attach.png'>";
+					          str += "</div></li>";
+					        
+				    		   
+						} else { //이미지인 경우
+							
+							  var fileCallPath = encodeURIComponent( obj.uploadPath+"/s_"+ obj.uuid +"_"+obj.fileName);            
+					          var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+					          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
+					          + obj.fileName + "'data-type='" + obj.image + "'><div>";				          
+					          str += "<span> "+ obj.fileName+"</span>";
+					          str += "<button class = 'button' type='button' data-file=\'"+ fileCallPath +"\' data-type='image'>&nbsp;X</button><br>";
+					          str += "<img src='/display?fileName="+ fileCallPath +"'>";
+					          str += "</div></li>";
+						}
+					});
+					uploadUL.append(str);
+				}//showUploadedFile
+				
+				 $(".uploadResult").on("click", "button", function(e){
+					 var targetFile = $(this).data("file");
+					  var type = $(this).data("type");
+					  var targetLi = $(this).closest("li");
+					  
+					  $.ajax({
+					  	url : '/deleteFile',
+					  	data : {fileName : targetFile, type : type},
+					  	dataType : 'text',
+					  	type : 'POST',
+					  		success : function(result) {
+					  		
+					  			targetLi.remove();
+					  		}
+					  });//$.ajax
+				 });//uploadResult
+			});
+		});//end javascript
+	</script>
 
 
 

@@ -2,6 +2,7 @@ package org.mp.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.mp.domain.BoardVO;
 import org.mp.domain.Criteria;
 
@@ -16,5 +17,8 @@ public interface BoardMapper {
 	public boolean plusHit(Long bno);
 	public int getTotalCount(Criteria cri);
 	public List<BoardVO> getListWithPaging(Criteria cri);
+	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
+	public List<BoardVO> getReply(Long bno);
+	
 	
 }
