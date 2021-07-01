@@ -7,18 +7,11 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-public class TestController {
-	@GetMapping("/test")
-	public void Test() {
-		log.info("test");
-	}
+public class MainController {
 	
-	@GetMapping("/map")
-	public void Map() {
-		log.info("map");
-	}
 	@GetMapping("/main")
-	public void Main() {
+	public void main() {
 		log.info("main");
 	}
+
 }
