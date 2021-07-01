@@ -667,7 +667,7 @@ a {
 		<f:form modelAttribute="member" action="${ joinPath }" method="post">
 			<h4 class="memberjoin">회원가입</h4>
 			<div class="homie">
-				<img src="resources/images/logo.png" width="150" height="150">
+				<img src="resources/images/logo.png" width="150" height="80">
 			</div>
 			<div class="back">
 				<a href="/main"><img src="resources/images/back.png" width="60"
@@ -695,8 +695,9 @@ a {
 			<div class="phone1">
 				<select id="phone1" name="phone" style="border: none">
 					<option value="010">010</option>
-					<option value="020">020</option>
-					<option value="030">030</option>
+					<option value="011">011</option>
+					<option value="017">017</option>
+					<option value="019">019</option>
 				</select>
 			</div>
 			<div class="hyphen">
@@ -755,18 +756,18 @@ a {
 				<p>주소</p>
 			</div>
 			<div class="add">
-				<input type="text" id="postcode" placeholder="우편번호"
+				<input type="text" id="postcode" name = "address" placeholder="우편번호"
 					style="border: none; font-size: 12px;">
 			</div>
 			<div class="add1">
-				<input type="button" class="addbtn" onclick="execDaumPostcode()"
+				<input type="button" class="addbtn" name = "address" onclick="execDaumPostcode()"
 					value="우편번호" style="border: none; font-size: 9px;"><br>
 			</div>
 			<div class="add2">
-				<input type="text" id="roadAddress" placeholder="도로명주소"
+				<input type="text" id="roadAddress" name = "address" placeholder="도로명주소"
 					style="border: none; font-size: 12px;"><br>
 			</div>
-			<input type="hidden" id="jibunAddress" placeholder="지번주소">
+			<input type="hidden" id="jibunAddress" name = "address" placeholder="지번주소">
 			<span id="guide" style="color: #999; display: none"></span>
 			<div class="add3">
 				<input type="text" id="detailAddress" name = "address" placeholder="상세주소"

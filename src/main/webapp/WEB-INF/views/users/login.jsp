@@ -10,53 +10,6 @@
 
 
 <script>
-	$(document)
-			.ready(
-					function() {
-
-						var lastScrollTop = 0;
-						var delta = 5;
-						$(".mainLeft")
-								.scroll(
-										function() {
-											var scrollTop = $(this).scrollTop()
-
-											if (Math.abs(lastScrollTop
-													- scrollTop) <= delta)
-												return;
-
-											if ((scrollTop > lastScrollTop)
-													&& (lastScrollTop > 0)) {
-												$(".header").css("top", "-100px");
-												$(".header2").css("top","-100px");
-												//  $(".centerlogo").css("top","800px");
-											} else {
-												$(".header").css("top", "0px");
-												$(".header2").css("top","0px");
-												//  $(".centerlogo").css("top", "-150px");
-											}
-											lastScrollTop = scrollTop;
-										});
-
-						window.kakaoAsyncInit = function() {
-							Kakao.Channel.createChatButton({
-								container : '#kakao-talk-channel-chat-button',
-							});
-						};
-						(function(d, s, id) {
-							var js, fjs = d.getElementsByTagName(s)[0];
-							if (d.getElementById(id))
-								return;
-							js = d.createElement(s);
-							js.id = id;
-							js.src = 'https://developers.kakao.com/sdk/js/kakao.channel.min.js';
-							fjs.parentNode.insertBefore(js, fjs);
-						})(document, 'script', 'kakao-js-sdk');
-
-						$('#regBtn').on("click", function() {
-							self.location = "/test";
-						});
-					});
 	
 	function back() {
 	     history.back(); //방법 2
@@ -283,32 +236,7 @@ a {
 }
 </style>
 </head>
-<div class="fixed" id="kakao-talk-channel-chat-button"
-	data-channel-public-id="_xiTUZs" data-title="consult" data-size="small"
-	data-color="yellow" data-shape="pc"
-	data-support-multiple-densities="true"></div>
-
-<body style="height: 100vh; overflow: hidden;">
-
-
-	<div class="mainRight">
-		<div class="logo">
-			<img src="/resources/images/logo3.png" />
-		</div>
-
-
-	</div>
-
-	<div class="mainLeft">
-	<div class="header"></div>
-		<div class="header2" style="width:100%; height:60px;">
-        		<img src="/resources/images/back.png" style="padding-top:50px; padding-left:10px;"  width="50"
-            height="50" onclick="back()">
-            	<a href="../main">
-        		<img src="/resources/images/logo.png" style="padding-left:140px;"width="120" height="120">
-         		</a>
-      </div>
-
+<%@include file="../layout/header2.jsp"%>
 
 <!-- 
 		<div class="homie">
@@ -345,42 +273,7 @@ a {
 				style="border: none;"></a>
 		</div>
 
-		<!-- footer -->
-		<div class="m_footer"
-			style="background: #f1f0f0; width: 100%; height: 300px;">
-			<div style="font-size: 12px; text-align: center; padding-top: 50px;">
-				<ul>
-					<li style="padding-bottom: 10px;"><b>COMPANY-(주)모여봐요 반려의 숲</b></li>
-					<li>TEL - 02.111.1111</li>
-					<li>EMAIL - THATDAY@NAVER.COM</li>
-					<li>BUSINESS NO - 111-11-11111</li>
-					<li>2020-SEOULGLOBAL-00000</li>
-					<li>862-1 AGGYELLOW,7F,BONGCHEON-DONG,
-					<li>GWANAK-GU,SEOUL,KOREA</li>
-					<li>COPYRIGHT(C) 2021</li>
-				</ul>
-			</div>
-		</div>
-		<!-- footer 끝 -->
-
-		<div class="footer">
-			<div class="bottom_bar">
-				<ul>
-					<li><a href="/category"><img
-							src="/resources/images/category.png"></a></li>
-					<li><a href="/hotel/list"><img
-							src="/resources/images/hotel.png"></a></li>
-					<li><a href="/home"><img src="/resources/images/logo2.png"></a></li>
-					<li><a href="/community"><img
-							src="/resources/images/community.png"></a></li>
-					<li><a href="/login"><img src="/resources/images/login.png"></a></li>
-				</ul>
-
-
-			</div>
-		</div>
-
-	</div>
+<%@include file="../layout/footer.jsp"%>
 
 </body>
 </html>
