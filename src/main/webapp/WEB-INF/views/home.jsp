@@ -11,6 +11,6 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-요셉 테스트입니다.
+<% response.sendRedirect("main");%>
 </body>
 </html>

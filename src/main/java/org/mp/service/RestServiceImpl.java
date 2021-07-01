@@ -2,8 +2,9 @@ package org.mp.service;
 
 import java.util.List;
 
-
+import org.mp.domain.Criteria;
 import org.mp.domain.RestVO;
+import org.mp.mapper.RestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,29 +12,23 @@ import org.springframework.stereotype.Service;
 public class RestServiceImpl implements RestService {
 
 	@Autowired
-    RestDAO restDao;
+    private RestMapper mapper;
 	
 	@Override
 	public List<RestVO> listRest() {
 		// TODO Auto-generated method stub
-		return restDao.listRest();	}
+		return mapper.listRest();	}
 
 	@Override
-	public RestVO detailRest(String restId) {
+	public RestVO detailRest(Long restId) {
 		// TODO Auto-generated method stub
-		return restDao.detailRest(restId);
+		return mapper.detailRest(restId);
 	}
 
 	@Override
-	public void updateRest(RestVO vo) {
+	public List<RestVO> listRestPaging(Criteria cri) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteRest(int restId) {
-		// TODO Auto-generated method stub
-
+		return mapper.listRestPaging(cri);
 	}
 
 }
