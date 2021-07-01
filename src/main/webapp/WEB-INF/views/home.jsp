@@ -11,10 +11,7 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-<<<<<<< HEAD
 <% response.sendRedirect("main"); %>
-=======
-<% response.sendRedirect("main");%>
->>>>>>> seongsu
+
 </body>
 </html>

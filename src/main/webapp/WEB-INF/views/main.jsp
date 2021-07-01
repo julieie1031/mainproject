@@ -291,30 +291,27 @@ div.test {
 	text-align: center;
 }
 
-.title{
-	font-size:10px;
-	margin-bottom:10px;
-	margin-left:25px;
+.title {
+	font-size: 10px;
+	margin-bottom: 10px;
+	margin-left: 25px;
 	color: #6b6a6a;
 }
 
-.rankTable{
+.rankTable {
 	font-size: 15px;
-    float: left;
-    width: 450px;
-    height: 30px;
-    margin-left: 26px;
-    text-align: center;
+	float: left;
+	width: 450px;
+	height: 30px;
+	margin-left: 26px;
+	text-align: center;
 	margin-bottom: 15px;
 }
 
-
-.rankTable td{
-	border-bottom:1px solid #d0cfcf;
-	text-align:left;
-
+.rankTable td {
+	border-bottom: 1px solid #d0cfcf;
+	text-align: left;
 }
-
 
 .tip {
 	width: 100%;
@@ -330,32 +327,29 @@ div.tipContent {
 	width: 130px;
 	height: 130px;
 }
-.tipContent img{
+
+.tipContent img {
 	display: block;
 	width: 130px;
 	height: 130px;
 	margin-left: 4px
-
 }
 
-.tip_desc{
-
+.tip_desc {
 	padding: 10px;
-    font-size: 13px;
-
+	font-size: 13px;
 }
-
-
-
 </style>
-<script>
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-	crossorigin="anonymous"></script>
+<script
+	src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+	integrity = "sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+	crossorigin = "anonymous" >
+</script>
 <%@include file="layout/header.jsp"%>
 
 <!-- 배너 -->
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide"
+	data-bs-ride="carousel">
 	<div class="carousel-inner">
 		<div class="carousel-item active">
 			<img src="resources/images/banner2.png" class="d-block w-100"
@@ -366,8 +360,9 @@ div.tipContent {
 				alt="...">
 		</div>
 		<div class="carousel-item">
-      <img src="resources/images/banner1.png" class="d-block w-100" alt="...">
-    	</div>
+			<img src="resources/images/banner1.png" class="d-block w-100"
+				alt="...">
+		</div>
 	</div>
 	<button class="carousel-control-prev" type="button"
 		data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -381,12 +376,13 @@ div.tipContent {
 	</button>
 </div>
 
+
 <!-- 배너 끝 -->
 
 <!-- 카테고리 -->
 <div class="top">
 
-	<div class="category"onclick="category(2)">
+	<div class="category" onclick="category(2)">
 		<img src="resources/images/category/cafe.png">
 		<div class="desc">카페</div>
 	</div>
@@ -396,7 +392,7 @@ div.tipContent {
 	</div>
 	<div class="category" onclick="category(6)">
 		<img src="resources/images/category/park.png">
-		<div class="desc" >놀이터</div>
+		<div class="desc">놀이터</div>
 	</div>
 	<div class="category" onclick="category(4)">
 		<img src="resources/images/category/pet hotel.png">
@@ -439,7 +435,7 @@ div.tipContent {
 
 
 <!-- 인기 게시글 -->
-<div style="clear:both; margin-top:50px">
+<div style="clear: both; margin-top: 50px">
 	<div class="title">
 		<h3>인기 게시글</h3>
 	</div>
@@ -450,27 +446,24 @@ div.tipContent {
 		</colgroup>
 
 		<tr>
-			<td style="font-size:30px">1</td>
-			<td>공지사항입니다.<br>
-				작성자 조회수 좋아요
-			
+			<td style="font-size: 30px">1</td>
+			<td>공지사항입니다.<br> 작성자 조회수 좋아요
+
 			</td>
 		</tr>
-		
+
 		<tr>
-			<td style="font-size:30px">2</td>
-			<td>공지사항입니다.<br>
-				작성자 조회수 좋아요
-			
+			<td style="font-size: 30px">2</td>
+			<td>공지사항입니다.<br> 작성자 조회수 좋아요
+
 			</td>
 		</tr>
-		
-		
+
+
 		<tr>
-			<td style="font-size:30px">3</td>
-			<td>공지사항입니다.<br>
-				작성자 조회수 좋아요
-			
+			<td style="font-size: 30px">3</td>
+			<td>공지사항입니다.<br> 작성자 조회수 좋아요
+
 			</td>
 		</tr>
 	</table>
@@ -480,36 +473,36 @@ div.tipContent {
 
 
 <!-- 상식팁 -->
-<div style="clear:both; margin-top:50px">
-<div class="title">
+<div style="clear: both; margin-top: 50px">
+	<div class="title">
 		<h3>오늘의 상식 TIP!</h3>
 	</div>
-<div class="tip">
-	<div class="tipContent">
-		<img src="resources/images/tip/apple.jpg">
-		<div class="tip_desc">강아지 사과 먹어도 될까?</div>
-	</div>
-	<div class="tipContent">
-		<img src="resources/images/tip/burdock.jpg">
-		<div class="tip_desc">강아지 우엉 먹어도 될까?</div>
-	</div>
-	<div class="tipContent">
-		<img src="resources/images/tip/dog.jpg">
-		<div class="tip_desc">혓바닥 색으로 알아보는 강아지의 건강 상태</div>
-	</div>
-	<div class="tipContent">
-		<img src="resources/images/tip/dog1.PNG">
-		<div class="tip_desc">강아지와 여행 가기</div>
-	</div>
-	<div class="tipContent">
-		<img src="resources/images/tip/dog2.jpg">
-		<div class="tip_desc">강아지가 아플 때 보내는 신호</div>
-	</div>
-
-	
+	<div class="tip">
+		<div class="tipContent">
+			<img src="resources/images/tip/apple.jpg">
+			<div class="tip_desc">강아지 사과 먹어도 될까?</div>
+		</div>
+		<div class="tipContent">
+			<img src="resources/images/tip/burdock.jpg">
+			<div class="tip_desc">강아지 우엉 먹어도 될까?</div>
+		</div>
+		<div class="tipContent">
+			<img src="resources/images/tip/dog.jpg">
+			<div class="tip_desc">혓바닥 색으로 알아보는 강아지의 건강 상태</div>
+		</div>
+		<div class="tipContent">
+			<img src="resources/images/tip/dog1.PNG">
+			<div class="tip_desc">강아지와 여행 가기</div>
+		</div>
+		<div class="tipContent">
+			<img src="resources/images/tip/dog2.jpg">
+			<div class="tip_desc">강아지가 아플 때 보내는 신호</div>
+		</div>
 
 
-</div>
+
+
+	</div>
 </div>
 
 <!-- 상식팁 끝  -->
@@ -519,10 +512,9 @@ div.tipContent {
 
 
 <script>
-	function category(number){
-		document.location.href = "location?category="+number;
+	function category(number) {
+		document.location.href = "location?category=" + number;
 	};
-
 </script>
 
 <%@include file="layout/footer.jsp"%>
