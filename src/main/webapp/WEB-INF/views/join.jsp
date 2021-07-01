@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +10,50 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>Insert title here</title>
 
+<script type="text/javascript">
+	$(document).ready(function() {
 
+		$("#join").on("click", function() {
+			if ($("#userId").val() == "") {
+				alert("아이디를 입력해주세요.");
+				$("#userId").focus();
+				return false;
+			}
+			if ($("#userPwd").val() == "") {
+				alert("비밀번호를 입력해주세요.");
+				$("#userPwd").focus();
+				return false;
+			}
+			if ($("#userName").val() == "") {
+				alert("성명을 입력해주세요.");
+				$("#userName").focus();
+				return false;
+			}
+			if ($("#email").val() == "") {
+				alert("이메일을 입력해주세요.");
+				$("#email").focus();
+				return false;
+			}
+			if ($("#phone2").val() == "") {
+				alert("전화번호를 입력해주세요.");
+				$("#phone").focus();
+				return false;
+			}
+			if ($("#phone3").val() == "") {
+				alert("전화번호를 입력해주세요.");
+				$("#phone").focus();
+				return false;
+			}
+			if ($("#address").val() == "") {
+				alert("주소를 입력해주세요.");
+				$("#address").focus();
+				return false;
+			}
+
+		});
+
+	})
+</script>
 
 <script>
 	$(document)
@@ -59,63 +105,68 @@
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+	function execDaumPostcode() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
+						// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var roadAddr = data.roadAddress; // 도로명 주소 변수
+						var extraRoadAddr = ''; // 참고 항목 변수
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraRoadAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraRoadAddr += (extraRoadAddr !== '' ? ', '
+									+ data.buildingName : data.buildingName);
+						}
+						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+						if (extraRoadAddr !== '') {
+							extraRoadAddr = ' (' + extraRoadAddr + ')';
+						}
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-         
-                document.getElementById("sample4_engAddress").value = data.addressEnglish;
-                       
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                }
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('postcode').value = data.zonecode;
+						document.getElementById("roadAddress").value = roadAddr;
+						document.getElementById("jibunAddress").value = data.jibunAddress;
 
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
+						document.getElementById("engAddress").value = data.addressEnglish;
 
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                }
-            }
-        }).open();
-    }
+						// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+						if (roadAddr !== '') {
+							document.getElementById("extraAddress").value = extraRoadAddr;
+						} else {
+							document.getElementById("extraAddress").value = '';
+						}
+
+						var guideTextBox = document.getElementById("guide");
+						// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+						if (data.autoRoadAddress) {
+							var expRoadAddr = data.autoRoadAddress
+									+ extraRoadAddr;
+							guideTextBox.innerHTML = '(예상 도로명 주소 : '
+									+ expRoadAddr + ')';
+							guideTextBox.style.display = 'block';
+
+						} else if (data.autoJibunAddress) {
+							var expJibunAddr = data.autoJibunAddress;
+							guideTextBox.innerHTML = '(예상 지번 주소 : '
+									+ expJibunAddr + ')';
+							guideTextBox.style.display = 'block';
+						} else {
+							guideTextBox.innerHTML = '';
+							guideTextBox.style.display = 'none';
+						}
+					}
+				}).open();
+	}
 </script>
 
 <style>
@@ -171,7 +222,7 @@ ul, li {
 }
 
 html {
-	background-image: url(/resources/images/background.jpg);
+	background-image: url(resources/images/background.jpg);
 	background-size: 100% 100%;
 }
 
@@ -252,15 +303,15 @@ div.fixed {
 	width: 100px;
 }
 
-.user{
+.user {
 	position: relative;
-    bottom: 1400px;
+	bottom: 1400px;
 	font-weight: bold;
 	left: 150px;
 	z-index: 300;
 }
 
-#userId{
+#userId {
 	font-family: 'S-CoreDream-3Light';
 	width: 250px;
 	display: block;
@@ -269,7 +320,8 @@ div.fixed {
 	border-radius: 4px;
 	margin: 0 0 35px 0;
 }
-#userPwd{
+
+#userPwd {
 	font-family: 'S-CoreDream-3Light';
 	width: 250px;
 	display: block;
@@ -278,7 +330,8 @@ div.fixed {
 	border-radius: 4px;
 	margin: 20px 0 40px 0;
 }
-#userName{
+
+#userName {
 	font-family: 'S-CoreDream-3Light';
 	width: 250px;
 	display: block;
@@ -287,29 +340,33 @@ div.fixed {
 	border-radius: 4px;
 	margin: 20px 0 30px 0;
 }
-.phone1{
+
+.phone1 {
 	position: relative;
-    bottom: 1345px;
+	bottom: 1345px;
 	font-weight: bold;
 	left: 75px;
 	margin: 0 20px 0 0;
 	z-index: 180;
 }
-.phone2{
+
+.phone2 {
 	position: relative;
-    bottom: 1477.5px;
+	bottom: 1477.5px;
 	left: 192px;
 	margin: 0 20px 0 0;
 	z-index: 190;
 }
-.phone3{
+
+.phone3 {
 	position: relative;
-    bottom: 1555px;
+	bottom: 1555px;
 	left: 325px;
 	margin: 0 20px 0 0;
 	z-index: 200;
 }
-#phone1{
+
+#phone1 {
 	box-shadow: 1px 2px 5px gray;
 	font-family: 'S-CoreDream-3Light';
 	width: 80px;
@@ -319,8 +376,9 @@ div.fixed {
 	border-radius: 2px;
 	margin: 0 0 35px 0;
 }
-.frontNum{
-box-shadow: 1px 2px 5px gray;
+
+.frontNum {
+	box-shadow: 1px 2px 5px gray;
 	font-family: 'S-CoreDream-3Light';
 	width: 70px;
 	display: block;
@@ -329,8 +387,9 @@ box-shadow: 1px 2px 5px gray;
 	border-radius: 2px;
 	margin: 0 0 35px 0;
 }
-.backNum{
-box-shadow: 1px 2px 5px gray;
+
+.backNum {
+	box-shadow: 1px 2px 5px gray;
 	font-family: 'S-CoreDream-3Light';
 	width: 70px;
 	display: block;
@@ -339,70 +398,78 @@ box-shadow: 1px 2px 5px gray;
 	border-radius: 2px;
 	margin: 0 0 35px 0;
 }
+
 input::placeholder {
 	color: #EEEEEE;
 }
-.memberjoin{
+
+.memberjoin {
 	position: relative;
-    top: 225px;
+	top: 225px;
 	left: 215px;
 	color: #7D7D7D;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 20px;
 }
-.text{
+
+.text {
 	position: relative;
-    bottom: 1105px;
+	bottom: 1105px;
 	left: 45px;
-	margin : 20px;
+	margin: 20px;
 	color: #7D7D7D;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
 }
-.hyphen{
+
+.hyphen {
 	position: relative;
-    bottom: 1415px;
+	bottom: 1415px;
 	left: 170px;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 20px;
 	font-weight: bold;
 }
-.hyphen2{
+
+.hyphen2 {
 	position: relative;
-    bottom: 1443px;
+	bottom: 1443px;
 	left: 301px;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 20px;
 	font-weight: bold;
-
 }
 
-.atsign{
+.atsign {
 	position: absolute;
-    top: 733px;
+	top: 733px;
 	left: 255px;
 	font-size: 20px;
 	font-weight: bold;
 }
-.email{
+
+.email {
 	position: relative;
-    bottom: 2063px;
+	bottom: 2063px;
 	left: 73px;
 }
-#email{
+
+#email {
 	font-family: 'S-CoreDream-3Light';
 	width: 140px;
 	padding: 15px;
 	background-color: lightgrey;
 	border-radius: 4px;
 }
-.Eselect{
+
+.Eselect {
 	position: relative;
-    bottom: 2759px;
+	bottom: 2759px;
 	left: 285px;
 }
-#Eselect{
+
+#Eselect {
 	font-family: 'S-CoreDream-3Light';
 	width: 140px;
 	padding: 12px;
@@ -410,21 +477,24 @@ input::placeholder {
 	border-radius: 2px;
 	box-shadow: 1px 2px 5px gray;
 }
-.emailtxt{
+
+.emailtxt {
 	position: relative;
-    bottom: 1565px;
+	bottom: 1565px;
 	left: 65px;
 	color: #7D7D7D;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
 }
-.add{
+
+.add {
 	position: absolute;
-    top: 835px;
+	top: 835px;
 	left: 72px;
 }
-#sample4_postcode{
+
+#postcode {
 	box-shadow: 0 0 4px gray;
 	font-family: 'S-CoreDream-3Light';
 	width: 140px;
@@ -434,7 +504,7 @@ input::placeholder {
 	margin: 0 0 35px 0;
 }
 
-.addbtn{
+.addbtn {
 	width: 100px;
 	display: block;
 	padding: 15px;
@@ -442,12 +512,14 @@ input::placeholder {
 	color: #7D7D7D;
 	background-color: #EEEEEE;
 }
-.add1{
+
+.add1 {
 	position: absolute;
-    top: 833px;
+	top: 833px;
 	left: 255px;
 }
-#sample4_roadAddress{
+
+#roadAddress {
 	box-shadow: 0 0 4px gray;
 	font-family: 'S-CoreDream-3Light';
 	width: 325px;
@@ -456,17 +528,20 @@ input::placeholder {
 	background-color: white;
 	margin: 0 0 35px 0;
 }
-.add2{
+
+.add2 {
 	position: absolute;
-    top: 890px;
+	top: 890px;
 	left: 72px;
 }
-.add3{
+
+.add3 {
 	position: absolute;
-    top: 945px;
+	top: 945px;
 	left: 72px;
 }
-#sample4_detailAddress{
+
+#detailAddress {
 	box-shadow: 0 0 4px gray;
 	font-family: 'S-CoreDream-3Light';
 	width: 325px;
@@ -475,15 +550,17 @@ input::placeholder {
 	background-color: white;
 	margin: 0 0 35px 0;
 }
-.addresstxt{
+
+.addresstxt {
 	position: absolute;
-    top: 795px;
+	top: 795px;
 	left: 65px;
 	color: #7D7D7D;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
 }
+
 .join {
 	position: absolute;
 	top: 1050px;
@@ -501,58 +578,65 @@ input::placeholder {
 	color: #EEEEEE;
 	background-color: #77A26B;
 }
+
 a {
 	text-decoration: none;
 }
-.stars1{
+
+.stars1 {
 	position: relative;
-    bottom: 3330px;
-    left: 105px;
+	bottom: 3330px;
+	left: 105px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
 }
-.stars2{
+
+.stars2 {
 	position: relative;
-    bottom: 3270px;
-    left: 116px;
+	bottom: 3270px;
+	left: 116px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
 }
-.stars3{
+
+.stars3 {
 	position: relative;
-    bottom: 3202px;
-    left: 94px;
+	bottom: 3202px;
+	left: 94px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
 }
-.stars4{
+
+.stars4 {
 	position: relative;
-    bottom: 3141px;
-    left: 116px;
+	bottom: 3141px;
+	left: 116px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
 }
-.stars5{
+
+.stars5 {
 	position: relative;
-    bottom: 3047px;
-    left: 104px;
+	bottom: 3047px;
+	left: 104px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
 }
-.stars6{
+
+.stars6 {
 	position: relative;
-    bottom: 2952px;
-    left: 93px;
+	bottom: 2952px;
+	left: 93px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
@@ -570,7 +654,7 @@ a {
 
 	<div class="mainRight">
 		<div class="logo">
-			<img src="/resources/images/logo3.png" />
+			<img src="resources/images/logo3.png" />
 		</div>
 
 
@@ -579,97 +663,126 @@ a {
 	<div class="mainLeft">
 		<div class="header"></div>
 
+		<c:url var="joinPath" value="/join" />
+		<f:form modelAttribute="member" action="${ joinPath }" method="post">
+			<h4 class="memberjoin">회원가입</h4>
+			<div class="homie">
+				<img src="resources/images/logo.png" width="150" height="150">
+			</div>
+			<div class="back">
+				<a href="/main"><img src="resources/images/back.png" width="60"
+					height="60"></a>
+			</div>
+			<div class="text">
+				<p style="margin: 0 0 62px 0">아이디</p>
+				<p style="margin: 0 0 68px 0">비밀번호</p>
+				<p style="margin: 0 0 60px 0">성명</p>
+				<p>전화번호</p>
+			</div>
+			<p>
+			<div class="user">
 
-<h4 class = "memberjoin">회원가입</h4>
-		<div class="homie">
-			<img src="resources/images/logo.png" width="150" height="150">
-		</div>
-		<div class="back">
-			<a href="/main"><img src="resources/images/back.png" width="60"
-				height="60"></a>
-		</div>
-		<div class = "text">
-		<p style = "margin : 0 0 62px 0">아이디</p>
-		<p style = "margin : 0 0 68px 0">비밀번호</p>
-		<p style = "margin : 0 0 60px 0">성명</p>
-		<p>전화번호</p>
-		</div>
-		<p>
-		<div class = "user">
-		
-		<input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" style="border: none; font-size: 12px;">
-		<input type="password" id="userPwd" name="userPwd" placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;">
-		<input type="text" id="userName" name="userName" placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
-		</div>
-		
-		<div class = "phone1">
-		<select id="phone1" name="phone" style="border: none">
-    	<option value="010">010</option>
-    	<option value="020">020</option>
-    	<option value="030">030</option>
-    	</select></div>
-    	<div class = "hyphen"><p>-</p></div>
-    	<div class = "hyphen2"><p>-</p></div>
-    	<div class = "phone2"><input type="text" class = "frontNum" id="phone2" name="phone" style="border: none"></div>
-    	<div class = "phone3"><input type="text" class = "backNum" id="phone2" name="phone" style="border: none"></div>
-		
-		<div class = "emailtxt"><p>이메일</p></div>
-		<div class = "email">
-		<input type="text" id="email" name="email" placeholder="이메일을 입력해주세요" style="border: none; font-size: 12px;">
-		</div>
-		<div class = 'atsign'>@</div>
-		<div class = "Eselect">
-		<select id = "Eselect" id="email" name="email" style = "border: none; font-size: 12px;">
-    	<option value="">이메일주소	</option>
-    	<option value="@naver.com">naver.com</option>
-    	<option value="@daum.net">daum.net</option>
-    	<option value="@gmail.com">gmail.com</option>
-    	</select>
-		</div>
-		
-		<div class = "stars1">
-			<p>*</p>
-		</div>
-		<div class = "stars2">
-			<p>*</p>
-		</div>
-		<div class = "stars3">
-			<p>*</p>
-		</div>
-		<div class = "stars4">
-			<p>*</p>
-		</div>
-		<div class = "stars5">
-			<p>*</p>
-		</div>
-		<div class = "stars6">
-			<p>*</p>
-		</div>
-		<div class = "addresstxt"><p>주소</p></div>
-		<div class = "add">
-			<input type="text" id="sample4_postcode" placeholder="우편번호" style="border: none; font-size: 12px;">
-		</div>
-		<div class = "add1">
-			<input type="button" class = "addbtn" onclick="sample4_execDaumPostcode()" value="우편번호" style="border: none; font-size: 9px;"><br>
-		</div>
-		<div class = "add2">
-			<input type="text" id="sample4_roadAddress" placeholder="도로명주소" style="border: none; font-size: 12px;"><br>
-		</div>
-		<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
-		<span id="guide" style="color:#999;display:none"></span>
-		<div class = "add3">
-			<input type="text" id="sample4_detailAddress" placeholder="상세주소"style="border: none; font-size: 12px;" ><br>
-		</div>
-		<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-		<input type="hidden" id="sample4_engAddress" placeholder="영문주소"><br>
-		
-		
-		<div class="join">
-			<a href="/mypage"><input type="submit" id="join" value="회원가입"
-				style="border: none;"></a>
-		</div>
-		
-		
+				<input type="text" id="userId" name="userId"
+					placeholder="아이디를 입력해주세요" style="border: none; font-size: 12px;">
+				<f:errors path="userId" element="div" cssClass="alert text-danger" />
+				<f:password path="userPwd" id="userPwd" name="userPwd"
+					placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;" />
+				<f:errors path="userPwd" element="div" cssClass="alert text-danger" />
+				<input type="text" id="userName" name="userName"
+					placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
+			</div>
+
+			<div class="phone1">
+				<select id="phone1" name="phone" style="border: none">
+					<option value="010">010</option>
+					<option value="020">020</option>
+					<option value="030">030</option>
+				</select>
+			</div>
+			<div class="hyphen">
+				<p>-</p>
+			</div>
+			<div class="hyphen2">
+				<p>-</p>
+			</div>
+			<div class="phone2">
+				<input type="text" class="frontNum" id="phone2" name="phone"
+					style="border: none">
+			</div>
+			<div class="phone3">
+				<input type="text" class="backNum" id="phone2" name="phone"
+					style="border: none">
+			</div>
+
+			<div class="emailtxt">
+				<p>이메일</p>
+			</div>
+			<div class="email">
+				<input type="text" id="email" name="email" placeholder="이메일을 입력해주세요"
+					style="border: none; font-size: 12px;">
+				<f:errors path="email" element="div" cssClass="alert text-danger" />
+			</div>
+			<div class='atsign'>@</div>
+			<div class="Eselect">
+				<select id="Eselect" id="email" name="email"
+					style="border: none; font-size: 12px;">
+					<option value="">이메일주소</option>
+					<option value="@naver.com">naver.com</option>
+					<option value="@daum.net">daum.net</option>
+					<option value="@gmail.com">gmail.com</option>
+				</select>
+			</div>
+
+			<div class="stars1">
+				<p>*</p>
+			</div>
+			<div class="stars2">
+				<p>*</p>
+			</div>
+			<div class="stars3">
+				<p>*</p>
+			</div>
+			<div class="stars4">
+				<p>*</p>
+			</div>
+			<div class="stars5">
+				<p>*</p>
+			</div>
+			<div class="stars6">
+				<p>*</p>
+			</div>
+			<div class="addresstxt">
+				<p>주소</p>
+			</div>
+			<div class="add">
+				<input type="text" id="postcode" placeholder="우편번호"
+					style="border: none; font-size: 12px;">
+			</div>
+			<div class="add1">
+				<input type="button" class="addbtn" onclick="execDaumPostcode()"
+					value="우편번호" style="border: none; font-size: 9px;"><br>
+			</div>
+			<div class="add2">
+				<input type="text" id="roadAddress" placeholder="도로명주소"
+					style="border: none; font-size: 12px;"><br>
+			</div>
+			<input type="hidden" id="jibunAddress" placeholder="지번주소">
+			<span id="guide" style="color: #999; display: none"></span>
+			<div class="add3">
+				<input type="text" id="detailAddress" name = "address" placeholder="상세주소"
+					style="border: none; font-size: 12px;"><br>
+			</div>
+			<input type="hidden" id="extraAddress" placeholder="참고항목">
+			<input type="hidden" id="engAddress" placeholder="영문주소">
+			<br>
+
+		<s:csrfInput />
+			<div class="join">
+				<input type="submit" id="join" value="회원가입"
+					style="border: none;">
+			</div>
+		</f:form>
+
 		<div class="footer">
 			<div class="bottom_bar">
 				<ul>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<bean id="customLoginSuccess"
+		class="org.mp.security.CustomLoginSuccessHandler"></bean>
+	<bean id="bcryptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<bean id="customUserDetailsService"
+		class="org.mp.security.CustomUserDetailsService"></bean>
+
+	<sec:http>
+		<sec:intercept-url pattern="/users/mypage"
+			access="hasRole('ROLE_MEMBER')" />
+		<sec:form-login login-page="/users/login"
+			authentication-success-handler-ref="customLoginSuccess" />
+		<sec:logout logout-url="/users/logout"
+			invalidate-session="true" logout-success-url="/main"/>
+	</sec:http>
+
+	<sec:authentication-manager>
+		<sec:authentication-provider
+			user-service-ref="customUserDetailsService">
+			<!-- <sec:jdbc-user-service data-source-ref="dataSource" /> -->
+			<sec:password-encoder
+				ref="bcryptPasswordEncoder" />
+			<!-- <sec:user-service>
+				<sec:user name="ran" password="{noop}ran"
+					authorities="ROLE_MEMBER" />
+			</sec:user-service> -->
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+
+</beans>

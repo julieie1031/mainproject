@@ -27,11 +27,12 @@
 
 											if ((scrollTop > lastScrollTop)
 													&& (lastScrollTop > 0)) {
-												$(".header").css("top",
-														"-100px");
+												$(".header").css("top", "-100px");
+												$(".header2").css("top","-100px");
 												//  $(".centerlogo").css("top","800px");
 											} else {
 												$(".header").css("top", "0px");
+												$(".header2").css("top","0px");
 												//  $(".centerlogo").css("top", "-150px");
 											}
 											lastScrollTop = scrollTop;
@@ -56,11 +57,17 @@
 							self.location = "/test";
 						});
 					});
+	
+	function back() {
+	     history.back(); //방법 2
+
+
+	}
 </script>
 
 
 <style>
-.homie {
+/* .homie {
 	position: relative;
 	bottom: 400px;
 	left: 185px;
@@ -70,7 +77,7 @@
 	position: relative;
 	bottom: 1070px;
 	left: 15px;
-}
+} */
 
 * {
 	margin: 0px;
@@ -202,9 +209,9 @@ div.fixed {
 
 .centerlogo {
 	display: block;
-	position: absolute;
-	bottom: 150px;
-	left: 130px;
+    position: relative;
+    bottom: 320px;
+    left: 130px;
 }
 
 #userId {
@@ -228,12 +235,12 @@ div.fixed {
 }
 
 .idpw {
-	display: block;
-	position: absolute;
-	bottom: 50px;
-	font-size: 15px;
-	font-weight: bold;
-	left: 85px;
+    display: block;
+    position: relative;
+    bottom: 450px;
+    font-size: 15px;
+    font-weight: bold;
+    left: 85px;
 }
 
 input::placeholder {
@@ -241,11 +248,11 @@ input::placeholder {
 }
 
 .log {
-	position: absolute;
-	top: 700px;
-	left: 105px;
-	font-family: 'S-CoreDream-3Light';
-	font-size: 15px;
+	position: relative;
+    bottom: 380px;
+    left: 105px;
+    font-family: 'S-CoreDream-3Light';
+    font-size: 15px;
 }
 
 #login {
@@ -270,6 +277,10 @@ input::placeholder {
 a {
 	text-decoration: none;
 }
+.header2 img{
+	display:block;
+	float:left;
+}
 </style>
 </head>
 <div class="fixed" id="kakao-talk-channel-chat-button"
@@ -277,7 +288,7 @@ a {
 	data-color="yellow" data-shape="pc"
 	data-support-multiple-densities="true"></div>
 
-<body style="height: 100vh;">
+<body style="height: 100vh; overflow: hidden;">
 
 
 	<div class="mainRight">
@@ -289,33 +300,49 @@ a {
 	</div>
 
 	<div class="mainLeft">
-		<div class="header"></div>
+	<div class="header"></div>
+		<div class="header2" style="width:100%; height:60px;">
+        		<img src="/resources/images/back.png" style="padding-top:50px; padding-left:10px;"  width="50"
+            height="50" onclick="back()">
+            	<a href="../main">
+        		<img src="/resources/images/logo.png" style="padding-left:140px;"width="120" height="120">
+         		</a>
+      </div>
 
 
-
+<!-- 
 		<div class="homie">
-			<img src="resources/images/logo.png" width="150" height="150">
+			<img src="/resources/images/logo.png" width="150" height="150">
 		</div>
 		<div class="back">
-			<a href="/main"><img src="resources/images/back.png" width="60"
+			<a href="/main"><img src="/resources/images/back.png" width="60"
 				height="60"></a>
-		</div>
-		<div class="centerlogo">
-			<img src="resources/images/logo4.png" width="250" height="250">
-		</div>
-		<div class="idpw">
-			<p>아이디</p>
-			<input type="text" id="userId" name="userId" placeholder="ID"
-				style="border: none">
-			<p>비밀번호</p>
-			<input type="password" id="userPwd" name="userPwd"
-				placeholder="PASSWORD" style="border: none">
-		</div>
+		</div> -->
+		<%-- <form action="<c:url value='/mypage' />" method="post"> --%>
+		<form action="/login" method="post">
+			<div class="centerlogo">
+				<img src="/resources/images/logo4.png" width="250" height="250">
+			</div>
+			<div class="idpw">
+				<p>아이디</p>
+				<input type="text" id="userId" name="username" placeholder="ID"
+					style="border: none">
+				<p>비밀번호</p>
+				<input type="password" id="userPwd" name="password"
+					placeholder="PASSWORD" style="border: none">
+			</div>
 
+			<div class="log">
+				<input type="submit" id="login" value="LOGIN" style="border: none;">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+			</div>
+
+		</form>
 		<div class="log">
-			<a href="/mypage"><input type="submit" id="login" value="LOGIN"
-				style="border: none;"></a> <a href="/join"><input
-				type="submit" id="join" value="JOIN" style="border: none;"></a>
+
+			<a href="/join"><input type="submit" id="join" value="JOIN"
+				style="border: none;"></a>
 		</div>
 
 		<!-- footer -->
@@ -340,13 +367,13 @@ a {
 			<div class="bottom_bar">
 				<ul>
 					<li><a href="/category"><img
-							src="resources/images/category.png"></a></li>
+							src="/resources/images/category.png"></a></li>
 					<li><a href="/hotel/list"><img
-							src="resources/images/hotel.png"></a></li>
-					<li><a href="/home"><img src="resources/images/logo2.png"></a></li>
+							src="/resources/images/hotel.png"></a></li>
+					<li><a href="/home"><img src="/resources/images/logo2.png"></a></li>
 					<li><a href="/community"><img
-							src="resources/images/community.png"></a></li>
-					<li><a href="/login"><img src="resources/images/login.png"></a></li>
+							src="/resources/images/community.png"></a></li>
+					<li><a href="/login"><img src="/resources/images/login.png"></a></li>
 				</ul>
 
 
