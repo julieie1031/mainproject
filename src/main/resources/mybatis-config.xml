@@ -5,7 +5,6 @@
 <configuration>
     <typeAliases>      
       <typeAlias alias="Rest" type="org.mp.domain.RestVO" />
-      <typeAlias alias="ScheduleDTO" type="org.mp.domain.ScheduleDTO" />
       <typeAlias type = "java.util.List" alias = "List"/>
    
    </typeAliases>

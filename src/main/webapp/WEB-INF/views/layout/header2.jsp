@@ -97,7 +97,7 @@ function back() {
 	
 		<div class="mainRight">
 			<div class="logo">
-				<img src="resources/images/logo3.png" />
+				<img src="/resources/images/logo3.png" />
 			</div>
 			
 			 
