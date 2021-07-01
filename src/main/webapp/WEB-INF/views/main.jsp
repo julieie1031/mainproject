@@ -340,6 +340,11 @@ div.tipContent {
 	font-size: 13px;
 }
 </style>
+<script>
+	function notice_go(){
+		location.href="notice/list"
+	}
+</script>
 <script
 	src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
 	integrity = "sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
@@ -425,7 +430,7 @@ div.tipContent {
 		</colgroup>
 
 		<tr>
-			<td style="border-right: 1px solid #d0cfcf">공지</td>
+			<td onclick="notice_go()"style="border-right: 1px solid #d0cfcf">공지</td>
 			<td>공지사항입니다.</td>
 
 		</tr>
