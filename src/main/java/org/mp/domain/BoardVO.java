@@ -1,6 +1,7 @@
 package org.mp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -14,4 +15,7 @@ public class BoardVO {
 	private int good;
 	private Date board_Date;
 	private Date board_updateDate;
+	private int replyCnt;
+	
+	private List<BoardAttachVO> attachList;
 }

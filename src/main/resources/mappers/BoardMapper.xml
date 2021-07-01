@@ -5,8 +5,8 @@
   <select id = "getList" resultType = "org.mp.domain.BoardVO">
   select * from board where bno > 0 
   </select>
-  
-  <insert id = "insert">
+    
+<insert id = "insert">
 insert into board(bno, userId, title, content)
 values(sqs_board.nextval, #{userId}, #{title}, #{content})
 </insert>
@@ -23,7 +23,7 @@ values(#{bno}, #{userId}, #{title}, #{content})
 select * from board where bno=#{bno} 
 </select>
   
-  <delete id = "delete">
+<delete id = "delete">
 delete from board where bno=#{bno}
 </delete>
 
@@ -52,7 +52,7 @@ WHERE BNO = #{bno}
 	(
    		 select
    		 /*+index_desc(board pk_board1)*/
-    	 rownum rn,bno,title,content,userid,hit,good,board_date,board_updateDate
+    	 rownum rn,bno, userId, title, content, hit, good, board_date, board_updatedate, replycnt 
    		 from board
 			where
     	 ]]>
@@ -69,7 +69,7 @@ WHERE BNO = #{bno}
 	
 	</select>
 	
-	<!-- 게시물의 검색과 숫자 카운트에 공통으로 사용되므로 sql조각으로 분리 -->
+	
 <sql id = "criteria">
 <trim prefix = "(" suffix = ")AND " prefixOverrides = "OR">
 <foreach item = 'type' collection = "typeArr">
@@ -77,6 +77,8 @@ WHERE BNO = #{bno}
 <choose>
 <when test = "type == 'T'.toString()">title like '%' || #{keyword} || '%'</when>
 <when test = "type == 'C'.toString()">content like '%' || #{keyword} || '%'</when>
+<when test = "type == 'W'.toString()">userId like '%' || #{keyword} || '%'</when>
+
 <!-- <when test = "type == 'W'.toString()">writer like '%' || #{keyword} || '%'</when> -->
 </choose>
 </trim>
@@ -93,5 +95,18 @@ where
 bno > 0
 
 </select>
+
+<update id = "updateReplyCnt">
+update board
+set replycnt = replycnt+#{amount}
+where bno = #{bno}
+</update>
+
+<select id = "getReply" resultType = "org.mp.domain.BoardVO">
+select replyCnt from board where bno = #{bno}
+  </select>
+  
+
+  
   
 </mapper>
