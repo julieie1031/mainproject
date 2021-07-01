@@ -53,7 +53,7 @@ public class ReplyServiceImpl implements ReplyService {
 		ReplyVO vo = mapper.read(rno);
 
 		boardMapper.updateReplyCnt(vo.getBno(), -1); //댓글 수 1감소
-		return boardMapper.delete(rno);
+		return mapper.delete(rno);
 	}
 
 	@Override

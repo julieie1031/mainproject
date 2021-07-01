@@ -9,7 +9,9 @@
 }
 
 .table-x {
-	margin-left: 20px;
+margin-left: 15px;
+	height: 300px;
+	width: 460px;
 }
 
 .jb-x-small {
@@ -37,29 +39,26 @@ a {
 <%@include file="layout/header2.jsp"%>
 
 <div>
-	<table>
-		<c:forEach var="vo" items="${room}">
+	<c:forEach var="vo" items="${room}">
+		<table>
+
 			<tr>
 				<td><img src="../resources/images/hotel/${vo.roomImage}"
 					width="495" height="300"></td>
-	</table>
+		</table>
 
-	<td>
-		<table class="table-x" style="height: 300px; width: 460px;">
+
+		<table class="table-x">
+			<!-- style="height: 300px; width: 460px;" -->
 			<tr align="center">
-				<td colspan="5" class="text-a"><br>
-				<b>${vo.roomName}</b><br>
-				<br>
-				<br>
-				<hr>
-					<br>
-				<small class="jb-medium"><b>객실정보</small></td>
+				<td colspan="5" class="text-a"><br> <b>${vo.roomName}</b><br>
+					<br> <br>
+					<hr> <br> <small class="jb-medium"><b>객실정보</b></small></td>
 			</tr>
 
 			<tr align="center">
-				<td rowspan="3"><img
-					src="../resources/images/hotel/${vo.roomImage}" width="120"
-					height="110"></td>
+				<td rowspan="3"><img src="../resources/images/hotel/${vo.roomImage}"
+					width="120" height="110"></td>
 			</tr>
 			<tr align="center">
 				<td>${vo.roomDescription}</td>
@@ -76,14 +75,12 @@ a {
 					</form> <a href="javascript:history.back();">이전으로</a>
 				</td>
 			</tr>
-			</c:forEach>
+
 		</table>
-	</td>
-	</tr>
+	</c:forEach>
 
 </div>
 
-</
 
 <%@include file="layout/footer.jsp"%>
 </body>

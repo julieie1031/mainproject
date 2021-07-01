@@ -259,6 +259,7 @@ div.category {
 	width: 100px;
 	height: 100px;
 	font-family: 'BMJUA';
+	cursor: pointer;
 }
 
 div.category img {
@@ -347,8 +348,7 @@ div.tipContent {
 
 
 </style>
-
-<script
+<script>
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
 	crossorigin="anonymous"></script>
@@ -386,31 +386,31 @@ div.tipContent {
 <!-- 카테고리 -->
 <div class="top">
 
-	<div class="category">
+	<div class="category"onclick="category(2)">
 		<img src="resources/images/category/cafe.png">
 		<div class="desc">카페</div>
 	</div>
-	<div class="category">
+	<div class="category" onclick="category(1)">
 		<img src="resources/images/category/hospital.png">
 		<div class="desc">동물병원</div>
 	</div>
-	<div class="category">
+	<div class="category" onclick="category(6)">
 		<img src="resources/images/category/park.png">
-		<div class="desc">공원</div>
+		<div class="desc" >놀이터</div>
 	</div>
-	<div class="category">
+	<div class="category" onclick="category(4)">
 		<img src="resources/images/category/pet hotel.png">
 		<div class="desc">호텔</div>
 	</div>
-	<div class="category">
+	<div class="category" onclick="category(3)">
 		<img src="resources/images/category/restaurant.png">
 		<div class="desc">맛집</div>
 	</div>
-	<div class="category">
+	<div class="category" onclick="category(5)">
 		<img src="resources/images/category/school.png">
 		<div class="desc">유치원</div>
 	</div>
-	<div class="category">
+	<div class="category" onclick="category(2)">
 		<img src="resources/images/category/salon.png">
 		<div class="desc">미용</div>
 	</div>
@@ -518,6 +518,12 @@ div.tipContent {
 
 
 
+<script>
+	function category(number){
+		document.location.href = "location?category="+number;
+	};
+
+</script>
 
 <%@include file="layout/footer.jsp"%>
 
