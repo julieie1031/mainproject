@@ -1,12 +1,14 @@
 package org.mp.domain;
 
+import java.util.Date;
+
 import lombok.Data;
 @Data
 public class ReviewVO {
 	private Long reno;
-	private String restId;
+	private Long restId;
 	private String review;
-	private String userId;
-	
-
+	private String reviewer;
+	private Date reviewDate;
+	private Date updateDate;
 }

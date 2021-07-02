@@ -3,6 +3,9 @@
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--     <%@ taglib prefix="fmt" uri=" http://java.sun.com/jsp/jstl/fmt "%> --%>
 
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
+
 <style>
 *{margin: 0; padding: 0;}
 .table-x {margin-left: 20px;}
@@ -14,11 +17,52 @@ a {
   text-decoration-line: none;
   color: black;
  }
+ 
+ 
+.review{
+	margin:20px;
+	font-size:15px;
+}
+
+.title{
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.review_header{
+text-align: right;
+
+}
+
+.review_header button{
+	padding: 4px;
+    border: 0.8px solid #9dbe9d;
+    background: #abd3ab;
+    font-family: 'S-CoreDream-3Light';
+}
+
+.review_body{
+
+}
+
+.empty{
+    width: 100%;
+    height: 10px;
+    background: #f1f0f0;
+
+
+}
+
 
 </style>
 
-<%@include file="layout/header2.jsp"%>
 
+
+
+
+
+<%@include file="layout/header2.jsp"%>
 <div>
     <table>
         <tr>
@@ -59,6 +103,63 @@ a {
         </tr>
 
  </div>
+ 
+ <div class="empty"></div>
+ 
+ 
+<!-- 리뷰 -->
+
+<script type="text/javascript" src="/resources/js/review.js"></script>
+
+
+<script>
+
+
+	console.log("js test");
+	
+	var restIdValue = '<c:out value="${vo.restId}"/>';
+	
+	
+	reviewService.add(
+			{review:"JS test", reviewer:"tester",restId:restIdValue}
+			,
+			function(result){
+				alert("RESULT: " + result);
+			}
+	);
+
+</script>
+<div class="review">
+
+	<div class="title">
+	REVIEW
+	</div>
+	
+	
+	<div class="review_header">
+		<button type="button" id="addReviewBtn">리뷰작성</button>
+	</div>
+
+	<div class="review_body">
+		<ul class="chat">
+			<li>
+
+				<div>
+					<div class="star">평점부분</div>
+					<div>
+						<strong>user00</strong> 
+						<small>2021-05-18 13:13</small>
+					</div>
+					<p>Good job</p>
+				</div>
+
+
+
+			</li>
+		</ul>
+	</div>
+
+</div>
 
 <%@include file="layout/footer.jsp"%>
 </body>
