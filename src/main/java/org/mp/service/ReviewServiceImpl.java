@@ -22,31 +22,31 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int register(ReviewVO vo) {
 		log.info("register"+vo);
-		return mapper.insert(vo);
+		return mapper.rinsert(vo);
 	}
 
 	@Override
 	public ReviewVO get(Long reno) {
 		log.info("get"+reno);
-		return mapper.read(reno);
+		return mapper.rread(reno);
 	}
 
 	@Override
 	public int modify(ReviewVO vo) {
 		log.info("modify"+vo);
-		return mapper.update(vo);
+		return mapper.rupdate(vo);
 	}
 
 	@Override
 	public int remove(Long reno) {
 		log.info("remove"+reno);
-		return mapper.delete(reno);
+		return mapper.rdelete(reno);
 	}
 
 	@Override
 	public List<ReviewVO> getList(Criteria cri, Long restId) {
 		log.info("get review List"+restId);
-		return mapper.getListWithPaging(cri, restId);
+		return mapper.rgetListWithPaging(cri, restId);
 	}
 
 }

@@ -64,7 +64,7 @@ public class ReviewMapperTest {
 			vo.setRestId(renoArr[i%3]); 
 			vo.setReview("리뷰테스트" + i); 
 			vo.setReviewer("reviewer" + i); 
-			mapper.insert(vo); 
+			mapper.rinsert(vo); 
 		});
 	}
 	
@@ -72,7 +72,7 @@ public class ReviewMapperTest {
 	@Test
 	public void testRead() {
 		Long targetReno = 2L;
-		ReviewVO vo = mapper.read(targetReno);
+		ReviewVO vo = mapper.rread(targetReno);
 		log.info(vo);
 	}
 	
@@ -80,9 +80,9 @@ public class ReviewMapperTest {
 	@Test
 	public void testUpdate() {
 		Long targetReno = 1L;
-		ReviewVO vo = mapper.read(targetReno);
+		ReviewVO vo = mapper.rread(targetReno);
 		vo.setReview("update review");
-		int count = mapper.update(vo);
+		int count = mapper.rupdate(vo);
 		
 		log.info("update count : " + count);
 	}
@@ -90,7 +90,7 @@ public class ReviewMapperTest {
 	 @Test 
 	   public void testList() { 
 	      Criteria cri = new Criteria(); 
-	      List<ReviewVO> reviews = mapper.getListWithPaging(cri, renoArr[0]);
+	      List<ReviewVO> reviews = mapper.rgetListWithPaging(cri, renoArr[0]);
 	      reviews.forEach(review ->log.info(review)); 
 	      
 	 }

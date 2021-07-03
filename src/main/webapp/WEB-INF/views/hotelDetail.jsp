@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--     <%@ taglib prefix="fmt" uri=" http://java.sun.com/jsp/jstl/fmt "%> --%>
+<link href="/resources/css/w3school.css" rel="stylesheet"
+	type="text/css" />
 
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
@@ -104,32 +106,45 @@ text-align: right;
 
  </div>
  
+ 
+ 
+ <!-- 리뷰 -->
+ 
+ <!-- Modal -->
+<div id="id01" class="w3-modal">
+	<div class="w3-modal-content w3-animate-top w3-card-4"
+		style="font-size: 20px; width: 550px;">
+		<header class="w3-container w3-teal">
+			<span onclick="document.getElementById('id01').style.display='none'"
+				class="w3-button w3-display-topright">&times;</span>
+			<h2>리뷰 작성</h2>
+		</header>
+		<br />
+		<div class="w3-container">
+			<label>내용</label> <input class="form-control" name='review'
+				value='New Review' placeholder="내용을 입력해주세요">
+			<hr>
+			<label>아이디</label> <input class="form-control" name='reviewer'
+				value='reviewer' placeholder="아이디를 입력해주세요">
+		</div>
+		<br />
+
+		<footer class="w3-container w3-teal">
+
+			<button id='modalModBtn' type="button" class="button2">수정</button>
+			<button id='modalRemoveBtn' type="button" class="button2">삭제</button>
+			<button id='modalRegisterBtn' type="button" class="button2">등록</button>
+			<button id='modalCloseBtn' type="button" >닫기</button>
+
+		</footer>
+
+	</div>
+</div>
+ 
  <div class="empty"></div>
  
  
-<!-- 리뷰 -->
-
-<script type="text/javascript" src="/resources/js/review.js"></script>
-
-
-<script>
-
-
-	console.log("js test");
-	
-	var restIdValue = '<c:out value="${vo.restId}"/>';
-	
-	
-	reviewService.add(
-			{review:"JS test", reviewer:"tester",restId:restIdValue}
-			,
-			function(result){
-				alert("RESULT: " + result);
-			}
-	);
-
-</script>
-<div class="review">
+ <div class="review">
 
 	<div class="title">
 	REVIEW
@@ -142,24 +157,125 @@ text-align: right;
 
 	<div class="review_body">
 		<ul class="chat">
-			<li>
-
-				<div>
-					<div class="star">평점부분</div>
-					<div>
-						<strong>user00</strong> 
-						<small>2021-05-18 13:13</small>
-					</div>
-					<p>Good job</p>
-				</div>
-
-
-
-			</li>
+		
 		</ul>
 	</div>
 
 </div>
+ 
+
+<script type="text/javascript" src="/resources/js/review.js"></script>
+
+
+<script>
+	$(document).ready(function(){
+		
+		var restIdValue = '<c:out value="${vo.restId}"/>';
+		var reviewUL = $(".chat");
+		
+		showList(1);
+		
+		function showList(page){
+			
+			reviewService.getList({restId:restIdValue,page:page||1},function(list){
+				var str = "";
+				if(list == null || list.length == 0){
+					reviewUL.html("");
+					return;
+				}
+				for(var i = 0, len = list.length || 0 ; i <len; i++){
+					str += "<li data-reno='"+list[i].reno+"'>";
+					str += "<div><div><strong>"+list[i].reviewer+"</strong>";
+					str += "<small>"+reviewService.displayTime(list[i].reviewDate)+"</small></div>";
+					str += "<p>"+list[i].review+"</p></div></li>";
+				}
+				
+				reviewUL.html(str);
+			});//getList function 끝
+		}//showList 끝
+		
+		
+		//모달
+		
+		var modal = $("#id01");  
+		var modalInputReview = modal.find("input[name='review']");
+		var modalInputReviewer = modal.find("input[name='reviewer']");
+		
+		
+		var modalModBtn = $("#modalModBtn");
+		var modalRemoveBtn = $("#modalRemoveBtn");
+		var modalRegisterBtn = $("#modalRegisterBtn");
+		
+		//리뷰등록 클릭 시 
+		$("#addReviewBtn").on("click",function(e){
+			
+			modal.find("input").val("");
+			//닫기 버튼 빼고 다 숨김
+			modal.find("button[id !='modalCloseBtn']").hide();
+			//등록 버튼 보여줌
+			modalRegisterBtn.show();
+			
+			
+			 $(".w3-modal").modal("show");
+			 console.log("성공");
+			
+		});
+		
+		
+	});
+
+	
+	
+	
+	
+	
+	//리뷰 등록
+	/* reviewService.add(
+			{review:"JS test", reviewer:"tester",restId:restIdValue}
+			,
+			function(result){
+				alert("RESULT: " + result);
+			}
+	); */
+	
+	//리뷰 목록
+	/* reviewService.getList({restId:restIdValue,page:1},function(list){
+		
+		for(var i = 0 , len = list.length||0; i<len ; i++){
+			console.log(list[i]);
+		}
+	}); */
+	
+	//리뷰 삭제
+	/* reviewService.remove(21,function(count){
+		
+		console.log(count);
+		
+		if(count === "success"){
+			alert("REMOVED");
+		}
+		
+	}, function(err){
+		alert(ERROR);	
+	}); */
+	
+	//리뷰 수정
+	/* reviewService.update({
+		reno:2,
+		restId:restIdValue,
+		review:"Modified review..."
+	}, function(result){
+		alert("수정완료!");
+	}); */
+	
+	//특정 리뷰 조회
+	/* reviewService.get(10,function(data){
+		console.log(data);
+	})
+ */
+
+</script>
+
 
 <%@include file="layout/footer.jsp"%>
 </body>

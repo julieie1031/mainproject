@@ -2,27 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace = "org.mp.mapper.ReviewMapper">
 
-	<insert id="insert">
+	<insert id="rinsert">
 	insert into review(reno, rest_id, review,reviewer)
 	values(seq_review.nextval,#{restId},#{review},#{reviewer})
 	</insert>
 	
 	
-	<select id="read" resultType="org.mp.domain.ReviewVO">
+	<select id="rread" resultType="org.mp.domain.ReviewVO">
 		select * from review where reno = #{reno}
 	</select>
 	
-	<delete id="delete">
-	 	delete * from review where reno = #{reno}
+	<delete id="rdelete">
+	 	delete from review where reno = #{reno}
 	</delete>
 	
-	<update id="update">
+	<update id="rupdate">
 		update review set review = #{review} , review_updatedate = sysdate where reno = #{reno}
 	</update>
 	
-	<select id="getListWithPaging" resultType="org.mp.domain.ReplyVO">
-		select * from review 
-		where reno=#{reno}
+	<select id="rgetListWithPaging" resultType="org.mp.domain.ReviewVO">
+		select reno,rest_id,review,reviewer,review, review_date as reviewDate, review_updatedate as reviewUpdatedate
+		from review
+		where rest_id=#{restId}
 		order by reno asc
 	</select>
 </mapper>

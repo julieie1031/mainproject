@@ -8,17 +8,17 @@ import org.mp.domain.ReviewVO;
 
 public interface ReviewMapper {
 
-	public int insert(ReviewVO vo);
+	public int rinsert(ReviewVO vo);
 	
-	public ReviewVO read(Long restId);
+	public ReviewVO rread(Long restId);
 	
-	public int delete(Long reno);
+	public int rdelete(Long reno);
 	
-	public int update(ReviewVO review);
+	public int rupdate(ReviewVO review);
 	
-	public List<ReviewVO> getListWithPaging(
+	public List<ReviewVO> rgetListWithPaging(
 			@Param("cri") Criteria cri,
-			@Param("reno") Long reno);
+			@Param("restId") Long restId);
 			
 	
 	
