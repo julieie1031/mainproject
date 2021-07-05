@@ -4,9 +4,15 @@ import org.mp.domain.AuthVO;
 import org.mp.domain.MemberVO;
 
 public interface MemberMapper {
+	
+	//회원가입
 	public void insertMember(MemberVO vo);
 	public void insertAuth(AuthVO vo);
 	
+	//회원정보수정
+	public void memberUpdate(MemberVO vo);
+	
+	//로그인
 	public MemberVO read(String userId);
 
 }

@@ -13,18 +13,30 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import lombok.Setter;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml"
    ,"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public class MemberTest {
-   @Setter(onMethod_= {@Autowired})
-   private PasswordEncoder pwencoder;
-   @Setter(onMethod_= {@Autowired})
-   private DataSource ds;
 
+   private PasswordEncoder pwencoder;
+   private DataSource ds;
+   
+   public final PasswordEncoder getPwencoder() {
+	   return pwencoder;
+   }
+   @Autowired
+   public final void setPwencoder(PasswordEncoder pwencoder) {
+   this.pwencoder = pwencoder;
+   }
+   public final DataSource getDs() {
+	   return ds;
+   }
+   @Autowired
+   public final void setDs(DataSource ds) {
+	   this.ds = ds;
+   }
 
    @Test
    public void testInsertMember() {
@@ -39,12 +51,12 @@ public class MemberTest {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(2, pwencoder.encode("pw"+i));
             if(i<10) {
-               pstmt.setString(1, "user"+i);pstmt.setString(3, "ÀÏ¹Ý»ç¿ëÀÚ"+i);
+               pstmt.setString(1, "user"+i);pstmt.setString(3, "ï¿½Ï¹Ý»ï¿½ï¿½ï¿½ï¿½"+i);
 
             }else if(i<20) {
-               pstmt.setString(1, "manager"+i);pstmt.setString(3, "¿î¿µÀÚ"+i);
+               pstmt.setString(1, "manager"+i);pstmt.setString(3, "ï¿½î¿µï¿½ï¿½"+i);
             }else {
-               pstmt.setString(1, "admin"+i);pstmt.setString(3, "°ü¸®ÀÚ"+i);
+               pstmt.setString(1, "admin"+i);pstmt.setString(3, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+i);
             }
             pstmt.executeUpdate();
          } catch (SQLException e) {}
@@ -53,7 +65,7 @@ public class MemberTest {
             }
          }
       }
-   //¿Ü·¡Å° Ãß°¡
+   //ï¿½Ü·ï¿½Å° ï¿½ß°ï¿½
    @Test
    public void testInsertAuth() {
 	   String sql = "insert into authorities(userid,authority) values(?,?)";
@@ -86,7 +98,7 @@ public class MemberTest {
 	      }catch(Exception e) {
 	        e.printStackTrace();
 	      }finally {
-	    	  //?ž?›?‹«ê¸?
+	    	  //?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?
 	        if(pstmt != null) { try { pstmt.close();  } catch(Exception e) {} }
 	        if(conn != null) { try { conn.close();  } catch(Exception e) {} }
 	        

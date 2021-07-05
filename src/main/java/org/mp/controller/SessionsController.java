@@ -1,6 +1,5 @@
 package org.mp.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +25,12 @@ public class SessionsController {
 	public String logout() {
 		log.info("logout requested");
 		return "redirect:/main";
+	}
+	//view 페이지
+	@RequestMapping(value = "userModify", method= RequestMethod.GET)
+	public String update() {
+		log.info("Modify requested");
+		return "/users/userModify"; 
 	}
 	
 	//버튼 클릭시 GET방식으로 보내기

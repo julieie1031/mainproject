@@ -1,6 +1,8 @@
 package org.mp.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.mp.domain.AuthVO;
 import org.mp.domain.MemberVO;
 import org.mp.service.MemberService;
@@ -35,6 +37,15 @@ public class UserController {
 		MemberVO member = new MemberVO();
 		model.addAttribute("member", member);
 		return "join";
+	}
+	@RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
+	public String memberUpdate(@ModelAttribute Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
+		MemberVO vo = new MemberVO();
+		model.addAttribute("vo", vo);
+		service.memberUpdate(vo, session);
+		session.invalidate();
+		
+		return "redirect:/users/mypage";
 	}
 	/*
 	 * // �쉶�썝�깉�눜

@@ -403,7 +403,7 @@ input::placeholder {
 	color: #EEEEEE;
 }
 
-.memberjoin {
+.update {
 	position: relative;
 	top: 225px;
 	left: 215px;
@@ -561,7 +561,7 @@ input::placeholder {
 	font-weight: bold;
 }
 
-.join {
+.modify {
 	position: absolute;
 	top: 1050px;
 	left: 102px;
@@ -569,7 +569,7 @@ input::placeholder {
 	font-size: 15px;
 }
 
-#join {
+#modify {
 	width: 290px;
 	display: block;
 	padding: 12px;
@@ -663,9 +663,9 @@ a {
 	<div class="mainLeft">
 		<div class="header"></div>
 
-		<c:url var="joinPath" value="/join" />
-		<f:form modelAttribute="member" action="${ joinPath }" method="post">
-			<h4 class="memberjoin">회원가입</h4>
+		
+	<form action="/memberUpdate" method = "post">
+			<h4 class="update">정보 수정</h4>
 			<div class="homie">
 				<img src="resources/images/logo.png" width="150" height="70">
 			</div>
@@ -683,11 +683,11 @@ a {
 			<div class="user">
 
 				<input type="text" id="userId" name="userId"
-					placeholder="아이디를 입력해주세요" style="border: none; font-size: 12px;">
+					placeholder="<sec:authentication property='principal.username'/>" style="border: none; font-size: 12px;">
 				<f:errors path="userId" element="div" cssClass="alert text-danger" />
-				<f:password path="userPwd" id="userPwd" name="userPwd"
+			<%-- 	<f:password path="password" id="password" name="password"
 					placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;" />
-				<f:errors path="userPwd" element="div" cssClass="alert text-danger" />
+				<f:errors path="password" element="div" cssClass="alert text-danger" /> --%>
 				<input type="text" id="userName" name="userName"
 					placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
 			</div>
@@ -778,11 +778,11 @@ a {
 			<br>
 
 		<s:csrfInput />
-			<div class="join">
-				<input type="submit" id="join" value="회원가입"
+			<div class="modify">
+				<input type="submit" id="modify" value="회원가입"
 					style="border: none;">
 			</div>
-		</f:form>
+		</form>
 
 		<div class="footer">
 			<div class="bottom_bar">
