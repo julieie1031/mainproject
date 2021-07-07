@@ -15,7 +15,6 @@ margin-left: 15px;
 }
 .jb-x-small { font-size: x-small; }
 .jb-medium { font-size: medium; }
-.text-a {text-align: left;}
 .text-b {text-align: right;}
 a {
   text-decoration-line: none;
@@ -54,6 +53,7 @@ text-align: right;
     width: 100%;
     height: 10px;
     background: #f1f0f0;
+    clear:both;
 
 
 }
@@ -115,89 +115,126 @@ text-align: right;
 #starView{
 	color: gold;
   }
+  
+.checkInOut{
+    padding: 10px;
+    width: 450px;
+    text-align: center;
+}
+
+.checkInOut table td input{
+border: none;
+width: 100px;
+height: 30px; 
+font-size: 15px; 
+text-align:center;
+
+}
+
+.roomInfo{
+	margin:10px;
+	width: 470px;
+	border-collapse: collapse;
+}
+
+.roomInfo td{
+	padding: 5 0 5 0;
+}
+
+.imageinfo{
+	width:200px;
+
+	margin:13px;
+}
+
+.imageInfo img{
+    width: 200px;
+    height: 150px;
+    border-radius: 5px;
+}
+
+.infoContent {
+	display:block; 
+    background: #50627F;
+    color: #fff;
+    text-align: center;
+    width:160px;
+    height: 24px;
+    line-height:22px;
+    border-radius:4px;
+    padding:0px 10px;
+   	font-size:13px;
+}
 </style>
 <%@include file="layout/header2.jsp"%>
 
 <div>
-    <table>
-        <tr>
-		    <td> 
-		        <img src="../../resources/images/hotel/${vo.restImage}" width="495" height="300">
-		    </td>
-	    </tr>
-    </table>
-       
-     <table class="table-x" style="height: 300px; width: 460px;">
 
-         <tr align="center">
-             <td colspan="5" class="text-a"><br><b>${vo.restName}</b><br><br><br><hr><br><small class="jb-medium"><b>객실정보</small></td>
+	<img src="../../resources/images/hotel/${vo.restImage}" width="495" height="300">
+	
+       
+     <table class="table-x" style="height: 100px; width: 450px;  border-collapse: collapse; ">
+
+         <tr align="left">
+             <td style="font-weight:bold"class="text-a">${vo.restName}</td>
          </tr>
      
-         <tr align="center">
-             <td rowspan="3"><img src="../../resources/images/hotel/${vo.restImage}" width="120" height="110"></td>
-          </tr>
-         <tr align="center">
+         <tr align="left">
          	<td>${vo.restContent}</td>
          </tr>
-         <tr>
-         	<td class="text-b"><%-- ${vo.restNumber}<br>${vo.restPrice} --%></td>
-         </tr>
-
-		<tr>
-			<td colspan="1" style="text-align: right; padding-right: 15px;">체크인</td>
-			<td colspan="2" style="text-align: center;">체크아웃</td>
-		</tr>
-		<tr>
-			<td colspan="2"><input type="text" name="startDate" id="datepicker1" style="text-align: center;"/></td>
-			<td colspan="2" style="width: 200px;"><input type="text" name="endDate" id="datepicker2" style="text-align: center;"/></td>
-		</tr>
-
      </table>
-                
-                
+     
+      <div class="empty"></div>
 
-<c:forEach var="vo" items="${room}">
+
+	<div class="checkInOut">
 		<table>
 			<tr>
 				<td>
-					<img src="../resources/images/hotel/${vo.roomImage}"
-					width="495" height="300">
-				</td>
+				<input type="text" name="startDate" id="datepicker1"placeholder="Check-In" /></td>
+				<td style="width: 200px;">
+					<input type="text" name="endDate" id="datepicker2" placeholder="Check-Out" /></td>
 			</tr>
+
 		</table>
 
+	</div>
 
-		<table class="table-x">
-			<tr align="center">
-				<td colspan="5" class="text-a"><br><b>${vo.roomName}</b><br>
-					<br> <br>
-					<hr> <br> <small class="jb-medium"><b>객실정보</b></small></td>
-			</tr>
 
-			<tr align="center">
-				<td rowspan="3"><img src="../resources/images/hotel/${vo.roomImage}"
-					width="120" height="110"></td>
-			</tr>
-			<tr align="center">
-				<td>${vo.roomDescription}</td>
-			</tr>
+
+	<c:forEach var="vo" items="${room}">
+	
+		
+		<div>
+		<table class="roomInfo">
+		<%-- 수용인원: ${vo.roomPeople}<br> --%>
 			<tr>
-				<td class="text-b">수용인원: ${vo.roomPeople}<br>객실가격: ${vo.roomPrice}원</td>
+				<td class="imageInfo"><img src="../resources/images/hotel/${vo.roomImage}"></td>
+				<td style="padding-left: 10px; vertical-align: top;"
+    			onclick="javascript:getInputValue('${vo.restId}','${vo.roomId}');">
+    			<b>${vo.roomName}</b><br>
+    			&nbsp;<br>
+    			${vo.roomDescription }<br>
+    			${vo.roomPeople}
+    			</td>
 			</tr>
-			<tr align="center">
-				<td colspan="2">
-					<form name="form1" method="get" action="/reserve/list">
+			<tr style="border-bottom:1px solid #eee;">
+				<td colspan="2" class="text-b"><b>${vo.roomPrice}원</b></td>
+			</tr>
+
+		</table>
+		
+		<form name="form1" method="get" action="/reserve/list">
 					  	<input type="hidden" name="id" value="${id}"/>
                       	<input type="hidden" name="restId" value="${vo.restId}"/>
                       	<input type="hidden" name="roomId" value="${vo.roomId}"/>
-                    	<input type="button" onclick="javascript:getInputValue('${vo.restId}','${vo.roomId}');" value="예약하기"/>
-					</form> 
-				</td>
-			</tr>
-
-		</table>
+		</form> 
+		</div>
 	</c:forEach>
  </div>
+ 
+ <input type="hidden" name="restAddress" value="${vo.restAddress}"/>
+  <input type="hidden" name="restName" value="${vo.restName}"/>
  
  <!-- 리뷰 -->
  
@@ -261,6 +298,16 @@ text-align: right;
 	
 	
 	<a href="#" title="" id="results-show-more">show more</a>
+
+</div>
+
+ <div class="empty" style="height:20px"></div>
+
+<div style="margin-top:10px;">
+
+ <div class="title" style="margin-left:10px; margin-bottom:15px">오시는길</div>
+
+<div id="map" style="width:470px;height:350px; font-size:10px; margin: 15px;"></div>
 
 </div>
  
@@ -514,6 +561,8 @@ text-align: right;
 
 </script>
 
+<!-- 리뷰 끝 -->
+
 
 <%@include file="layout/footer.jsp"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -555,6 +604,55 @@ text-align: right;
 		var endDate = $('input[name=endDate]').val();
 		window.location.href = "/reserve/list?restId="+restId+"&roomId="+roomId+"&startDate="+startDate+"&endDate="+endDate;
 	}
+</script>
+
+
+<!-- 맵 -->
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27898b804bcd7311092722c6048cf498&libraries=services"></script>
+<script>
+
+var address = $('input[name="restAddress"]').val();
+var restName = $('input[name="restName"]').val();
+
+console.log(address);
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(address, function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div class="infoContent">'+restName+'</div>'
+            
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
 </script>
 
 </body>
