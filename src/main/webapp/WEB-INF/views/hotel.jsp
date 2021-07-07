@@ -174,7 +174,7 @@ border-bottom:1px solid #eee;
 			
 		</div>
 
-<img src="../resources/images/banner1.png" alt="..." width="520px" height="200px">
+<img src="../resources/images/banner1.png" alt="..." width="520px" height="150px">
 <div class="empty"></div>
 
 <div class="searchDiv">
