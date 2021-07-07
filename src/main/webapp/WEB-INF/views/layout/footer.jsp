@@ -32,7 +32,7 @@
 				<li><a href="/category"><img
 						src="/resources/images/category.png"></a></li>
 				<li><a href="/hotel/list"><img src="/resources/images/hotel.png"></a></li>
-				<li><a href="/home"><img src="/resources/images/logo2.png"></a></li>
+				<li><a href="/main"><img src="/resources/images/logo2.png"></a></li>
 				<li><a href="/board/list"><img
 						src="/resources/images/community.png"></a></li>
 				<li><a href="users/login"><img src="/resources/images/login.png"></a></li>
