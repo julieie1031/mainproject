@@ -7,7 +7,6 @@ public class ReservationVO {
 
 	private Long reserId;
 	private String roomName;
-	private String roomPhone;
 	private String roomPeople;
 	private int roomPrice;
 	private int restPhone;

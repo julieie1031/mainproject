@@ -8,7 +8,6 @@
 select 
 RESER_ID AS reserId,
 ROOM_NAME AS roomName,
-ROOM_PHONE AS roomPhone,
 ROOM_PEOPLE AS roomPeople,
 ROOM_PRICE AS roomPrice,
 REST_PHONE AS restPhone,
@@ -27,8 +26,8 @@ WHERE reserId > 0
 <selectKey keyProperty="reserId" order="BEFORE" resultType="long">
 select SEQ_RESERVATION.NEXTVAL from dual
 </selectKey>
-insert into RESERVATION(RESER_ID,REST_NAME,ROOM_NAME,ROOM_PHONE,ROOM_PEOPLE,ROOM_PRICE,START_DATE,END_DATE,DOG_TYPE,DOG_NUMBER)
-values(#{reserId},#{restName},#{roomName},#{roomPhone},#{roomPeople},#{roomPrice},#{startDate},#{endDate},#{dogType},#{dogNumber})
+insert into RESERVATION(RESER_ID,REST_NAME,ROOM_NAME,ROOM_PEOPLE,ROOM_PRICE,START_DATE,END_DATE,DOG_TYPE,DOG_NUMBER)
+values(#{reserId},#{restName},#{roomName},#{roomPeople},#{roomPrice},#{startDate},#{endDate},#{dogType},#{dogNumber})
 
 </insert>
 

@@ -50,6 +50,8 @@ public class ReservationController {
 		return mav;
 	}
    
+	
+	
 	@RequestMapping("/kakaopay.cls")
 	@ResponseBody
 	public String kakaopay() {
