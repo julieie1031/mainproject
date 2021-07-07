@@ -14,4 +14,5 @@ public interface RestService {
 	public List<RestVO> listRest();
 	public RestVO detailRest(Long restId);
 	public List<RestVO> listRestPaging(Criteria cri);
+	
 }

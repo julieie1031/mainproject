@@ -20,4 +20,10 @@ public class RestDetailServiceImpl implements RestDetailService {
 		return mapper.listRestDetail(restId);
 	}
 
+	@Override
+	public List<RestDetailVO> roomRestDetail(Long roomId) {
+
+		return mapper.roomRestDetail(roomId);
+	}
+
 }

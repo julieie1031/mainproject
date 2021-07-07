@@ -2,6 +2,7 @@ package org.mp.service;
 
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
+import org.mp.domain.RestDetailVO;
 import org.mp.domain.RestVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public class RestDAOImpl implements RestDAO {
 	}
 
 	@Override
-	public RestVO detailRest(String restId) {
+	public RestVO detailRest(Long restId) {
 		// TODO Auto-generated method stub
 		 return sqlSession.selectOne("mappers.RestMapper.detailRest", restId);
 	}
@@ -31,7 +32,7 @@ public class RestDAOImpl implements RestDAO {
 	}
 
 	@Override
-	public void deleteRest(int restId) {
+	public void deleteRest(Long restId) {
 		// TODO Auto-generated method stub
 
 	}

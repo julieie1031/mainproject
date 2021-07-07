@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mp.domain.Criteria;
 import org.mp.domain.PageDTO;
+import org.mp.service.RestDetailService;
 import org.mp.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ public class RestController {
 
 	    @Autowired
 	    private RestService service;
-	    
+		private RestDetailService service2;
 	    
 
 	    // 1. 상품 전체 목록
@@ -46,6 +47,7 @@ public class RestController {
 	    
 	    	mav.setViewName("hotelDetail");
 	        mav.addObject("vo", service.detailRest(restId));
+	        mav.addObject("room", service2.listRestDetail(restId));
 			/*
 			 * rttr.addAttribute("pageNum",cri.getPageNum());
 			 * rttr.addAttribute("amount",cri.getAmount());

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mp.mapper.RestDetailMapper">
+
+<select id="roomList" resultType="org.mp.domain.ReservationVO">
+
+select 
+RESER_ID AS reserId,
+ROOM_NAME AS roomName,
+ROOM_PHONE AS roomPhone,
+ROOM_PEOPLE AS roomPeople,
+ROOM_PRICE AS roomPrice,
+REST_PHONE AS restPhone,
+DOG_TYPE AS dogType,
+DOG_NUMBER AS dogNumber,
+REST_NAME AS restName,
+START_DATE AS startDate,
+END_DATE AS endDate,
+REST_ID AS restId        
+FROM RESERVATION
+WHERE reserId > 0
+
+</select>
+
+<insert id="roomInsert">
+<selectKey keyProperty="reserId" order="BEFORE" resultType="long">
+select SEQ_RESERVATION.NEXTVAL from dual
+</selectKey>
+insert into RESERVATION(RESER_ID,REST_NAME,ROOM_NAME,ROOM_PHONE,ROOM_PEOPLE,ROOM_PRICE,START_DATE,END_DATE,DOG_TYPE,DOG_NUMBER)
+values(#{reserId},#{restName},#{roomName},#{roomPhone},#{roomPeople},#{roomPrice},#{startDate},#{endDate},#{dogType},#{dogNumber})
+
+</insert>
+
+
+</mapper>

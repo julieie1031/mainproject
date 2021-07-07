@@ -7,5 +7,6 @@ import org.mp.domain.RestDetailVO;
 public interface RestDetailService {
 
 	public List<RestDetailVO> listRestDetail(Long restId);
+	public List<RestDetailVO> roomRestDetail(Long roomId);
 	
 }

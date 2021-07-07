@@ -21,6 +21,7 @@
 			authentication-success-handler-ref="customLoginSuccess" />
 		<sec:logout logout-url="/users/logout"
 			invalidate-session="true" logout-success-url="/main"/>
+			<sec:csrf disabled="true"/>
 	</sec:http>
 
 	<sec:authentication-manager>

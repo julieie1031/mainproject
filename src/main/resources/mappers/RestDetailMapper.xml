@@ -16,4 +16,18 @@ FROM rest_detail
 WHERE rest_id = #{restId}
 </select>
 
+<select id="roomRestDetail" parameterType="Long" resultType="org.mp.domain.RestDetailVO">
+SELECT
+room_id AS roomId,
+room_name AS roomName,
+room_people AS roomPeople,
+room_price AS roomPrice,
+room_description AS roomDescription,
+room_image AS roomImage,
+rest_id AS restId
+FROM rest_detail
+WHERE room_id = #{roomId}
+
+</select>
+
 </mapper>

@@ -111,9 +111,3 @@ function back() {
         		<img src="/resources/images/logo.png" style="padding-left:150px;"width="120" height="50">
          		</a>
       </div>
-      
-
-			
-
-</body>
-</html>
