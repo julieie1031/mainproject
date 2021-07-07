@@ -2,7 +2,7 @@ $(function(){
 	
 	$('#apibtn').click(function(){
 		$.ajax({
-			url:'reserve/kakaopay.cls',
+			url:'http://localhost:8080/reserve/kakaopay.cls',
 			dataType:'json',
 			success:function(data){
 				var box = data.next_redirect_pc_url;

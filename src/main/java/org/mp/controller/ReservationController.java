@@ -50,7 +50,7 @@ public class ReservationController {
 		return mav;
 	}
    
-	@RequestMapping("kakaopay.cls")
+	@RequestMapping("/kakaopay.cls")
 	@ResponseBody
 	public String kakaopay() {
 		try {
@@ -61,7 +61,7 @@ public class ReservationController {
 			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8"); //컨텐츠타입 정의
 			conn.setDoOutput(true); // DoOutput은 연결을 통해 서버를 통해 전해줄게 있는지 여부에 따라 설정 DoInput은 디폴트값이 true
 			String param = "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=초코파이&quantity=1&total_amount=2200"
-					+ "&vat_amount=200&tax_free_amount=0&approval_url=https://developers.kakao.com/success&fail_url=https://developers.kakao.com/fail&cancel_url=https://developers.kakao.com/cancel";
+					+ "&vat_amount=200&tax_free_amount=0&approval_url=http://localhost:8080/reserve/kakaopay.cls&fail_url=http://localhost:8080/fail&cancel_url=http://localhost:8080/cancel";
 			OutputStream outstream = conn.getOutputStream();
 			DataOutputStream dataoutstream = new DataOutputStream(outstream); //데이터를 줘야하기 때문에 dataoutputstrem사용
 			dataoutstream.writeBytes(param); // 바이트로 알아서 형변환을 하기 위해 (input스트림 , output스트림은 바이트형식으로 받아야함)
