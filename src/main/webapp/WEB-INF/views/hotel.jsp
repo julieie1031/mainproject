@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
 
 * {
@@ -17,6 +17,7 @@
 .text-x {
    text-align: right;
    vertical-align: bottom;
+   font-size:13px;
 }
 
 a {
@@ -35,7 +36,7 @@ a {
 }
 
 .line {
-   border-bottom: 1px solid gray;
+   border-bottom: 1px solid #d2d0d0;
 }
 
 .ul {
@@ -92,16 +93,95 @@ a {
    background-color: #B0B0B0;
 }
 
+.move{
+	font-weight: bold;
+}
+.move img{
+    border-radius: 10px;
+
+}
+
+.searchDiv{
+padding-top: 10px;
+    font-size: 13px;
+    clear: both;
+    text-align: center;
+}
+
+.searchbar{
+  width: 350px;
+  height: 30px;
+  background: #f4f4f4;
+  border: none;
+  font-size: 10pt;
+  color: #787878;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.searchdiv .icon{
+  position: absolute;
+  left: 143px;
+  margin-top: 13px;
+  z-index: 1;
+  color: #4f5b66;
+}
+
+#searchForm table{
+
+margin-left: 15px;
+}
+
+.table-x{
+ width: 455px;
+ margin-left: 23px;
+ border-collapse: collapse;
+
+}
+
+
+.table-x a img{
+	width: 150px;
+    height: 130px;
+
+}
+
+.table-x td{
+    padding: 10px;
+}
+
+.table-x tr{
+
+border-bottom:1px solid #eee;
+}
+
+.empty{
+    width: 100%;
+    height: 15px;
+    background: #f1f0f0;
+
+
+}
+
+
 </style>
 
 
 <%@include file="layout/header2.jsp"%>
 
+		<div class="carousel-item active">
+			
+		</div>
 
+<img src="../resources/images/banner1.png" alt="..." width="520px" height="200px">
+<div class="empty"></div>
+
+<div class="searchDiv">
 <form id='searchForm' action="/hotel/list" method='get'>
 	<table >
 		<tr class="img1">
-			<td><select name='type' style="width: 100px; height: 23px">
+			<td><select name='type' style="width: 110px; height: 30px; border: none; font-size: 10pt; color: #787878; background: #f4f4f4;">
 					<option value=""
 						<c:out value = "${pageMaker.cri.type==null?'selected':'' }"/>>--</option>
 					<option value="N"
@@ -112,57 +192,40 @@ a {
 						<c:out value = "${pageMaker.cri.type eq 'NA'?'selected':'' }"/>>호텔명
 						or 지역</option>
 			</select></td>
-
-			<td><input type="text" name='keyword'
-				style="width: 170px; height: 23px"
+			<span class="icon"><i class="fa fa-search"></i></span>
+			<td><input type="text" name='keyword' class="searchBar"
+				placeholder="어디를 찾고 계신가요?"
 				value='<c:out value = "${pageMaker.cri.keyword }"/>' /> <input
 				type='hidden' name='pageNum'
 				value='<c:out value = "${pageMaker.cri.pageNum }"/>' /> <input
 				type='hidden' name='amount'
 				value='<c:out value = "${pageMaker.cri.amount }"/>' /></td>
 
-			<td>
-				<button class="button">
-					<img src="../resources/images/community/search.png" width=40px
-						height=40px style = "cursor : pointer"/>
-				</button>
-			</td>
-			</form>
-
 </tr>
 </table>
-		<div class="carousel-item active">
-			
-		</div>
+			</form>
 
-<img src="../resources/images/banner1.png" alt="..." width="520px" height="200px">
+</div>
+
 <div>
 
- <table class="table-x" style=" padding-left:15px; padding-right:15px; width : 500px;">
+ <table class="table-x">
     
         <c:forEach var="row" items="${list}">
-  
-      
-     
         <tr>
           <td>
-               <br><br> 
                 <a href='<c:out value = "${row.restId }"/>' class="move">
                     <img src="../resources/images/hotel/${row.restImage}" width="120ox" height="110px">
                 </a>  
-                             <br><br>     
             </td>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td>
                 <a href='<c:out value = "${row.restId }"/>' class="move">${row.restName}</a>
             </td>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="text-x" colspan="5">
-            <a href='<c:out value = "${row.restId }"/>' class="move">${row.restAddress}</a>
+            ${row.restAddress}
             <%--  <fmt:formatNumber value="${row.restPrice}" pattern="###,###,###"/> --%>
             </td>
         </tr>
- 		<td class="line" colspan="5"></td>
         </c:forEach>
          
     </table>

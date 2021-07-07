@@ -110,27 +110,30 @@ var reviewService = (function(){
 		});
 	}
 	
-	//시간
-	function displayTime(timeValue){
-		var today=new Date();
-		var gap=today.getTime()-timeValue;
-		var dateObj = new Date(timeValue);
-		var str="";
-		
-		if(gap < (1000*60*60*24)){
-			var hh = dateObj.getHours(); //시
-			var mi = dateObj.getMinutes(); //분 
-			var ss = dateObj.getSeconds(); //초
-			return[ (hh>9?"":"0")+hh,':',(mi>9?"":"0")+mi,':',(ss>9?"":"0")+ss].join(''); 
-			
-		}else{ 
-			var yy = dateObj.getFullYear(); //년
-			var mm = dateObj.getMonth()+1; //월
-			var dd = dateObj.getDate(); //일
-			return[ yy,'/',(mm>9?"":"0")+mm,'/',(dd>9?"":"0")+dd].join(''); 
-		}
-	}
 	
+	//시간
+	function timeForToday(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+        if (betweenTime < 1) return '방금전';
+        if (betweenTime < 60) {
+            return `${betweenTime}분전`;
+        }
+
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+            return `${betweenTimeHour}시간전`;
+        }
+
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+            return `${betweenTimeDay}일전`;
+        }
+
+        return `${Math.floor(betweenTimeDay / 365)}년전`;
+ }
 	
 	return{
 		add:add,
@@ -138,7 +141,7 @@ var reviewService = (function(){
 		remove:remove,
 		update:update,
 		get:get,
-		displayTime:displayTime
+		timeForToday:timeForToday
 	};
 })();
 

@@ -791,6 +791,8 @@ if(categoryId==1){
 	keywordSearch('애견놀이터');
 }else if(categoryId==6){
 	keywordSearch('애견미용');
+}else if(categoryId==7){
+	keywordSearch('애견호텔');
 }
 
 

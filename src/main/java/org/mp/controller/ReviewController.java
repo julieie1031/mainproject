@@ -89,6 +89,7 @@ public class ReviewController {
 			produces = {MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> modify(@RequestBody ReviewVO vo, @PathVariable("reno") Long reno) {
 		vo.setReno(reno);
+		log.info(vo.getStar());
 		log.info("reno:" + reno);
 		log.info("modify:" + vo);
 		return service.modify(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)

@@ -395,11 +395,11 @@ div.tipContent {
 		<img src="resources/images/category/hospital.png">
 		<div class="desc">동물병원</div>
 	</div>
-	<div class="category" onclick="category(6)">
+	<div class="category" onclick="category(5)">
 		<img src="resources/images/category/park.png">
 		<div class="desc">놀이터</div>
 	</div>
-	<div class="category" onclick="category(4)">
+	<div class="category" onclick="category(7)">
 		<img src="resources/images/category/pet hotel.png">
 		<div class="desc">호텔</div>
 	</div>
@@ -407,11 +407,11 @@ div.tipContent {
 		<img src="resources/images/category/restaurant.png">
 		<div class="desc">맛집</div>
 	</div>
-	<div class="category" onclick="category(5)">
+	<div class="category" onclick="category(4)">
 		<img src="resources/images/category/school.png">
 		<div class="desc">유치원</div>
 	</div>
-	<div class="category" onclick="category(2)">
+	<div class="category" onclick="category(6)">
 		<img src="resources/images/category/salon.png">
 		<div class="desc">미용</div>
 	</div>

@@ -3,8 +3,8 @@
 <mapper namespace = "org.mp.mapper.ReviewMapper">
 
 	<insert id="rinsert">
-	insert into review(reno, rest_id, review,reviewer)
-	values(seq_review.nextval,#{restId},#{review},#{reviewer})
+	insert into review(reno, rest_id, review,reviewer,star)
+	values(seq_review.nextval,#{restId},#{review},#{reviewer},#{star})
 	</insert>
 	
 	
@@ -17,11 +17,11 @@
 	</delete>
 	
 	<update id="rupdate">
-		update review set review = #{review} , review_updatedate = sysdate where reno = #{reno}
+		update review set review = #{review} , review_updatedate = sysdate , star=#{star} where reno = #{reno}
 	</update>
 	
 	<select id="rgetListWithPaging" resultType="org.mp.domain.ReviewVO">
-		select reno,rest_id,review,reviewer,review, review_date as reviewDate, review_updatedate as reviewUpdatedate
+		select reno,rest_id,review,reviewer,review, review_date as reviewDate, review_updatedate as reviewUpdatedate,star
 		from review
 		where rest_id=#{restId}
 		order by reno asc

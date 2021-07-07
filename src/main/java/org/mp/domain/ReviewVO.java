@@ -11,4 +11,5 @@ public class ReviewVO {
 	private String reviewer;
 	private Date reviewDate;
 	private Date updateDate;
+	private Long star;
 }
