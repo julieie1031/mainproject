@@ -17,6 +17,6 @@ public class MemberVO {
 	private boolean enabled;
 	
 	private List<AuthVO> authList;
-	
+
 	}
 

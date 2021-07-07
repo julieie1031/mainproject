@@ -39,11 +39,10 @@ public class UserController {
 		return "join";
 	}
 	@RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
-	public String memberUpdate(@ModelAttribute Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
+	public String memberUpdate(Model model, RedirectAttributes rttr) throws Exception{
 		MemberVO vo = new MemberVO();
 		model.addAttribute("vo", vo);
-		service.memberUpdate(vo, session);
-		session.invalidate();
+		service.memberUpdate(vo);
 		
 		return "redirect:/users/mypage";
 	}

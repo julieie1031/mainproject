@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -222,7 +222,7 @@ ul, li {
 }
 
 html {
-	background-image: url(resources/images/background.jpg);
+	background-image: url(/resources/images/background.jpg);
 	background-size: 100% 100%;
 }
 
@@ -654,7 +654,7 @@ a {
 
 	<div class="mainRight">
 		<div class="logo">
-			<img src="resources/images/logo3.png" />
+			<img src="/resources/images/logo3.png" />
 		</div>
 
 
@@ -667,10 +667,10 @@ a {
 	<form action="/memberUpdate" method = "post">
 			<h4 class="update">정보 수정</h4>
 			<div class="homie">
-				<img src="resources/images/logo.png" width="150" height="70">
+				<img src="/resources/images/logo.png" width="150" height="70">
 			</div>
 			<div class="back">
-				<a href="/main"><img src="resources/images/back.png" width="60"
+				<a href="/main"><img src="/resources/images/back.png" width="60"
 					height="60"></a>
 			</div>
 			<div class="text">
@@ -682,12 +682,12 @@ a {
 			<p>
 			<div class="user">
 
-				<input type="text" id="userId" name="userId"
-					placeholder="<sec:authentication property='principal.username'/>" style="border: none; font-size: 12px;">
+				<input type="text" id="userId" name="userId" value = "<sec:authentication property='principal.username'/>"
+					 style="border: none; font-size: 12px;" readonly>
 				<f:errors path="userId" element="div" cssClass="alert text-danger" />
-			<%-- 	<f:password path="password" id="password" name="password"
-					placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;" />
-				<f:errors path="password" element="div" cssClass="alert text-danger" /> --%>
+			 	<!-- <input id="userPwd" name="userPwd" type = "password"
+					placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;" /> -->
+				<f:errors path="userPwd" element="div" cssClass="alert text-danger" /> 
 				<input type="text" id="userName" name="userName"
 					placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
 			</div>
@@ -777,8 +777,9 @@ a {
 			<input type="hidden" id="engAddress" placeholder="영문주소">
 			<br>
 
-		<s:csrfInput />
+	
 			<div class="modify">
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				<input type="submit" id="modify" value="회원가입"
 					style="border: none;">
 			</div>
@@ -788,13 +789,13 @@ a {
 			<div class="bottom_bar">
 				<ul>
 					<li><a href="/category"><img
-							src="resources/images/category.png"></a></li>
+							src="/resources/images/category.png"></a></li>
 					<li><a href="/hotel/list"><img
-							src="resources/images/hotel.png"></a></li>
-					<li><a href="/home"><img src="resources/images/logo2.png"></a></li>
+							src="/resources/images/hotel.png"></a></li>
+					<li><a href="/home"><img src="/resources/images/logo2.png"></a></li>
 					<li><a href="/community"><img
-							src="resources/images/community.png"></a></li>
-					<li><a href="/login"><img src="resources/images/login.png"></a></li>
+							src="/resources/images/community.png"></a></li>
+					<li><a href="/login"><img src="/resources/images/login.png"></a></li>
 				</ul>
 
 

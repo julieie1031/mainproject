@@ -44,7 +44,7 @@
 	</insert>
   
   	<update id="memberUpdate">
-  		update members set userPwd = #{userPwd}, userName = ${userName}, address = ${address}, phone = ${phone}, email = ${email}
-  		where userId = ${userId}
+  		update members set userName = #{userName}, address = #{address}, phone = #{phone}, email = #{email}
+  		where userId = #{userId}
   	</update>
 </mapper>

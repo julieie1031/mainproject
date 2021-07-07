@@ -27,7 +27,7 @@ public class SessionsController {
 		return "redirect:/main";
 	}
 	//view 페이지
-	@RequestMapping(value = "userModify", method= RequestMethod.GET)
+	@RequestMapping(value = "/userModify", method= RequestMethod.GET)
 	public String update() {
 		log.info("Modify requested");
 		return "/users/userModify"; 

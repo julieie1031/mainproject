@@ -1,9 +1,5 @@
 package org.mp.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
-import javax.servlet.http.HttpSession;
-
 import org.mp.domain.AuthVO;
 import org.mp.domain.MemberVO;
 import org.mp.mapper.MemberMapper;
@@ -40,8 +36,19 @@ public class MemberServiceImpl implements MemberService {
 		mapper.insertAuth(vo);
 		
 	}
+
+	/*
+	  @Override public void memberUpdate(MemberVO vo) {
+	  vo.setUserPwd(pwencoder.encode(vo.getUserPwd())); mapper.memberUpdate(vo);
+	  log.info(vo); }
+	 */
+    
+	//서비스에서 보낸 파라미터들을 memberUpdate(MemberVO vo)에 담습니다.
 	@Override
-	public void memberUpdate(MemberVO vo, HttpSession session) { 
+	public void memberUpdate(MemberVO vo) throws Exception {
+		// vo에 담긴 파라미터들은 memberMapper.xml에 memberMapper라는 namespace에 
+		// 아이디가 memberUpdate인 쿼리에 파라미터들을 넣어줍니다.
+		vo.setUserPwd(pwencoder.encode(vo.getUserPwd()));
 		mapper.memberUpdate(vo);
 		log.info(vo);
 	}
