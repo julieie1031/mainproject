@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <style>
 * {
 	margin: 0;
@@ -155,10 +155,13 @@ cursor : pointer;
 			</tr>
 
 			<tr>
-				<td><input type="text" name="userId" placeholder="아이디를 입력해주세요"></td>
+				<td><input type="text" name="userId" placeholder="아이디를 입력해주세요" value = '<sec:authentication
+				property = "principal.username"/>' readonly = "readonly"></td>
 			</tr>
 
 		</table>
+		<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 	</div>
 	<table style = "height : 150px;">
 		<tr>
@@ -221,6 +224,8 @@ cursor : pointer;
 				return true;
 			}//checkExtension
 
+			var csrfHeaderName = "${_csrf.headerName}";
+		    var csrfTokenValue = "${_csrf.token}";
 			$("input[type='file']").change(function(e) {
 				//FormData 사용
 				var formData = new FormData();
@@ -241,6 +246,9 @@ cursor : pointer;
 					url : '/uploadAjaxAction',
 					processData : false,
 					contentType : false,
+					 beforeSend: function(xhr){
+			               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+			           },
 					data : formData,
 					type : 'POST',
 					dataType : 'json',
@@ -291,6 +299,9 @@ cursor : pointer;
 					  	url : '/deleteFile',
 					  	data : {fileName : targetFile, type : type},
 					  	dataType : 'text',
+					  	 beforeSend: function(xhr){
+				               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+				           },
 					  	type : 'POST',
 					  		success : function(result) {
 					  		

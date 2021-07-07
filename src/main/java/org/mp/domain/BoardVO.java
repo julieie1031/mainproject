@@ -13,8 +13,8 @@ public class BoardVO {
 	private String content;
 	private int hit;
 	private int good;
-	private Date board_Date;
-	private Date board_updateDate;
+	private Date boardDate;
+	private Date boardUpdateDate;
 	private int replyCnt;
 	
 	private List<BoardAttachVO> attachList;

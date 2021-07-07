@@ -7,6 +7,8 @@
 //여러 함수들이 메소드화 되모르 객체지향 구조에 적합
 console.log("Reply Module...."); 
 
+
+
 var replyService=(function(){
 	 
 	//댓글 등록
@@ -49,10 +51,14 @@ var replyService=(function(){
 	}//getList
 	
 		//댓글 삭제 
-		function remove(rno, callback, error){
+		function remove(rno, userId ,callback, error){
 		$.ajax({
 			type : 'delete',
 			url : '/replies/' + rno,
+			
+			data : JSON.stringify({rno : rno, userId : userId}),
+			contentType : "application/json; charset=utf-8",
+			
 			success : function(deleteResult, status, xhr){
 				if(callback){
 					callback(deleteResult);
@@ -97,25 +103,29 @@ var replyService=(function(){
 	
 	//XML이나 JSON 형태로 데이터를 수신한 경우 시간은 숫자로 표현됨
 	//시간 처리
-	function displayTime(timeValue){
-		var today=new Date();
-		var gap=today.getTime()-timeValue;
-		var dateObj = new Date(timeValue);
-		var str="";
-		
-		if(gap < (1000*60*60*24)){
-			var hh = dateObj.getHours(); //시
-			var mi = dateObj.getMinutes(); //분 
-			var ss = dateObj.getSeconds(); //초
-			return[ (hh>9?"":"0")+hh,':',(mi>9?"":"0")+mi,':',(ss>9?"":"0")+ss].join(''); 
-			
-		}else{ 
-			var yy = dateObj.getFullYear(); //년
-			var mm = dateObj.getMonth()+1; //월
-			var dd = dateObj.getDate(); //일
-			return[ yy,'/',(mm>9?"":"0")+mm,'/',(dd>9?"":"0")+dd].join(''); 
-		}
-	}//displayTime
+	//시간
+   function displayTime(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+        if (betweenTime < 1) return '방금 전';
+        if (betweenTime < 60) {
+            return `${betweenTime}분 전`;
+        }
+
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+            return `${betweenTimeHour}시간 전`;
+        }
+
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+            return `${betweenTimeDay}일 전`;
+        }
+
+        return `${Math.floor(betweenTimeDay / 365)}년 전`;
+ }
 	
 	return {
 		add : add,

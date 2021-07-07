@@ -3,7 +3,9 @@
 <mapper namespace = "org.mp.mapper.BoardMapper">
 
   <select id = "getList" resultType = "org.mp.domain.BoardVO">
-  select * from board where bno > 0 
+  select bno, USER_ID as userId, title, content, hit, good, TO_CHAR(BOARD_DATE, 'yyyy-mm-dd') as boardDate,
+  TO_CHAR(BOARD_UPDATE_DATE, 'yyyy-mm-dd') as boardUpdateDate, REPLY_CNT as replyCnt
+  from board where bno > 0
   </select>
     
 <insert id = "insert">
@@ -15,12 +17,14 @@ values(sqs_board.nextval, #{userId}, #{title}, #{content})
 <selectKey keyProperty = "bno" order = "BEFORE" resultType = "long">
 select sqs_board.nextval from dual 
 </selectKey>
-insert into board(bno, userId, title, content)
+insert into board(bno, USER_ID, title, content)
 values(#{bno}, #{userId}, #{title}, #{content})
 </insert>
   
   <select id = "read" resultType = "org.mp.domain.BoardVO">
-select * from board where bno=#{bno} 
+select bno, USER_ID as userId, title, content, hit, good, BOARD_DATE as boardDate,
+  BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
+   from board where bno=#{bno} 
 </select>
   
 <delete id = "delete">
@@ -29,10 +33,10 @@ delete from board where bno=#{bno}
 
 <update id = "update">
 update board set 
-userId=#{userId},
+USER_ID=#{userId},
 title=#{title}, 
 content=#{content},
-board_updateDate = sysdate
+BOARD_UPDATE_DATE = sysdate
 where bno=#{bno}
 </update>
 
@@ -47,12 +51,13 @@ WHERE BNO = #{bno}
 	<select id="getListWithPaging"	resultType="org.mp.domain.BoardVO">
    <![CDATA[
     select
-	*
+	bno, userId, title, content, hit, good, boardDate, boardUpdateDate, replyCnt
 	from
 	(
    		 select
    		 /*+index_desc(board pk_board1)*/
-    	 rownum rn,bno, userId, title, content, hit, good, board_date, board_updatedate, replycnt 
+    	 rownum rn, bno, USER_ID as userId, title, content, hit, good, 
+    	 BOARD_DATE as boardDate, BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
    		 from board
 			where
     	 ]]>
@@ -77,7 +82,7 @@ WHERE BNO = #{bno}
 <choose>
 <when test = "type == 'T'.toString()">title like '%' || #{keyword} || '%'</when>
 <when test = "type == 'C'.toString()">content like '%' || #{keyword} || '%'</when>
-<when test = "type == 'W'.toString()">userId like '%' || #{keyword} || '%'</when>
+<when test = "type == 'W'.toString()">USER_ID like '%' || #{keyword} || '%'</when>
 
 <!-- <when test = "type == 'W'.toString()">writer like '%' || #{keyword} || '%'</when> -->
 </choose>
@@ -98,12 +103,12 @@ bno > 0
 
 <update id = "updateReplyCnt">
 update board
-set replycnt = replycnt+#{amount}
+set REPLY_CNT = REPLY_CNT + #{amount}
 where bno = #{bno}
 </update>
 
 <select id = "getReply" resultType = "org.mp.domain.BoardVO">
-select replyCnt from board where bno = #{bno}
+select REPLY_CNT as replyCnt from board where bno = #{bno}
   </select>
   
 

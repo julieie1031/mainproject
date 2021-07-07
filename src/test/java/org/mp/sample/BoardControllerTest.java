@@ -1,9 +1,13 @@
 package org.mp.sample;
 
+import javax.sql.DataSource;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mp.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -18,12 +22,33 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml",
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
+		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
+		,"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class BoardControllerTest {
 	@Setter(onMethod_ = {@Autowired})
 	private WebApplicationContext ctx;
+	@Setter(onMethod_ = {@Autowired})
+	private MemberMapper mapper;
+	private PasswordEncoder pwencoder;
+	private DataSource ds;
 	private MockMvc mockMvc;	//MockMvc : 가짜 mvc
+	
+	   public final PasswordEncoder getPwencoder() {
+		   return pwencoder;
+	   }
+	   @Autowired
+	   public final void setPwencoder(PasswordEncoder pwencoder) {
+	   this.pwencoder = pwencoder;
+	   }
+	   public final DataSource getDs() {
+		   return ds;
+	   }
+	   @Autowired
+	   public final void setDs(DataSource ds) {
+		   this.ds = ds;
+	   }
+	
 	@Before		//모든 테스트 전에 매번 실행
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build(); 

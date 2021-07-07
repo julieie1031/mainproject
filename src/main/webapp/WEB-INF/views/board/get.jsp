@@ -2,7 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
 <link href="/resources/css/w3school.css" rel="stylesheet"
 	type="text/css" />
@@ -182,7 +185,7 @@ textarea {
 }
 
 .button2 {
-	border: 3px solid #4CAF50;
+	border: 1px solid #4CAF50;
 	color: black;
 	padding: 10px 20px;
 	text-align: center;
@@ -193,6 +196,7 @@ textarea {
 	transition-duration: 0.4s;
 	cursor: pointer;
 	float: right;
+	background : #f1f1f1;
 }
 
 .uploadResult {
@@ -226,9 +230,14 @@ textarea {
 <!-- <img src="../resources/images/community/submit.png" alt="..."
 		width="40px" height="40px" align="right" class = "img1" type = "submit"> -->
 
+
+<sec:authentication property = "principal" var = "pinfo"/>
+<sec:authorize access = "isAuthenticated()">
+<c:if test = "${pinfo.username eq board.userId }">
 <a href="#"><img src="../resources/images/community/register.png"
 	alt="..." width="40px" height="39px" class="img1" data-oper='modify'></a>
-
+</c:if>
+</sec:authorize>
 
 
 <table class="table1">
@@ -259,11 +268,12 @@ textarea {
 		<tr>
 
 			<td>댓글&nbsp;<c:out value="${getReply.replyCnt }" /></td>
-
+			<sec:authorize access = "isAuthenticated()">
 			<td><button id="addReplyBtn" style="float: right;"
 					class="button button1"
 					onclick="document.getElementById('id01').style.display='block'">댓글
 					작성</button></td>
+					</sec:authorize>
 		</tr>
 
 
@@ -319,10 +329,10 @@ textarea {
 		</header>
 		<br />
 		<div class="w3-container">
-			<label>내용</label> <input class="form-control" name='reply_content'
+			<label>내용</label> <input class="form-control" name='replyContent'
 				value='New Reply!!!!' placeholder="내용을 입력해주세요">
 			<hr>
-			<label>아이디</label> <input class="form-control" name='userId'
+			<label>아이디</label> <input class="form-control" name='userId' readonly
 				value='userId' placeholder="아이디를 입력해주세요">
 		</div>
 		<br />
@@ -387,13 +397,14 @@ textarea {
 	                        	 str += "<li data-rno='"+list[i].rno+"'>"
 	                             str += "<div><div><strong>"
 	                                   + list[i].userId
+	                                   
 	                                   + "</strong>"
 	                             str += "<small style = 'float:right'>"
 	                                   + replyService
-	                                         .displayTime(list[i].reply_date)
+	                                         .displayTime(list[i].replyDate)
 	                                   + "</small></div>"
 	                             str += "<p>"
-	                                   + list[i].reply_content
+	                                   + list[i].replyContent
 	                                   + "</p></div></li><hr>"
 	                         }
 	                        replyUL.html(str);
@@ -404,18 +415,34 @@ textarea {
 		
  	    var modal = $("#id01");  
  	//모달창 팝업
-		var modalInputReply_Content = modal.find("input[name='reply_content']");
-		var modalInputuserId = modal.find("input[name='userId']");
-		var modalInputReply_Date = modal.find("input[name='reply_date']");
+		var modalInputReplyContent = modal.find("input[name='replyContent']");
+		var modalInputUserId = modal.find("input[name='userId']");
+		var modalInputReplyDate = modal.find("input[name='replyDate']");
 		
 		var modalModBtn = $("#modalModBtn");
 		var modalRemoveBtn = $("#modalRemoveBtn");
 		var modalRegisterBtn = $("#modalRegisterBtn");
 	                        
+		//작성자 null로 선언
+	    var userId = null;
+	    
+	    //로그인 확인하고, 로그인 사용자를 userId에 넣는다
+	    <sec:authorize access = "isAuthenticated()">
+	        userId = '<sec:authentication property="principal.username"/>';
+	    </sec:authorize>
+	    
+	    //ajax 전송시, 'x-csrf-token' 같은 헤더 정보를 추가해서 csrf 토큰값 전달
+	    var csrfHeaderName = "${_csrf.headerName}";
+	    var csrfTokenValue = "${_csrf.token}";
+	    
 		//새로운 댓글 등록 버튼 클릭 시
 		$("#addReplyBtn").on("click",function(e){
 			modal.find("input").val("");
-			modalInputReply_Date.closest("div").hide();
+			
+			//replyer (security id가 담긴)
+			modal.find("input[name='userId']").val(userId); 
+			
+			modalInputReplyDate.closest("div").hide();
 			modal.find("button[id!='modalCloseBtn']").hide();
 			modalRegisterBtn.show();
 		   /*  $(".w3-modal").modal("show");    */
@@ -423,10 +450,15 @@ textarea {
 		});                    
 	                        
 
+		//ajax에 beforeSend 추가 전송 방식말고 기본설정으로 지정해서 사용
+	    $(document).ajaxSend(function(e, xhr, options){
+	        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	    });    
+		
 		modalRegisterBtn.on("click", function(e){
 			var reply = {
-					reply_content : modalInputReply_Content.val(),
-					userId : modalInputuserId.val(),
+					replyContent : modalInputReplyContent.val(),
+					userId : modalInputUserId.val(),
 					bno : bnoValue
 			};
 			
@@ -444,9 +476,9 @@ textarea {
 		$(".chat").on("click","li",function(e){
 			var rno = $(this).data("rno");
 			replyService.get(rno,function(reply){
-				modalInputReply_Content.val(reply.reply_content);
-				modalInputuserId.val(reply.userId);
-				modalInputReply_Date.val(replyService.displayTime(reply.reply_date))
+				modalInputReplyContent.val(reply.replyContent);
+				modalInputUserId.val(reply.userId);
+				modalInputReplyDate.val(replyService.displayTime(reply.replyDate))
 				.attr("readonly","readonly");
 				modal.data("rno",reply.rno);
 				
@@ -462,14 +494,35 @@ textarea {
 		// 댓글 수정/삭제 처리 이벤트
 		//수정
 		modalModBtn.on("click",function(e){
+			
+			var originalUserId = modalInputUserId.val();
+			
 			var reply = {
 					rno:modal.data("rno"),
-					reply_content:modalInputReply_Content.val()
+					replyContent:modalInputReplyContent.val(),
+					userId:modalInputUserId.val()
 					};
-			replyService.update(reply,function(result){
+			
+			if(!userId){
+	            alert("로그인 후 삭제 가능");
+	           /*  modal.modal("hide"); */
+	           $(".w3-modal").css('visibility', 'hidden');
+			location.reload();
+	            return;
+	        }
+			
+			console.log("Orginal userId : " + originalUserId); //원래 댓글 작성자
+	        if(userId != originalUserId){
+	            alert("자신이 작성한 댓글만 삭제 가능");
+	            $(".w3-modal").css('visibility', 'hidden');
+				location.reload();
+	            return;
+	        }	
+			
+			replyService.update(reply, function(result){
 				alert("댓글이 수정되었습니다");
 				$(".w3-modal").css('visibility', 'hidden');
-				location.reload();
+				location.reload();  
 				showList(pageNum); //댓글이 포함된 페이지로 이동
 			});
 		});
@@ -478,7 +531,24 @@ textarea {
 		modalRemoveBtn.on("click",function(e){
 			var rno = modal.data("rno"); 
 			
-			replyService.remove(rno, function(result){
+			 if(!userId){
+		            alert("로그인 후 삭제 가능");
+		           /*  modal.modal("hide"); */
+		           $(".w3-modal").css('visibility', 'hidden');
+				location.reload();
+		            return;
+		        }
+			 
+			 var originalUserId = modalInputUserId.val();
+		        console.log("Orginal userId : " + originalUserId); //원래 댓글 작성자
+		        if(userId != originalUserId){
+		            alert("자신이 작성한 댓글만 삭제 가능");
+		            $(".w3-modal").css('visibility', 'hidden');
+					location.reload();
+		            return;
+		        }	
+			 
+			replyService.remove(rno, originalUserId,function(result){
 				alert("댓글이 삭제되었습니다");
 				$(".w3-modal").css('visibility', 'hidden');
 				location.reload();
@@ -514,7 +584,7 @@ textarea {
 	          str +="<li class='paginate_button'><a href='"+(endNum+1)+"'>&raquo;&raquo;</a></li>";
 	       }
 	       str+= "</ul>";
-	       console.log(str);
+
 	       replyPageFooter.html(str);
 	    }//showReplyPage
 		
@@ -539,7 +609,7 @@ textarea {
 						
 						  var fileCallPath = encodeURIComponent( obj.uploadPath+ "/"+obj.uuid +"_"+obj.fileName);
 						  str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
-				          + obj.fileName + "'data-type='" + obj.image + "'><div>";
+				          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";
 				          str += "<img src='/resources/images/attach.png'>";
 				          str += "</div></li>";
 				        
@@ -549,7 +619,7 @@ textarea {
 						  var fileCallPath = encodeURIComponent( obj.uploadPath+"/s_"+ obj.uuid +"_"+obj.fileName);            
 				          var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 				          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
-				          + obj.fileName + "'data-type='" + obj.image + "'><div>";				          
+				          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";				          
 				          str += "<img src='/display?fileName="+ fileCallPath +"'>";
 				          str += "</div></li>";
 					}
@@ -607,7 +677,7 @@ textarea {
 	});//end javascript
 </script>
 
-<script src="/resources/js/reply.js?ver=3"></script>
+<script src="/resources/js/reply.js?ver=4"></script>
 
 </body>
 </html>

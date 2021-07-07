@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <link href="/resources/css/w3school.css" rel="stylesheet" type="text/css" />
 <style>
 * {
@@ -154,10 +157,17 @@ cursor : pointer;
 <%@include file="../layout/header3.jsp"%>
 
 <form role="form" action="/board/modify" method="post">
-
+<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+					
+	<sec:authentication property = "principal" var = "pinfo"/>
+	<sec:authorize access = "isAuthenticated()">
+	<c:if test = "${pinfo.username eq board.userId }">				
 	<button type="submit" data-oper='modify' class='btn_submit'>
 		<img src="../resources/images/community/submit.png">
 	</button>
+	</c:if>
+	</sec:authorize>
 	<input type="hidden" name="bno" readonly="readonly"
 		value='<c:out value = "${board.bno }"/>'>
 		<input type = "hidden" name = 'pageNum' value = '<c:out value = "${cri.pageNum }"/>'>
@@ -206,11 +216,14 @@ cursor : pointer;
 	<input type="hidden" name="userId" readonly="readonly"
 		value='<c:out value = "${board.userId }"/>'>
 		
-
+	<sec:authentication property = "principal" var = "pinfo"/>
+	<sec:authorize access = "isAuthenticated()">
+	<c:if test = "${pinfo.username eq board.userId }">		
 	<button type="submit" data-oper='remove' class='btn_remove'>
 		<img src="../resources/images/community/remove.png">
 	</button>
-
+	</c:if>
+	</sec:authorize>
 </form>
 
 <script type="text/javascript">
@@ -260,7 +273,7 @@ function fnUpload() {
 								
 								  var fileCallPath = encodeURIComponent( obj.uploadPath+ "/"+obj.uuid +"_"+obj.fileName);
 								  str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
-						          + obj.fileName + "'data-type='" + obj.image + "'><div>";
+						          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";
 						          str += "<span> "+ obj.fileName+"</span>";
 						          str += "<button class = 'button' type='button' data-file=\'"+ fileCallPath +"\' data-type='file'>&nbsp;X</button><br>";
 						          str += "<img src='/resources/images/attach.png'>";
@@ -272,7 +285,7 @@ function fnUpload() {
 								  var fileCallPath = encodeURIComponent( obj.uploadPath+"/s_"+ obj.uuid +"_"+obj.fileName);            
 						          var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 						          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
-						          + obj.fileName + "'data-type='" + obj.image + "'><div>";				       
+						          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";				       
 						          str += "<span> "+ obj.fileName+"</span>";
 						          str += "<button class = 'button' type='button' data-file=\'"+ fileCallPath +"\' data-type='file'>&nbsp;X</button><br>";
 						          str += "<img src='/display?fileName="+ fileCallPath +"'>";
@@ -300,6 +313,8 @@ function fnUpload() {
 				return true;
 			}//checkExtension
 
+			var csrfHeaderName = "${_csrf.headerName}";
+		    var csrfTokenValue = "${_csrf.token}";
 			$("input[type='file']").change(function(e) {
 				//FormData 사용
 				var formData = new FormData();
@@ -322,6 +337,9 @@ function fnUpload() {
 					contentType : false,
 					data : formData,
 					type : 'POST',
+					beforeSend: function(xhr){
+			               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+			           },
 					dataType : 'json',
 					success : function(result) {
 					
@@ -373,6 +391,14 @@ function fnUpload() {
 				   }); //uploadResult click event
 			
 		});//end javascript
+	
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ajaxSend(function(e, xhr, options) 
+		{ 
+		   xhr.setRequestHeader(header, token); 
+		});
+
 </script>
 
 </body>

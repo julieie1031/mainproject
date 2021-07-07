@@ -3,7 +3,7 @@
 <mapper namespace = "org.mp.mapper.BoardAttachMapper">
 
 <insert id = "insert">
-		insert into attach (uuid, uploadPath, fileName, fileType, bno)
+		insert into attach (uuid, UPLOAD_PATH, FILE_NAME, FILE_TYPE, bno)
 		values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno})
 	</insert>
 	
@@ -16,11 +16,12 @@
 	</delete>
 	
 	<select id = "findByBno" resultType="org.mp.domain.BoardAttachVO">
-		select * from attach where bno = #{bno}
+		select uuid, UPLOAD_PATH as uploadPath, FILE_NAME as fileName, FILE_TYPE as fileType, bno
+		 from attach where bno = #{bno}
 	</select>
 	
 <select id = "getOldFiles" resultType = "org.mp.domain.BoardAttachVO">
-		select * from attach where uploadpath = to_char(sysdate-1, 'yyyy\mm\dd')
+		select * from attach where UPLOAD_PATH = to_char(sysdate-1, 'yyyy\mm\dd')
 	</select>
 	
 	<delete id = "deleteAttach">

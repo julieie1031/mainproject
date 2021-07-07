@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <style>
 * {
 	margin: 0;
@@ -467,7 +468,7 @@ a {
 				<tr>
 					<td colspan="5" style="padding-bottom: 25px;"><a class='move'
 						href='<c:out value = "${listView.bno }"/>'>
-							${listView.board_updateDate}</td>
+							${listView.boardUpdateDate}</td>
 				</tr>
 				<tr>
 					<td width="15%"><img
@@ -593,6 +594,12 @@ a {
 											});
 
 						});//end javascript
+						var token = $("meta[name='_csrf']").attr("content");
+						var header = $("meta[name='_csrf_header']").attr("content");
+						$(document).ajaxSend(function(e, xhr, options) 
+						{ 
+						   xhr.setRequestHeader(header, token); 
+						});
 	</script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

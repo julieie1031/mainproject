@@ -9,9 +9,9 @@ public class ReplyVO {
 	private Long rno;
 	private Long bno;
 	private String userId;
-	private String reply_content;
-	private Date reply_date;
-	private Date reply_updateDate;
+	private String replyContent;
+	private Date replyDate;
+	private Date replyUpdateDate;
 
 	
 }

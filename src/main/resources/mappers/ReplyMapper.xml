@@ -3,12 +3,14 @@
 <mapper namespace = "org.mp.mapper.ReplyMapper">
 
  <insert id = "insert">
-insert into reply(rno, bno, userId, reply_content)
-values(sqs_reply.nextval, #{bno}, #{userId}, #{reply_content})
+insert into reply(rno, bno, USER_ID, REPLY_CONTENT)
+values(sqs_reply.nextval, #{bno}, #{userId}, #{replyContent})
+
 </insert>
 
 <select id = "read" resultType = "org.mp.domain.ReplyVO">
-select * from reply where rno=#{rno}
+select rno, bno, REPLY_CONTENT as replyContent, USER_ID as userId, REPLY_DATE as replyDate, REPLY_UPDATE_DATE as replyUpdateDate 
+from reply where rno=#{rno}
 </select>
 
 <delete id = "delete">
@@ -17,9 +19,9 @@ delete from reply where rno=#{rno}
 
 <update id = "update">
 update reply set 
-reply_content=#{reply_content},
+REPLY_CONTENT=#{replyContent},
 <!-- userId=#{userId},  -->
-reply_updateDate = sysdate
+REPLY_UPDATE_DATE = sysdate
 where rno=#{rno}
 </update>
 
@@ -32,11 +34,11 @@ delete from reply where bno=#{bno}
 <select id = "getListWithPaging" resultType = "org.mp.domain.ReplyVO">
 
 <![CDATA[
-select rno, bno, reply_content, userId, reply_Date, reply_updateDate
+select *
 from
 (
 select /*+ INDEX(tbl_reply idx_reply)*/
-rownum rn, rno, bno, reply_content, userId, reply_Date, reply_updateDate 
+rownum rn, rno, bno, REPLY_CONTENT as replyContent, USER_ID as userId, REPLY_DATE as replyDate, REPLY_UPDATE_DATE as replyUpdateDate
 from reply
 where bno=#{bno}
 and rno > 0
