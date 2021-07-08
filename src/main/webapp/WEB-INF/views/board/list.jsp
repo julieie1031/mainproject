@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
 * {
 	margin: 0;
@@ -118,17 +119,48 @@ a {
 	height: 179px;
 }
 
+.searchDiv{
+padding-top: 10px;
+    font-size: 13px;
+    clear: both;
+    text-align: center;
+}
 
+.searchbar{
+  width: 230px;
+  height: 30px;
+  background: #f4f4f4;
+  border: none;
+  font-size: 10pt;
+  color: #787878;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.searchdiv .icon{
+  position: absolute;
+  left: 143px;
+  margin-top: 13px;
+  z-index: 1;
+  color: #4f5b66;
+}
+
+#searchForm table{
+
+margin-left: 15px;
+}
 </style>
 
 
 <%@include file="../layout/header2.jsp"%>
 
-<form id='searchForm' action="/board/list" method='get'>
-	<table>
+<div class="searchDiv">
+<form id='searchForm' action="/hotel/list" method='get'>
+	<table >
 		<tr class="img1">
-			<td><select name='type' style="width: 110px; height: 23px">
-					<option value=""
+			<td><select name='type' style="width: 110px; height: 30px; border: none; font-size: 10pt; color: #787878; background: #f4f4f4;">
+										<option value=""
 						<c:out value = "${pageMaker.cri.type==null?'selected':'' }"/>>--</option>
 					<option value="T"
 						<c:out value = "${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
@@ -142,27 +174,24 @@ a {
 					<option value="TW"
 						<c:out value = "${pageMaker.cri.type eq 'TW'?'selected':'' }"/>>제목
 						or 작성자</option>
-					
 			</select></td>
-
-			<td><input type="text" name='keyword'
-				style="width: 170px; height: 23px"
+			<span class="icon"><i class="fa fa-search" style = "margin-left : 10px; margin-top : 3px"></i></span>
+			<td><input type="text" name='keyword' class="searchBar"
+				placeholder="검색어를 입력해주세요"
 				value='<c:out value = "${pageMaker.cri.keyword }"/>' /> <input
 				type='hidden' name='pageNum'
 				value='<c:out value = "${pageMaker.cri.pageNum }"/>' /> <input
 				type='hidden' name='amount'
-				value='<c:out value = "${pageMaker.cri.amount }"/>' /></td>
+				value='<c:out value = "${pageMaker.cri.amount }"/>' />
 
-			<td>
-				<button class="button">
-					<img src="../resources/images/community/search.png" width=40px
-						height=40px style="cursor: pointer" />
-				</button>
-			</td>
+
+
 			</form>
 
 
-			<td style="padding-left: 110px;"><a href="/board/register"><img
+
+
+			<td style="padding-left: 80px;"><a href="/board/register"><img
 					src="../resources/images/community/register.png" alt="..."
 					width="40px" height="39px"
 					style="margin-right: 10px; margin-top: 1px;"></a></td>
@@ -174,7 +203,7 @@ a {
 				width="500px" height="150px"></td>
 		</tr> -->
 	</table>
-
+</div>
 <img src="../resources/images/banner2.png" alt="..." width="520px" height="150px">
 
 	<div class="carousel-item active"></div>
