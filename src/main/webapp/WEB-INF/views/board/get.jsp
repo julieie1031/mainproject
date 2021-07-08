@@ -92,7 +92,7 @@ textarea:focus {
 .img1 {
 	position: relative;
 	float: right;
-	margin-top: 4px;
+	margin-top: 15px;
 	margin-right: 7px;
 	margin-bottom: 6px;
 }

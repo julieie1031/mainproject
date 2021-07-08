@@ -67,7 +67,7 @@ textarea {
 	cursor: pointer;
 	outline: 0;
 	float: right;
-	margin-top: 4px;
+	margin-top: 16px;
 	margin-bottom: 9px;
 	margin-right: 10px;
 	outline: 0;

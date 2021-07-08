@@ -191,10 +191,10 @@ margin-left: 15px;
 
 
 
-			<td style="padding-left: 80px;"><a href="/board/register"><img
+			<td style="padding-left: 77px;"><a href="/board/register"><img
 					src="../resources/images/community/register.png" alt="..."
 					width="40px" height="39px"
-					style="margin-right: 10px; margin-top: 1px;"></a></td>
+					style="margin-right: 10px; margin-top: 2px;"></a></td>
 
 		</tr>
 
