@@ -2,12 +2,12 @@
  * 
  */
 
-var token = $("meta[name='_csrf']").attr("content");
+/*var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 $(document).ajaxSend(function(e, xhr, options) 
 { 
    xhr.setRequestHeader(header, token); 
-});
+});*/
 
 console.log("Review Module...")
 var reviewService = (function(){

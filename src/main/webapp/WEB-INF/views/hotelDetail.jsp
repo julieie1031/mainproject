@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <link href="/resources/css/w3school.css" rel="stylesheet"
 	type="text/css" />
 
-<meta name="_csrf" content="${_csrf.token}">
-<meta name="_csrf_header" content="${_csrf.headerName}">
 <style>
 *{margin: 0; padding: 0;}
 .table-x {
@@ -413,10 +412,20 @@ text-align:center;
 		var modalRemoveBtn = $("#modalRemoveBtn");
 		var modalRegisterBtn = $("#modalRegisterBtn");
 		
+		var reviewer = null;
+		<sec:authorize access="isAuthenticated()">
+          reviewer='<sec:authentication property="principal.username"/>';
+          </sec:authorize>
+
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+		
+		
 		//리뷰등록 클릭 시 
 		$("#addReviewBtn").on("click",function(e){
 			
 			modal.find("input").val("");
+			modal.find("input[name='reviewer']").val(reviewer);
 			//닫기 버튼 빼고 다 숨김
 			modal.find("button[id !='modalCloseBtn']").hide();
 			//등록 버튼 보여줌
@@ -425,6 +434,11 @@ text-align:center;
 			/* $(".w3-modal").modal("show"); */
 			
 		}); //addReviewBtn 클릭 시
+		
+		
+		$(document).ajaxSend(function(e,xhr,options){
+			xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+		});
 		
 		//리뷰 추가 처리
 		modalRegisterBtn.on("click",function(e){
@@ -471,8 +485,20 @@ text-align:center;
 		
 		//리뷰 수정,삭제 이벤트 처리
 		modalModBtn.on("click",function(e){
+			var originalReviewer = modalInputReviewer.val();
+			var review= {reno:modal.data("reno"), review:modalInputReview.val(),star:starValue,reviewer:originalReviewer};
 			
-			var review= {reno:modal.data("reno"), review:modalInputReview.val(),star:starValue};
+			if(!reviewer){
+                alert("로그인 후 수정 가능")
+                modal.modal("hide");
+                return;
+             }
+             console.log("original Reviewer:"+originalReviewer)
+             if(reviewer !=originalReviewer){
+                alert("자신이 작성한 댓글만 수정 가능")
+                modal.modal("hide");
+                return;
+             }
 			
 			reviewService.update(review,function(result){
 				alert(result);
@@ -484,9 +510,21 @@ text-align:center;
 		
 		
 		modalRemoveBtn.on("click",function(e){
+			var originalReviewer = modalInputReviewer.val();
 			
 			var reno = modal.data("reno");
-			
+			console.log("reviewer: "+reviewer);
+			if(!reviewer){
+                alert("로그인 후 수정 가능")
+                modal.modal("hide");
+                return;
+             }
+             console.log("original Reviewer:"+originalReviewer)
+             if(reviewer !=originalReviewer){
+                alert("자신이 작성한 댓글만 삭제 가능")
+                modal.modal("hide");
+                return;
+             }
 			reviewService.remove(reno,function(result){
 				
 				alert(result);
