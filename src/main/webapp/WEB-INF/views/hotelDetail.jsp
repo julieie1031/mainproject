@@ -334,8 +334,7 @@ text-align:center;
 			
 			reviewService.getList({restId:restIdValue,page:page||1},function(list){
 				var str = "";
-				length = list.length;
-				console.log("aaa"+length);
+				length = list.length;;
 				if(list == null || list.length == 0){
 					reviewUL.html("");
 					return;
@@ -450,7 +449,6 @@ text-align:center;
 					star:starValue
 					};
 			reviewService.add(review,function(result){
-				alert(result);
 				
 				modal.find("input").val("");
 				$(".w3-modal").css('visibility', 'hidden');
@@ -501,7 +499,7 @@ text-align:center;
              }
 			
 			reviewService.update(review,function(result){
-				alert(result);
+			
 				$(".w3-modal").css('visibility', 'hidden');
 				location.reload();
 				showList(1);
@@ -527,7 +525,6 @@ text-align:center;
              }
 			reviewService.remove(reno,function(result){
 				
-				alert(result);
 				$(".w3-modal").css('visibility', 'hidden');
 				location.reload();
 				showList(1);

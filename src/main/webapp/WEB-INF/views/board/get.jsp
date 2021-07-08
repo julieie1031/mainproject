@@ -4,8 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="_csrf" content="${_csrf.token}">
-<meta name="_csrf_header" content="${_csrf.headerName}">
 <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
 <link href="/resources/css/w3school.css" rel="stylesheet"
 	type="text/css" />
