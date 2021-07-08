@@ -156,7 +156,7 @@ margin-left: 15px;
 <%@include file="../layout/header2.jsp"%>
 
 <div class="searchDiv">
-<form id='searchForm' action="/hotel/list" method='get'>
+<form id='searchForm' action="/board/list" method='get'>
 	<table >
 		<tr class="img1">
 			<td><select name='type' style="width: 110px; height: 30px; border: none; font-size: 10pt; color: #787878; background: #f4f4f4;">
