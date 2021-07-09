@@ -466,10 +466,11 @@ text-align:center;
 		
 		//특정 리뷰 클릭
 		$(".chat").on("click","li",function(e){
-			
+			var originalReviewer = modalInputReviewer.val();
 			var reno = $(this).data("reno");
 			
 			reviewService.get(reno,function(review){
+				
 				
 				
 				modalInputReview.val(review.review);
@@ -477,8 +478,16 @@ text-align:center;
 				modal.data("reno",review.reno);
 				
 				modal.find("button[id !='modalCloseBtn']").hide();
-				modalModBtn.show();
-				modalRemoveBtn.show();
+				if(reviewer==null || reviewer !=originalReviewer){
+					
+					modalModBtn.hide();
+					modalRemoveBtn.hide();
+	             }else{
+	            	 modalModBtn.show();
+	 				 modalRemoveBtn.show();
+	             }
+				
+				
 				document.getElementById('id01').style.display='block'
 				
 				
@@ -490,18 +499,6 @@ text-align:center;
 		modalModBtn.on("click",function(e){
 			var originalReviewer = modalInputReviewer.val();
 			var review= {reno:modal.data("reno"), review:modalInputReview.val(),star:starValue,reviewer:originalReviewer};
-			
-			if(!reviewer){
-                alert("로그인 후 수정 가능")
-                modal.modal("hide");
-                return;
-             }
-             console.log("original Reviewer:"+originalReviewer)
-             if(reviewer !=originalReviewer){
-                alert("자신이 작성한 댓글만 수정 가능")
-                modal.modal("hide");
-                return;
-             }
 			
 			reviewService.update(review,function(result){
 			
