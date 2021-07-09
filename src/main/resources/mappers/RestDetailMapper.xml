@@ -30,4 +30,37 @@ WHERE room_id = #{roomId}
 
 </select>
 
+<resultMap type="org.mp.domain.RestVO" id="hotelMap">
+<id column = "rest_id" property = "restId"/>
+<result column="rest_id"  property="restId"/>
+<result column="rest_name"  property="restName"/>
+<result column="rest_address"  property="restAddress"/>
+<result column="rest_phone"  property="restPhone"/>
+<result column="rest_content"  property="restContent"/>
+<result column="rest_image"  property="restImage"/>
+<collection property="detailList" resultMap="hotelDetail"></collection>
+</resultMap>
+
+<resultMap type="org.mp.domain.RestDetailVO" id="hotelDetail">
+<result column="ROOM_ID"  property="roomId"/>
+<result column="ROOM_NAME"  property="roomName"/>
+<result column="ROOM_PEOPLE"  property="roomPeople"/>
+<result column="ROOM_DESCRIPTION"  property="roomDescription"/>
+<result column="ROOM_PRICE"  property="roomPrice"/>
+<result column="ROOM_IMAGE"  property="roomImage"/>
+<result column="REST_ID"  property="restId"/>
+</resultMap>
+
+<select id="read" resultMap="hotelMap">
+
+select
+hotel.rest_id AS restId<!-- , rest_name AS restName, room_name AS roomName -->
+from 
+REST hotel left outer join REST_DETAIL detail on hotel.rest_id = detail.rest_id
+<!-- where hotel.rest_id=#{restId} and  detail.room_name=#{roomName}
+ -->
+ where hotel.rest_id= 1 and <!-- detail.room_name='디럭스 더블' -->
+ 
+</select>
+
 </mapper>

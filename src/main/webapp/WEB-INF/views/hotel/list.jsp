@@ -168,7 +168,7 @@ border-bottom:1px solid #eee;
 </style>
 
 
-<%@include file="layout/header2.jsp"%>
+<%@include file="../layout/header2.jsp"%>
 
 		<div class="carousel-item active">
 			
@@ -324,6 +324,6 @@ border-bottom:1px solid #eee;
 						});//end javascript
 	</script>
 
- <%@include file="layout/footer.jsp"%>
+ <%@include file="../layout/footer.jsp"%>
 </body>
 </html>

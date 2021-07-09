@@ -165,7 +165,7 @@ text-align:center;
    	font-size:13px;
 }
 </style>
-<%@include file="layout/header2.jsp"%>
+<%@include file="../layout/header2.jsp"%>
 
 <div>
 
@@ -601,7 +601,7 @@ text-align:center;
 <!-- 리뷰 끝 -->
 
 
-<%@include file="layout/footer.jsp"%>
+<%@include file="../layout/footer.jsp"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 

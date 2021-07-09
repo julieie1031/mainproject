@@ -15,6 +15,7 @@ public class ReservationVO {
 	private String restName;
 	private String startDate;
 	private String endDate;
+	private String userId;
 	private Long restId;
 	
 }

@@ -36,7 +36,7 @@ a {
 }
 </style>
 
-<%@include file="layout/header2.jsp"%>
+<%@include file="../layout/header2.jsp"%>
 
 
 
@@ -68,7 +68,7 @@ ${endDate}
 <button type="button" id="apibtn"><img src="/resources/images/hotel/paysmall.png"></button>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-<%@include file="layout/footer.jsp"%>
+<%@include file="../layout/footer.jsp"%>
 
 
 </body>
