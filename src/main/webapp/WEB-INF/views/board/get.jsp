@@ -336,9 +336,13 @@ textarea {
 		<br />
 
 		<footer class="w3-container w3-teal">
-
+			<sec:authentication property = "principal" var = "pinfo"/>
+	<sec:authorize access = "isAuthenticated()">
+	<c:if test = "${pinfo.username eq board.userId }">	
 			<button id='modalModBtn' type="button" class="button2">수정</button>
 			<button id='modalRemoveBtn' type="button" class="button2">삭제</button>
+			</c:if>
+	</sec:authorize>
 			<button id='modalRegisterBtn' type="button" class="button2">등록</button>
 			<!-- <button id='modalCloseBtn' type="button" >닫기</button> -->
 
@@ -502,7 +506,7 @@ textarea {
 					};
 			
 			if(!userId){
-	            alert("로그인 후 삭제 가능");
+	            alert("로그인 후 수정 가능");
 	           /*  modal.modal("hide"); */
 	           $(".w3-modal").css('visibility', 'hidden');
 			location.reload();
@@ -511,7 +515,7 @@ textarea {
 			
 			console.log("Orginal userId : " + originalUserId); //원래 댓글 작성자
 	        if(userId != originalUserId){
-	            alert("자신이 작성한 댓글만 삭제 가능");
+	            alert("자신이 작성한 댓글만 수정 가능");
 	            $(".w3-modal").css('visibility', 'hidden');
 				location.reload();
 	            return;
