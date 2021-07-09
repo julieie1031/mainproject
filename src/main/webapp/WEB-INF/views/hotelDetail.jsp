@@ -419,7 +419,12 @@ text-align:center;
 		var csrfHeaderName="${_csrf.headerName}";
 		var csrfTokenValue = "${_csrf.token}";
 		
-		
+		if(reviewer != null){
+	    	$("#addReviewBtn").show();
+	    }else{
+	    	
+	    	$("#addReviewBtn").hide();
+	    }
 		//리뷰등록 클릭 시 
 		$("#addReviewBtn").on("click",function(e){
 			
