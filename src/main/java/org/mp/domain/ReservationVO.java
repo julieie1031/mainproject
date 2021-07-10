@@ -9,7 +9,7 @@ public class ReservationVO {
 	private String roomName;
 	private String roomPeople;
 	private int roomPrice;
-	private int restPhone;
+	private String restPhone;
 	private String dogType;
 	private int dogNumber;
 	private String restName;

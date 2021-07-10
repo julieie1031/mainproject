@@ -42,28 +42,27 @@ a {
 
 
 
-<c:forEach var="ro" items="${room}">
 <div class="jb-x-small">
 ${vo.restName}<br>
-${ro.roomName} |
-${ro.roomPeople} |
-${ro.roomPrice}원<br>
+${room[0].roomName} |
+${room[0].roomPeople} |
+${room[0].roomPrice}원<br>
 ${startDate} ~
 ${endDate}
 </div>
-</c:forEach>
 
 <script src="/resources/js/kakao.js" type="text/javascript"></script>
 
 <input type="hidden" name="reserId" value="${RESER_ID}"/>
-<input type="hidden" name="restName" value="${restName}"/>
-<input type="hidden" name="roomName" value="${roomName}"/>
-<input type="hidden" name="roomPhone" value="${roomPhone}"/>
-<input type="hidden" name="roomPeople" value="${roomPeople}"/>
-<input type="hidden" name="roomprice" value="${roomprice}"/>
-<input type="hidden" name="startDate" value="${startDate}"/>
-<input type="hidden" name="endDate" value="${endDate}"/>
-<label class="jb-x-small">견&nbsp;&nbsp;&nbsp;&nbsp;종:&nbsp;</label><input type="text" name="dogType" id="dotType"><br>
+<input type="hidden" id="restName" name="restName" value="${vo.restName}"/>
+<input type="hidden" id="restPhone" name="restPhone" value="${vo.restPhone}"/>
+<input type="hidden" id="restId" name="restId" value="${vo.restId}"/>
+<input type="hidden" id="roomName" name="roomName" value="${room[0].roomName}"/>
+<input type="hidden" id="roomPeople" name="roomPeople" value="${room[0].roomPeople}"/>
+<input type="hidden" id="roomPrice" name="roomPrice" value="${room[0].roomPrice}"/>
+<input type="hidden" id="startDate" name="startDate" value="${startDate}"/>
+<input type="hidden" id="endDate" name="endDate" value="${endDate}"/>
+<label class="jb-x-small">견&nbsp;&nbsp;&nbsp;&nbsp;종:&nbsp;</label><input type="text" name="dogType" id="dogType"><br>
 <label class="jb-x-small">마릿 수: </label><input type="text" name="dogNumber" id="dogNumber"><br>
 <button type="button" id="apibtn"><img src="/resources/images/hotel/paysmall.png"></button>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

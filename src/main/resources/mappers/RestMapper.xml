@@ -11,6 +11,7 @@
         SELECT  
             rest_id AS restId,
             rest_name AS restName,
+            rest_phone AS restPhone,
             rest_address AS restAddress,
             rest_content AS restContent,
             rest_image AS restImage
@@ -24,6 +25,7 @@
         SELECT
             rest_id AS restId,
             rest_name AS restName,
+            rest_phone AS restPhone,
             rest_content AS restContent,
             rest_image AS restImage
         FROM rest 

@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.inject.Inject;
 
@@ -47,20 +48,24 @@ public class ReservationController {
 			@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model) {
 		model.addAttribute("vo", service2.detailRest(restId));
 		model.addAttribute("room", service3.roomRestDetail(roomId));
-		model.addAttribute("vo", service2.detailRest(restId));
 		model.addAttribute("startDate",startDate);
 		model.addAttribute("endDate",endDate);
 	}
 
 	@RequestMapping("/success.cls")
 	public ModelAndView service(ModelAndView mav) {
+		
 		mav.setViewName("/reserve/kakao");
 		return mav;
 	}
 
 	@RequestMapping("/kakaopay.cls")
 	@ResponseBody
-	public String kakaopay() {
+	public String kakaopay(
+			@RequestParam("restName") String restName, 
+			@RequestParam("roomPrice") int roomPrice,
+			ReservationVO reservationVO
+			){
 		try {
 			URL address = new URL("https://kapi.kakao.com/v1/payment/ready"); // 주소정의 = https://호스트(도메인)/POST(맵핑주소)
 			HttpURLConnection conn = (HttpURLConnection) address.openConnection(); // 서버연결을 위해 필요
@@ -68,8 +73,9 @@ public class ReservationController {
 			conn.setRequestProperty("Authorization", "KakaoAK 02b574146e39dedbace92c38d2f3bf30"); // 인증을 위해 필요
 			conn.setRequestProperty("content-type", "application/x-www-form-urlencoded; charset=utf-8"); // 컨텐츠타입 정의
 			conn.setDoOutput(true); // DoOutput은 연결을 통해 서버를 통해 전해줄게 있는지 여부에 따라 설정 DoInput은 디폴트값이 true
-			String param = "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=초코파이&quantity=1&total_amount=2200"
-					+ "&vat_amount=200&tax_free_amount=0&approval_url=http://localhost:8080/reserve/success.cls&fail_url=http://localhost:8080/fail&cancel_url=http://localhost:8080/cancel";
+			String encodeRestName = URLEncoder.encode(restName, "UTF-8");
+			String param = "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name="+encodeRestName+"&quantity=1&total_amount="+roomPrice+
+					 "&vat_amount="+(roomPrice/10)+"&tax_free_amount=0&approval_url=http://localhost:8080/reserve/success.cls&fail_url=http://localhost:8080/fail&cancel_url=http://localhost:8080/cancel";
 			OutputStream outstream = conn.getOutputStream();
 			DataOutputStream dataoutstream = new DataOutputStream(outstream); // 데이터를 줘야하기 때문에 dataoutputstrem사용
 			dataoutstream.writeBytes(param); // 바이트로 알아서 형변환을 하기 위해 (input스트림 , output스트림은 바이트형식으로 받아야함)
@@ -80,6 +86,16 @@ public class ReservationController {
 			InputStream instream;
 			if (resultcode == 200) {
 				instream = conn.getInputStream();
+			
+				reservationVO.setUserId("TEST");
+
+				
+				try {
+					service.regist(reservationVO);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
 				instream = conn.getErrorStream();
 			}
