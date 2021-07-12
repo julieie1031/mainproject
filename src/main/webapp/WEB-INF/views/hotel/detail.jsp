@@ -177,6 +177,9 @@ text-align:center;
          <tr align="left">
              <td style="font-weight:bold"class="text-a">${vo.restName}</td>
          </tr>
+         <tr>
+         	<td><div id="starView" style="float: left;">★</div>${vo.starAvg }</td>
+         </tr>
      
          <tr align="left">
          	<td>${vo.restContent}</td>

@@ -2,6 +2,7 @@ package org.mp.controller;
 
 import java.util.List;
 
+import org.mp.domain.BoardVO;
 import org.mp.domain.Criteria;
 import org.mp.domain.ReviewVO;
 import org.mp.service.ReviewService;
@@ -10,12 +11,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -38,6 +41,12 @@ public class ReviewController {
 	public ResponseEntity<String> create(@RequestBody ReviewVO vo){ //requestbody를 이용하여 json 데이터를 reviewVO 타입으로 변환
 		log.info("ReviewVO : " + vo);
 		int insertCount = service.register(vo);
+		
+		if(insertCount ==1) {
+			float starResult = service.starAvg(vo.getRestId());
+			if(starResult == 1) return new ResponseEntity<>("success",HttpStatus.OK);
+            else return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
 		log.info("Review INSERT COUNT : " + insertCount);
 		
@@ -96,6 +105,7 @@ public class ReviewController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
+	
 	
 	
 

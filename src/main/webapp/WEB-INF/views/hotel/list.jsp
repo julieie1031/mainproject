@@ -164,6 +164,10 @@ border-bottom:1px solid #eee;
 
 }
 
+#starView{
+	color: gold;
+  }
+
 
 </style>
 
@@ -213,13 +217,14 @@ border-bottom:1px solid #eee;
     
         <c:forEach var="row" items="${list}">
         <tr>
-          <td>
+          <td style="width: 180px;">
                 <a href='<c:out value = "${row.restId }"/>' class="move">
                     <img src="../resources/images/hotel/${row.restImage}" width="120ox" height="110px">
-                </a>  
+                </a>
             </td>
             <td>
-                <a href='<c:out value = "${row.restId }"/>' class="move">${row.restName}</a>
+                <a href='<c:out value = "${row.restId }"/>' class="move">${row.restName}</a><br>
+                <div id="starView" style="float: left;">★</div> ${row.starAvg }
             </td>
             <td class="text-x" colspan="5">
             ${row.restAddress}

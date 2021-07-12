@@ -19,6 +19,8 @@ public interface ReviewMapper {
 	public List<ReviewVO> rgetListWithPaging(
 			@Param("cri") Criteria cri,
 			@Param("restId") Long restId);
+	
+	public int starAvg(Long restId);
 			
 	
 	

@@ -27,7 +27,8 @@
             rest_name AS restName,
             rest_phone AS restPhone,
             rest_content AS restContent,
-            rest_image AS restImage
+            rest_image AS restImage,
+            star_avg AS starAvg
         FROM rest 
         WHERE  rest_id = #{restId}
     </select>
@@ -57,7 +58,8 @@
    		 select
    		 /*+index_desc(board pk_board1)*/
     	 rownum rn,rest_id AS restId,rest_name AS restName,rest_address AS restAddress
-    	 ,rest_phone AS restPhone,rest_content AS restContent,rest_image AS restImage
+    	 ,rest_phone AS restPhone,rest_content AS restContent,rest_image AS restImage,
+            star_avg AS starAvg
    		 from REST
 			where 
     ]]>

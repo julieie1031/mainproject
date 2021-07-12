@@ -4,30 +4,74 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="mappers.RestMapper">
+<mapper namespace="org.mp.mapper.RestMapper">
     <!-- 01. 상품 전체 목록 -->
   
-    <select id="listRest" resultType="Rest">
+    <select id="listRest" resultType="org.mp.domain.RestVO">
         SELECT  
             rest_id AS restId,
             rest_name AS restName,
+            rest_phone AS restPhone,
             rest_address AS restAddress,
-            rest_price AS restPrice,
             rest_content AS restContent,
             rest_image AS restImage
         FROM rest 
-        ORDER BY rest_name
+        where 
+        <include refid="criteria"></include>
+        restId > 0
     </select>
     <!-- 02. 상품 상세보기 -->
-    <select id="detailRest" parameterType="String" resultType="Rest">
+    <select id="detailRest" parameterType="Long" resultType="org.mp.domain.RestVO">
         SELECT
             rest_id AS restId,
             rest_name AS restName,
-            rest_number AS restNumber,
-            rest_price AS restPrice,
+            rest_phone AS restPhone,
             rest_content AS restContent,
-            rest_image AS restImage
+            rest_image AS restImage,
+            star_avg AS starAvg
         FROM rest 
         WHERE  rest_id = #{restId}
     </select>
+    
+    
+    	<!-- 게시물의 검색과 숫자 카운트에 공통으로 사용되므로 sql조각으로 분리 -->
+<sql id = "criteria">
+<trim prefix = "(" suffix = ")AND " prefixOverrides = "OR">
+<foreach item = 'type' collection = "typeArr">
+<trim prefix = "OR">
+<choose>
+<when test = "type == 'N'.toString()">rest_name like '%' || #{keyword} || '%'</when>
+<when test = "type == 'A'.toString()">rest_address like '%' || #{keyword} || '%'</when>
+</choose>
+</trim>
+</foreach>
+</trim>
+</sql>  
+    
+    <!-- 페이징처리와 검색 기능 -->
+	<select id="listRestPaging"	resultType="org.mp.domain.RestVO">
+   <![CDATA[
+    select
+	*
+	from
+	(
+   		 select
+   		 /*+index_desc(board pk_board1)*/
+    	 rownum rn,rest_id AS restId,rest_name AS restName,rest_address AS restAddress
+    	 ,rest_phone AS restPhone,rest_content AS restContent,rest_image AS restImage,
+            star_avg AS starAvg
+   		 from REST
+			where 
+    ]]>
+   			
+   			<include refid="criteria"></include>
+   	<![CDATA[
+   		 rownum<= #{pageNum} * #{amount}
+    	)
+		where rn > (#{pageNum}-1) *  #{amount}
+	]]>
+</select>
+  
+
+    
 </mapper>	

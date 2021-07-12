@@ -13,4 +13,5 @@ public interface ReviewService {
 	public int remove(Long reno);
 	
 	public List<ReviewVO> getList(Criteria cri,Long restId);
+	public int starAvg(Long restId);
 }

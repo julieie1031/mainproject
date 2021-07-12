@@ -49,4 +49,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return mapper.rgetListWithPaging(cri, restId);
 	}
 
+	@Override
+	public int starAvg(Long restId) {
+		log.info("starAvg"+restId);
+		return mapper.starAvg(restId);
+	}
+
 }

@@ -26,4 +26,16 @@
 		where rest_id=#{restId}
 		order by reno asc
 	</select>
+	
+	<!-- 리뷰 평점 -->
+	<update id="starAvg">
+		update rest set star_avg=
+		(
+		select round(avg(star),1)star_avg
+		from review
+		group by rest_id
+		having rest_id = #{restId}
+		)
+		where rest_id = #{restId}
+	</update>
 </mapper>

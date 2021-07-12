@@ -13,6 +13,7 @@ public class RestVO {
 	private String restPhone;
 	private String restContent;
 	private String restImage;
+	private float starAvg;
 	
 	private List<RestDetailVO> detailList;
 }
