@@ -522,7 +522,6 @@ text-align:center;
 		
 		//리뷰 수정,삭제 이벤트 처리
 		modalModBtn.on("click",function(e){
-			var originalReviewer = modalInputReviewer.val();
 			var review= {reno:modal.data("reno"), review:modalInputReview.val(),star:starValue,reviewer:originalReviewer};
 			
 			reviewService.update(review,function(result){
@@ -535,21 +534,7 @@ text-align:center;
 		
 		
 		modalRemoveBtn.on("click",function(e){
-			var originalReviewer = modalInputReviewer.val();
-			
 			var reno = modal.data("reno");
-			console.log("reviewer: "+reviewer);
-			if(!reviewer){
-                alert("로그인 후 수정 가능")
-                modal.modal("hide");
-                return;
-             }
-             console.log("original Reviewer:"+originalReviewer)
-             if(reviewer !=originalReviewer){
-                alert("자신이 작성한 댓글만 삭제 가능")
-                modal.modal("hide");
-                return;
-             }
 			reviewService.remove(reno,function(result){
 				
 				$(".w3-modal").css('visibility', 'hidden');

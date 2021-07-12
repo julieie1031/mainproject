@@ -61,7 +61,7 @@ public class ReviewController {
 		Criteria cri = new Criteria(page,10);
 		log.info(cri);
 		
-		float starResult = service.starAvg(restId);
+		service.starAvg(restId);
 		return new ResponseEntity<>(service.getList(cri, restId),HttpStatus.OK);
 	}
 	
