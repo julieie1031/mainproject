@@ -41,13 +41,6 @@ public class ReviewController {
 	public ResponseEntity<String> create(@RequestBody ReviewVO vo){ //requestbody를 이용하여 json 데이터를 reviewVO 타입으로 변환
 		log.info("ReviewVO : " + vo);
 		int insertCount = service.register(vo);
-		
-		if(insertCount ==1) {
-			float starResult = service.starAvg(vo.getRestId());
-			if(starResult == 1) return new ResponseEntity<>("success",HttpStatus.OK);
-            else return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
 		log.info("Review INSERT COUNT : " + insertCount);
 		
 		return insertCount == 1? new ResponseEntity<>("success",HttpStatus.OK)
@@ -67,6 +60,8 @@ public class ReviewController {
 		log.info("getList");
 		Criteria cri = new Criteria(page,10);
 		log.info(cri);
+		
+		float starResult = service.starAvg(restId);
 		return new ResponseEntity<>(service.getList(cri, restId),HttpStatus.OK);
 	}
 	

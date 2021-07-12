@@ -257,6 +257,8 @@ text-align:center;
 		<a href="#" value="4">★</a> 
 		<a href="#" value="5">★</a> <p>
 		
+		<P id="star2" style="padding: 0.01em 16px;"> <p>
+		
 		<div class="w3-container">
 			<label>내용</label> <input class="form-control" name='review'
 				value='New Review' placeholder="내용을 입력해주세요">
@@ -408,7 +410,7 @@ text-align:center;
 		var modal = $("#id01");  
 		var modalInputReview = modal.find("input[name='review']");
 		var modalInputReviewer = modal.find("input[name='reviewer']");
-		
+		var modalStar = modal.find("#star a").attr('value');
 		
 		var modalModBtn = $("#modalModBtn");
 		var modalRemoveBtn = $("#modalRemoveBtn");
@@ -471,7 +473,8 @@ text-align:center;
 		$(".chat").on("click","li",function(e){
 			var originalReviewer = modalInputReviewer.val();
 			var reno = $(this).data("reno");
-			
+			var reviewUL = $('#star2');
+			var str='';
 			reviewService.get(reno,function(review){
 				
 				
@@ -482,10 +485,29 @@ text-align:center;
 				
 				modal.find("button[id !='modalCloseBtn']").hide();
 				if(reviewer==null || reviewer !=originalReviewer){
+					$('#star').hide();
+					if(review.star == 1){
+						str += '<div id="starView">★</div>'
+						
+					}else if(review.star ==2){
+						str += '<div id="starView">★★</div>'
+					}
+					else if(review.star ==3){
+						str += '<div id="starView">★★★</div>'
+					}
+					else if(review.star ==4){
+						str += '<div id="starView">★★★★</div>'
+					}
+					else if(review.star ==5){
+						str += '<div id="starView">★★★★★</div>'
+					}
+					reviewUL.html(str);
 					
 					modalModBtn.hide();
 					modalRemoveBtn.hide();
 	             }else{
+	            	 $('#star').show();
+	            	 $('#star2').hide();
 	            	 modalModBtn.show();
 	 				 modalRemoveBtn.show();
 	             }
