@@ -92,7 +92,7 @@ text-align: right;
 }
 
 .chat{
-
+	cursor:pointer;
 	margin-top: 10px;
 }
 
@@ -236,7 +236,7 @@ text-align:center;
  </div>
  
  <input type="hidden" name="restAddress" value="${vo.restAddress}"/>
-  <input type="hidden" name="restName" value="${vo.restName}"/>
+ <input type="hidden" name="restName" value="${vo.restName}"/>
  
  <!-- 리뷰 -->
  
@@ -659,7 +659,7 @@ text-align:center;
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27898b804bcd7311092722c6048cf498&libraries=services"></script>
 <script>
 
-var address = $('input[name="restAddress"]').val();
+var address = $("input[name='restAddress']").val();
 var restName = $('input[name="restName"]').val();
 
 console.log(address);
