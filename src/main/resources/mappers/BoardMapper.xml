@@ -3,8 +3,8 @@
 <mapper namespace = "org.mp.mapper.BoardMapper">
 
   <select id = "getList" resultType = "org.mp.domain.BoardVO">
-  select bno, USER_ID as userId, title, content, hit, good, TO_CHAR(BOARD_DATE, 'yyyy-mm-dd') as boardDate,
-  TO_CHAR(BOARD_UPDATE_DATE, 'yyyy-mm-dd') as boardUpdateDate, REPLY_CNT as replyCnt
+  select bno, USER_ID as userId, title, content, hit, good, BOARD_DATE as boardDate,
+  BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
   from board where bno > 0
   </select>
     

@@ -229,7 +229,7 @@ margin-left: 15px;
 				<tr>
 					<td colspan="5" style="padding-bottom: 25px;"><a class='move'
 						href='<c:out value = "${listView.bno }"/>'>
-							${listView.boardUpdateDate}</td>
+							<fmt:formatDate pattern="yyyy-MM-dd HH:MM:ss" value="${listView.boardUpdateDate}" /></td>
 				</tr>
 				<tr>
 					<td width="15%"><img
