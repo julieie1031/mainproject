@@ -12,6 +12,7 @@ $(function(){
 	var startDate = $('#startDate').val();
 	var endDate = $('#endDate').val();
 	var restId = $('#restId').val();
+	var userId = $('#userId').val();;
 	
 	var allData = { 
 		"restName": restName, 
@@ -23,7 +24,8 @@ $(function(){
 		"dogNumber": dogNumber,
 		"startDate": startDate,
 		"endDate": endDate,
-		"restId": restId
+		"restId": restId,
+		"userId":userId
 	};
 
 		$.ajax({

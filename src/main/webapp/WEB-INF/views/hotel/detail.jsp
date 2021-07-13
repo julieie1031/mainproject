@@ -227,7 +227,6 @@ text-align:center;
 		</table>
 		
 		<form name="form1" method="get" action="/reserve/list">
-					  	<input type="hidden" name="id" value="${id}"/>
                       	<input type="hidden" name="restId" value="${vo.restId}"/>
                       	<input type="hidden" name="roomId" value="${vo.roomId}"/>
 		</form> 

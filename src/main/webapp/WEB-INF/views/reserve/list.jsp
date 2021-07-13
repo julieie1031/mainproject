@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 
 <style>
 * {
@@ -62,6 +63,7 @@ ${endDate}
 <input type="hidden" id="roomPrice" name="roomPrice" value="${room[0].roomPrice}"/>
 <input type="hidden" id="startDate" name="startDate" value="${startDate}"/>
 <input type="hidden" id="endDate" name="endDate" value="${endDate}"/>
+<input type="hidden" id="userId" name="userId" value="<sec:authentication property='principal.username'/>"/>
 <label class="jb-x-small">견&nbsp;&nbsp;&nbsp;&nbsp;종:&nbsp;</label><input type="text" name="dogType" id="dogType"><br>
 <label class="jb-x-small">마릿 수: </label><input type="text" name="dogNumber" id="dogNumber"><br>
 <button type="button" id="apibtn"><img src="/resources/images/hotel/paysmall.png"></button>
