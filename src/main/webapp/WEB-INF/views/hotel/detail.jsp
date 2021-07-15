@@ -338,7 +338,7 @@ text-align:center;
 			
 			reviewService.getList({restId:restIdValue,page:page||1},function(list){
 				var str = "";
-				length = list.length;;
+				length = list.length;
 				if(list == null || list.length == 0){
 					reviewUL.html("");
 					return;

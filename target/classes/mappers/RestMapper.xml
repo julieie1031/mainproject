@@ -27,6 +27,7 @@
             rest_name AS restName,
             rest_phone AS restPhone,
             rest_content AS restContent,
+            rest_address AS restAddress,
             rest_image AS restImage,
             star_avg AS starAvg
         FROM rest 

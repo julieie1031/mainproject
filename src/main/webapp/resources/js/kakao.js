@@ -12,7 +12,7 @@ $(function(){
 	var startDate = $('#startDate').val();
 	var endDate = $('#endDate').val();
 	var restId = $('#restId').val();
-	var userId = $('#userId').val();;
+	var userId = $('#userId').val();
 	
 	var allData = { 
 		"restName": restName, 
@@ -29,15 +29,14 @@ $(function(){
 	};
 
 		$.ajax({
-			url:'http://localhost:8080/reserve/kakaopay.cls',
-			data: allData,
-			dataType:'json',
+			url:'http://localhost:8080/reserve/kakaoPaySuccess',
+        	data: allData,
+         	dataType:'json',
 			success:function(data){
-				var box = data.next_redirect_pc_url;
-				window.open(box);	
+				alert("성공");
 			},
 			error:function(error){
-				alert(error);
+				alert("실패");
 			}
 		});
 	});

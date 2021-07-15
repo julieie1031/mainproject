@@ -525,5 +525,3 @@ div.tipContent {
 <%@include file="layout/footer.jsp"%>
 
 
-</body>
-</html>
