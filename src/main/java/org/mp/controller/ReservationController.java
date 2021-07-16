@@ -46,32 +46,26 @@ public class ReservationController {
 	}
 
 	@PostMapping("/list")
-	public String kakaoPay(@RequestParam("roomName") String roomName, @RequestParam("roomPrice") int roomPriceL) {
+	public String kakaoPay(ReservationVO reser) {
 		log.info("kakaoPay post............................................");
-		String roomPrice = Integer.toString(roomPriceL);
-		log.info(roomName);
-		return "redirect:" + kakaopay.kakaoPayReady(roomName,roomPrice);
+//		String roomPrice = Integer.toString(roomPriceL);
+//		log.info(roomName);
+		return "redirect:" + kakaopay.kakaoPayReady(reser);
 
 	}
 	
 	
 
 	@RequestMapping("/kakaoPaySuccess")
-	@ResponseBody
-	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,ReservationVO reser) {
+	public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,ReservationVO reser) {
 		log.info(reser.getDogNumber());
+		log.info(reser.getDogType());
+		
 		log.info("kakaoPaySuccess get............................................");
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 
 		model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
 		
-		 try {
-             service.regist(reser);
-          } catch (Exception e) {
-             // TODO Auto-generated catch block
-             e.printStackTrace();
-          }
+		return "redirect:/main";
 	}
-
-
 }

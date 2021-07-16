@@ -55,18 +55,8 @@ ${endDate}
 <script src="/resources/js/kakao.js" type="text/javascript"></script>
 
 
-<input type="hidden" name="reserId" value="${RESER_ID}"/>
-<input type="hidden" id="restName" name="restName" value="${vo.restName}"/>
-<input type="hidden" id="restPhone" name="restPhone" value="${vo.restPhone}"/>
-<input type="hidden" id="restId" name="restId" value="${vo.restId}"/>
-<input type="hidden" id="roomName" name="roomName" value="${room[0].roomName}"/>
-<input type="hidden" id="roomPeople" name="roomPeople" value="${room[0].roomPeople}"/>
-<input type="hidden" id="roomPrice" name="roomPrice" value="${room[0].roomPrice}"/>
-<input type="hidden" id="startDate" name="startDate" value="${startDate}"/>
-<input type="hidden" id="endDate" name="endDate" value="${endDate}"/>
-<input type="hidden" id="userId" name="userId" value="<sec:authentication property='principal.username'/>"/>
-<label class="jb-x-small">견&nbsp;&nbsp;&nbsp;&nbsp;종:&nbsp;</label><input type="text" name="dogType" id="dogType"><br>
-<label class="jb-x-small">마릿 수: </label><input type="text" name="dogNumber" id="dogNumber"><br>
+
+
 
 
 
@@ -75,6 +65,16 @@ ${endDate}
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <input type="hidden" id="roomName" name="roomName" value="${room[0].roomName}"/>
 <input type="hidden" id="roomPrice" name="roomPrice" value="${room[0].roomPrice}"/>
+<input type="hidden" name="reserId" value="${RESER_ID}"/>
+<input type="hidden" id="restName" name="restName" value="${vo.restName}"/>
+<input type="hidden" id="restPhone" name="restPhone" value="${vo.restPhone}"/>
+<input type="hidden" id="restId" name="restId" value="${vo.restId}"/>
+<input type="hidden" id="roomPeople" name="roomPeople" value="${room[0].roomPeople}"/>
+<input type="hidden" id="startDate" name="startDate" value="${startDate}"/>
+<input type="hidden" id="endDate" name="endDate" value="${endDate}"/>
+<input type="hidden" id="userId" name="userId" value="<sec:authentication property='principal.username'/>"/>
+<label class="jb-x-small">견&nbsp;&nbsp;&nbsp;&nbsp;종:&nbsp;</label><input type="text" name="dogType" id="dogType"><br>
+<label class="jb-x-small">마릿 수: </label><input type="text" name="dogNumber" id="dogNumber"><br>
     <button id="apibtn">카카오페이로 결제하기</button>
 </form>
 

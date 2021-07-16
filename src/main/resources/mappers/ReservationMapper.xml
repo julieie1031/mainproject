@@ -40,17 +40,17 @@ insert into RESERVATION(
 	USER_ID)
 values(
 	SEQ_RESERVATION.NEXTVAL,
-	#{restName},
-	#{roomName},
-	#{roomPeople},
-	#{restPhone},
-	#{roomPrice},
-	#{startDate},
-	#{endDate},
-	#{dogType},
-	#{dogNumber},
-	#{restId},
-	#{userId})
+	#{restName, jdbcType=VARCHAR},
+	#{roomName, jdbcType=VARCHAR},
+	#{roomPeople, jdbcType=VARCHAR},
+	#{restPhone, jdbcType=VARCHAR},
+	#{roomPrice, jdbcType=INTEGER},
+	#{startDate, jdbcType=VARCHAR},
+	#{endDate, jdbcType=VARCHAR},
+	#{dogType, jdbcType=VARCHAR},
+	#{dogNumber, jdbcType=INTEGER},
+	#{restId, jdbcType=VARCHAR},
+	#{userId, jdbcType=VARCHAR})
 
 </insert>
 
