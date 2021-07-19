@@ -14,5 +14,11 @@ public interface MemberMapper {
 	
 	//로그인
 	public MemberVO read(String userId);
+	
+	//회원탈퇴
+	public void delete(String userId);
+	
+	//아이디 체크
+	public MemberVO idCheck(String userId);
 
 }

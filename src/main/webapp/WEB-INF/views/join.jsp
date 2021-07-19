@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>Insert title here</title>
@@ -168,7 +169,28 @@
 				}).open();
 	}
 </script>
-
+<script> 
+$(".idCheck").click(function(){
+ 
+ var query = {userId : $("#userId").val()};
+ 
+ $.ajax({
+  url : "/member/idCheck",
+  type : "post",
+  data : query,
+  success : function(data) {
+  
+   if(data == 1) {
+    $(".result .msg").text("사용 불가");
+    $(".result .msg").attr("style", "color:#f00");    
+   } else {
+    $(".result .msg").text("사용 가능");
+    $(".result .msg").attr("style", "color:#00f");
+   }
+  }
+ });  // ajax 끝
+});
+</script>
 <style>
 .homie {
 	position: relative;
@@ -682,13 +704,17 @@ a {
 			<p>
 			<div class="user">
 
-				<input type="text" id="userId" name="userId"
+				<p><input type="text" id="userId" name="userId" maxlength='20' 
 					placeholder="아이디를 입력해주세요" style="border: none; font-size: 12px;">
 				<f:errors path="userId" element="div" cssClass="alert text-danger" />
-				<f:password path="userPwd" id="userPwd" name="userPwd"
+				<%-- <button type = "button" class = "idCheck">아이디 중복 확인</button></p>
+				<p class = "result">
+					<span class = "msg">아이디를 확인해주십시오.</span>
+				</p> --%>
+				<f:password path="userPwd" id="userPwd" name="userPwd" maxlength='20'
 					placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;" />
 				<f:errors path="userPwd" element="div" cssClass="alert text-danger" />
-				<input type="text" id="userName" name="userName"
+				<input type="text" id="userName" name="userName" maxlength='10'
 					placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
 			</div>
 
@@ -707,11 +733,11 @@ a {
 				<p>-</p>
 			</div>
 			<div class="phone2">
-				<input type="text" class="frontNum" id="phone2" name="phone"
+				<input type="text" class="frontNum" id="phone2" name="phone" maxlength='4'
 					style="border: none">
 			</div>
 			<div class="phone3">
-				<input type="text" class="backNum" id="phone2" name="phone"
+				<input type="text" class="backNum" id="phone2" name="phone" maxlength='4'
 					style="border: none">
 			</div>
 
@@ -767,7 +793,7 @@ a {
 				<input type="text" id="roadAddress" name = "address" placeholder="도로명주소"
 					style="border: none; font-size: 12px;"><br>
 			</div>
-			<input type="hidden" id="jibunAddress" name = "address" placeholder="지번주소">
+			<input type="hidden" id="jibunAddress" placeholder="지번주소">
 			<span id="guide" style="color: #999; display: none"></span>
 			<div class="add3">
 				<input type="text" id="detailAddress" name = "address" placeholder="상세주소"

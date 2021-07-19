@@ -129,13 +129,13 @@
 		<input type="submit" id="logout" value="LOGOUT" style="border: none; cursor:pointer;">
 	</div>
 </form>
-
-<form action="/users/withdrawal" method="POST">
+<c:url var="deletePath" value="userDelete" />
+		<f:form modelAttribute="vo" action="${ deletePath }" method="get">
 	<div class="log">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 		<input type="submit" id="withdrawal" value="회원탈퇴" style="border: none; cursor:pointer;">
 	</div>
-</form>
+</f:form>
 
 <%@include file="../layout/footer.jsp"%>
 

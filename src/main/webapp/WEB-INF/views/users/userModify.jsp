@@ -14,11 +14,6 @@
 	$(document).ready(function() {
 
 		$("#join").on("click", function() {
-			if ($("#userId").val() == "") {
-				alert("아이디를 입력해주세요.");
-				$("#userId").focus();
-				return false;
-			}
 			if ($("#userPwd").val() == "") {
 				alert("비밀번호를 입력해주세요.");
 				$("#userPwd").focus();
@@ -683,12 +678,11 @@ a {
 			<div class="user">
 
 				<input type="text" id="userId" name="userId" value = "<sec:authentication property='principal.username'/>"
-					 style="border: none; font-size: 12px;" readonly>
-				<f:errors path="userId" element="div" cssClass="alert text-danger" />
-			 	<!-- <input id="userPwd" name="userPwd" type = "password"
-					placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;" /> -->
+					readonly maxlength='20' style="border: none; font-size: 12px;">
+			 	<input id="userPwd" name="userPwd" type = "password" maxlength='20'
+					placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;" />
 				<f:errors path="userPwd" element="div" cssClass="alert text-danger" /> 
-				<input type="text" id="userName" name="userName"
+				<input type="text" id="userName" name="userName" maxlength='10'
 					placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
 			</div>
 
@@ -707,11 +701,11 @@ a {
 				<p>-</p>
 			</div>
 			<div class="phone2">
-				<input type="text" class="frontNum" id="phone2" name="phone"
+				<input type="text" class="frontNum" id="phone2" name="phone" maxlength='4'
 					style="border: none">
 			</div>
 			<div class="phone3">
-				<input type="text" class="backNum" id="phone2" name="phone"
+				<input type="text" class="backNum" id="phone2" name="phone" maxlength='4'
 					style="border: none">
 			</div>
 
@@ -767,7 +761,7 @@ a {
 				<input type="text" id="roadAddress" name = "address" placeholder="도로명주소"
 					style="border: none; font-size: 12px;"><br>
 			</div>
-			<input type="hidden" id="jibunAddress" name = "address" placeholder="지번주소">
+			<input type="hidden" id="jibunAddress" placeholder="지번주소">
 			<span id="guide" style="color: #999; display: none"></span>
 			<div class="add3">
 				<input type="text" id="detailAddress" name = "address" placeholder="상세주소"
@@ -780,7 +774,7 @@ a {
 	
 			<div class="modify">
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-				<input type="submit" id="modify" value="회원가입"
+				<input type="submit" id="modify" value="정보수정"
 					style="border: none;">
 			</div>
 		</form>

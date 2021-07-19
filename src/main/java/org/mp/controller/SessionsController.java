@@ -32,7 +32,12 @@ public class SessionsController {
 		log.info("Modify requested");
 		return "/users/userModify"; 
 	}
-	
+	@RequestMapping(value="/userDelete", method = RequestMethod.GET)
+	public String delete() {
+		log.info("delete requested");
+		return "/users/userDelete"; 
+	}
+
 	//버튼 클릭시 GET방식으로 보내기
 	
 /*	//濡쒓렇�븘�썐

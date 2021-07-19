@@ -44,7 +44,17 @@
 	</insert>
   
   	<update id="memberUpdate">
-  		update members set userName = #{userName}, address = #{address}, phone = #{phone}, email = #{email}
-  		where userId = #{userId}
+  		update members set userPwd = #{userPwd}, userName = #{userName}, address = #{address}, phone = #{phone}, email = #{email} where userId = #{userId}
   	</update>
+  	
+  	<delete id="delete">
+		delete from members
+		where userId = #{userId}
+	</delete>
+	<select id="idCheck">
+		select userId from members where userId = #{userId}
+	</select>
+		<select id="phoneCheck">
+		select phone from members where phone = #{phone}
+	</select>
 </mapper>

@@ -9,7 +9,8 @@ import javax.sql.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+/*import org.springframework.security.crypto.password.PasswordEncoder;*/
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,14 +21,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
    ,"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public class MemberTest {
 
-   private PasswordEncoder pwencoder;
+   private BCryptPasswordEncoder pwencoder;
    private DataSource ds;
    
-   public final PasswordEncoder getPwencoder() {
+   public final BCryptPasswordEncoder getPwencoder() {
 	   return pwencoder;
    }
    @Autowired
-   public final void setPwencoder(PasswordEncoder pwencoder) {
+   public final void setPwencoder(BCryptPasswordEncoder pwencoder) {
    this.pwencoder = pwencoder;
    }
    public final DataSource getDs() {
