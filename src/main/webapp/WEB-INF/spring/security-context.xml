@@ -15,6 +15,8 @@
 		class="org.mp.security.CustomUserDetailsService"></bean>
 
 	<sec:http>
+	<sec:intercept-url pattern="/admin/index"
+			access="hasRole('ROLE_ADMIN')" />
 		<sec:intercept-url pattern="/users/mypage"
 			access="hasRole('ROLE_MEMBER')" />
 		<sec:form-login login-page="/users/login"
@@ -28,7 +30,8 @@
 		<sec:authentication-provider
 			user-service-ref="customUserDetailsService">
 			<!-- <sec:jdbc-user-service data-source-ref="dataSource" /> -->
-			<sec:password-encoder ref="bcryptPasswordEncoder" />
+			<sec:password-encoder
+				ref="bcryptPasswordEncoder" />
 			<!-- <sec:user-service>
 				<sec:user name="ran" password="{noop}ran"
 					authorities="ROLE_MEMBER" />
