@@ -34,7 +34,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		log.warn("ROLE NAMES: " + roleNames);
 		// 沅뚰븳�뿉 �뵲�씪 �럹�씠吏� 遺꾧린
 		if (roleNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/users/admin");
+			response.sendRedirect("/admin/index");
 			return;
 		}
 		//MEMBER의 권한으로 로그인 되어있는 상태일 땐 mypage로 보냄

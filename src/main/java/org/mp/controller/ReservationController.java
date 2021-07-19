@@ -57,7 +57,7 @@ public class ReservationController {
 	
 
 	@RequestMapping("/kakaoPaySuccess")
-	public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,ReservationVO reser) {
+	public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,ReservationVO reser) {
 		log.info(reser.getDogNumber());
 		log.info(reser.getDogType());
 		
@@ -65,7 +65,6 @@ public class ReservationController {
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 
 		model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
-		
-		return "redirect:/main";
+	
 	}
 }
