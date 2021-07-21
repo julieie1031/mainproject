@@ -80,7 +80,7 @@ a {
         <c:forEach items = "${list }" var = "vo">
         <tr>
           <td style="width: 180px;">
-                <a href='<c:out value = "${vo.restName }"/>' class="move">
+                <a href='<c:out value = "${row.restId }"/>' class="move">
                 ${vo.restName }
                 </a>
                 <div>${vo.roomName } &#183; ${vo.roomPeople }</div>
