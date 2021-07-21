@@ -42,15 +42,20 @@
 	bottom: 520px;
 	left: 89px;
 	width: 320px;
-	display: block;
 	height: 60px;
-	font-weight: bold;
 	color: #EEEEEE;
 	background-color: #FFFFFF;
 	border: 3.5px solid #77A26B;
 	border-radius: 3px;
 }
-
+#reserveBtn{
+position : absolute;
+top : 0px;
+left : 0;
+height: 58px;
+width: 320px;
+background-color:transparent;
+}
 .reserve_text {
 	position: relative;
 	top: 18.5px;
@@ -114,12 +119,13 @@
 	<img src="../resources/images/prodog.png" style="width: 100px; height: 100px;">
 </div>
 
-<form action="/users/reserve" method="POST">
+<form action="/users/roomList" method="POST">
 	<div class="reserve">
 		<p class="reserve_text">예약 현황</p>
 		<img src="../resources/images/click.png" class="reserve_arrow">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-		<input type="submit" value="" style="border: none; cursor:pointer; z-index: 200;">
+		<input type="hidden" id="userId" name="userId" value="<sec:authentication property='principal.username'/>"/>
+		<input type="submit" value = "" id = "reserveBtn" style="border: none; cursor:pointer; z-index: 200;">
 	</div>
 </form>
 

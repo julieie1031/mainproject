@@ -662,7 +662,7 @@ a {
 	<form action="/memberUpdate" method = "post">
 			<h4 class="update">정보 수정</h4>
 			<div class="homie">
-				<img src="/resources/images/logo.png" width="150" height="70">
+				<img src="/resources/images/logo.png" width="150" height="65">
 			</div>
 			<div class="back">
 				<a href="/main"><img src="/resources/images/back.png" width="60"
@@ -779,22 +779,24 @@ a {
 			</div>
 		</form>
 
-		<div class="footer">
-			<div class="bottom_bar">
-				<ul>
-					<li><a href="/category"><img
-							src="/resources/images/category.png"></a></li>
-					<li><a href="/hotel/list"><img
-							src="/resources/images/hotel.png"></a></li>
-					<li><a href="/home"><img src="/resources/images/logo2.png"></a></li>
-					<li><a href="/community"><img
-							src="/resources/images/community.png"></a></li>
-					<li><a href="/login"><img src="/resources/images/login.png"></a></li>
-				</ul>
+	<!-- footer 끝 -->
+
+	<div class="footer">
+		<div class="bottom_bar">
+			<ul>
+				<li><a href="/category"><img
+						src="/resources/images/category.png"></a></li>
+				<li><a href="/hotel/list"><img src="/resources/images/hotel.png"></a></li>
+				<li><a href="/main"><img src="/resources/images/logo2.png"></a></li>
+				<li><a href="/board/list"><img
+						src="/resources/images/community.png"></a></li>
+				<li><a href="/${path}users/login"><img src="/resources/images/login.png"></a></li>
+			</ul>
 
 
-			</div>
 		</div>
+	</div>
+
 
 	</div>
 

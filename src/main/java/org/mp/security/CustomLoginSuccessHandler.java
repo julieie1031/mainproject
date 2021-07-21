@@ -23,7 +23,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			Authentication auth) throws IOException, ServletException {
 		
 		log.warn("Login Success");
-		// 媛�吏�怨� �엳�뒗 沅뚰븳 紐⑸줉 援ы븯湲�
 		List<String> roleNames = new ArrayList<>();
 		
 		auth.getAuthorities().forEach(authority -> {
@@ -32,7 +31,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		
 		log.warn("ROLE NAMES: " + roleNames);
-		// 沅뚰븳�뿉 �뵲�씪 �럹�씠吏� 遺꾧린
 		if (roleNames.contains("ROLE_ADMIN")) {
 			response.sendRedirect("/admin/index");
 			return;

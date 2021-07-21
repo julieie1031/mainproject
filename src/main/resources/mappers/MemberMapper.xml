@@ -7,8 +7,7 @@
 		<result property="userId" column="userid" />
 		<result property="userPwd" column="userpwd" />
 		<result property="userName" column="userName" />
-		<result property="regDate" column="regdate" />
-		<result property="updateDate" column="updatedate" />
+
 		<collection property="authList" resultMap="authMap"></collection>
 	</resultMap>
 	
@@ -24,14 +23,6 @@
 		   members mem left outer join authorities auth on mem.userid = auth.userid
 		where mem.userid=#{userId}
 	</select>
-	
-	<!-- <select id="read" resultMap="memberMap">
-		SELECT mem.userId AS userId, userPwd AS userPwd, userName AS userName, address, phone, email, registerdate, authority
-		FROM members mem 
-		LEFT OUTER JOIN authorities auth
-		on mem.userid = auth.userid
-		WHERE mem.userid = #{userid}
-	</select> -->
 	
 	<insert id="insertMember">
 		insert into members (userId, userPwd, userName, Address, phone, email)
@@ -51,10 +42,4 @@
 		delete from members
 		where userId = #{userId}
 	</delete>
-	<select id="idCheck">
-		select userId from members where userId = #{userId}
-	</select>
-		<select id="phoneCheck">
-		select phone from members where phone = #{phone}
-	</select>
 </mapper>

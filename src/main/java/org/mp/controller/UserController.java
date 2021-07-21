@@ -1,12 +1,16 @@
 package org.mp.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mp.domain.AuthVO;
 import org.mp.domain.MemberVO;
+import org.mp.domain.ReservationVO;
 import org.mp.mapper.MemberMapper;
+import org.mp.mapper.ReservationMapper;
 import org.mp.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -34,6 +38,8 @@ public class UserController {
 	private BCryptPasswordEncoder pwencoder;
 	@Setter(onMethod_ = {@Autowired})
 	private MemberMapper memberMapper;
+	@Setter(onMethod_ = {@Autowired})
+	private ReservationMapper reservationMapper;
 
 	//	@ResponseBody - 데이터만 보낼 때
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -63,7 +69,7 @@ public class UserController {
 
 		log.info("pwd :"+ vo.getUserPwd());
 		
-		log.info(vo = memberMapper.read(userId));
+		vo = memberMapper.read(userId);
 		
 		log.info(pwencoder.matches(userPwd, vo.getUserPwd()));
 		
@@ -82,6 +88,13 @@ public class UserController {
 			return "redirect:/users/userDelete";
 		}
 	}
+	
+	  
+	  
+	
+
+
+
 	/*
 	 * @RequestMapping(value="/idCheck", method = RequestMethod.POST) public int
 	 * idcheck(HttpServletRequest req) throws Exception { log.info("Id Check");

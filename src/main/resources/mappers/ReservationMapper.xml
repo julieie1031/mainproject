@@ -54,5 +54,20 @@ values(
 
 </insert>
 
+<select id="reservationList" resultType="org.mp.domain.ReservationVO">
+
+select 
+ROOM_NAME AS roomName,
+ROOM_PEOPLE AS roomPeople,
+REST_NAME AS restName,
+ROOM_PRICE AS roomPrice,
+START_DATE AS startDate,
+END_DATE AS endDate,
+REST_NAME AS restName,
+USER_ID AS userId      
+FROM RESERVATION
+WHERE user_Id = #{userId, jdbcType=VARCHAR}
+
+</select>
 
 </mapper>

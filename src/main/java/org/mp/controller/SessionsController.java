@@ -1,15 +1,29 @@
 package org.mp.controller;
 
+import java.util.List;
+
+import org.mp.domain.ReservationVO;
+import org.mp.mapper.ReservationMapper;
+import org.mp.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
 @RequestMapping("/users")
 public class SessionsController {
+	@Autowired
+	private MemberService service;
+	@Setter(onMethod_ = {@Autowired})
+	private ReservationMapper reservationMapper;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
@@ -37,21 +51,13 @@ public class SessionsController {
 		log.info("delete requested");
 		return "/users/userDelete"; 
 	}
-
-	//버튼 클릭시 GET방식으로 보내기
+	@RequestMapping(value="/roomList", method= {RequestMethod.GET, RequestMethod.POST})
+	public String roomList(@RequestParam(value = "userId",required=false) String userId,Model model) {
+		log.info("roomList requested");
+		List<ReservationVO> list = service.reservationList(userId);
+		log.info("roomList_OK3");	
+		model.addAttribute("list",list);
+		return "/users/roomList"; 
+	}
 	
-/*	//濡쒓렇�븘�썐
-	@GetMapping("/login")
-	public void loginInput(String error, String logout, Model model) {
-		log.info("error: " + error);
-		log.info("logout: " + logout);
-		
-		if(error != null) {
-			model.addAttribute("error", "Login Error Check Your Account");
-		}
-		
-		if(logout != null) {
-			model.addAttribute("logout", "Logout!!");
-		
-	}}*/
 }

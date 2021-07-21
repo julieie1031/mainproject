@@ -1,8 +1,14 @@
 package org.mp.service;
 
+import java.util.List;
+
 import org.mp.domain.AuthVO;
+import org.mp.domain.BoardVO;
+import org.mp.domain.Criteria;
 import org.mp.domain.MemberVO;
+import org.mp.domain.ReservationVO;
 import org.mp.mapper.MemberMapper;
+import org.mp.mapper.ReservationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +30,8 @@ public class MemberServiceImpl implements MemberService {
 	@Setter(onMethod_=@Autowired)
 	private BCryptPasswordEncoder pwencoder;
 	
+	@Setter(onMethod_=@Autowired)
+	private ReservationMapper resermapper;
 	/*
 	 * @Setter(onMethod_=@Autowired) private DataSource ds;
 	 */
@@ -48,11 +56,7 @@ public class MemberServiceImpl implements MemberService {
 		mapper.delete(userId);		
 		log.info("ok");
 	}
-	/*
-	  @Override public void memberUpdate(MemberVO vo) {
-	  vo.setUserPwd(pwencoder.encode(vo.getUserPwd())); mapper.memberUpdate(vo);
-	  log.info(vo); }
-	 */
+
     
 	//서비스에서 보낸 파라미터들을 memberUpdate(MemberVO vo)에 담습니다.
 	@Override
@@ -65,13 +69,12 @@ public class MemberServiceImpl implements MemberService {
 		mapper.memberUpdate(vo);
 		
 	}
-	/*
-	 * @Override public MemberVO idCheck(String userId) throws Exception {
-	 * 
-	 * log.info("id check_service"); return mapper.idCheck(userId);
-	 * 
-	 * }
-	 */
+	@Override
+	public List<ReservationVO> reservationList(String userId) {
+		log.info("roomList_ok2");
+		return resermapper.reservationList(userId);
+	}
+
 	
 	@Override
 	public BCryptPasswordEncoder getPwencoder() {
