@@ -39,7 +39,6 @@
 	margin-left: 23px;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 15px;
-	z-index: 300;
 }
 
 .table-x td {
@@ -80,14 +79,14 @@ a {
         <c:forEach items = "${list }" var = "vo">
         <tr>
           <td style="width: 180px;">
-                <a href='<c:out value = "${row.restId }"/>' class="move">
+                <p class="move">
                 ${vo.restName }
-                </a>
+                </p>
                 <div>${vo.roomName } &#183; ${vo.roomPeople }</div>
              </td>
              
             <td>
-                <a href='<c:out value = "${row.restName }"/>' class="move">${row.restName}</a><br>
+                <p class="move">${row.restName}</p><br>
                 <div id="starView" style="position: relative; bottom: 10px;">${vo.roomPrice }</div>
             </td>
             <td class="text-x" colspan="5">

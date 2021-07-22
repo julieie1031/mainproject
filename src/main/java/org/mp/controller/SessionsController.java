@@ -52,12 +52,11 @@ public class SessionsController {
 		return "/users/userDelete"; 
 	}
 	@RequestMapping(value="/roomList", method= {RequestMethod.GET, RequestMethod.POST})
-	public String roomList(@RequestParam(value = "userId",required=false) String userId,Model model) {
+	public void roomList(@RequestParam(value = "userId",required=false) String userId,Model model) {
 		log.info("roomList requested");
 		List<ReservationVO> list = service.reservationList(userId);
 		log.info("roomList_OK3");	
 		model.addAttribute("list",list);
-		return "/users/roomList"; 
 	}
 	
 }
