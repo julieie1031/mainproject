@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.mp.domain.BoardVO;
 import org.mp.domain.Criteria;
+import org.mp.domain.MainCriteria;
 
 public interface BoardMapper {
 	/* @Select("select * from board where bno > 0") */
@@ -21,7 +22,7 @@ public interface BoardMapper {
 	public List<BoardVO> getReply(Long bno);
 	
 	//main 게시판 출력
-	public List<BoardVO> getHitList();
+	public List<BoardVO> getHitList(MainCriteria cri);
 	
 	
 }

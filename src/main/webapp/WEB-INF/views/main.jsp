@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	
 <!DOCTYPE html>
 <style>
 .carousel {
@@ -308,9 +311,11 @@ div.test {
 	margin-bottom: 15px;
 }
 
-.rankTable td {
+.rankTable td, a {
 	border-bottom: 1px solid #d0cfcf;
 	text-align: left;
+	text-decoration:none;
+	color : black;
 }
 
 .tip {
@@ -341,14 +346,15 @@ div.tipContent {
 }
 </style>
 <script>
-	function notice_go(){
-		location.href="notice/list"
+	function notice_go() {
+		location.href = "notice/list"
 	}
 </script>
 <script
-	src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-	integrity = "sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-	crossorigin = "anonymous" >
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+	crossorigin="anonymous">
+	
 </script>
 <%@include file="layout/header.jsp"%>
 
@@ -430,7 +436,7 @@ div.tipContent {
 		</colgroup>
 
 		<tr>
-			<td onclick="notice_go()"style="border-right: 1px solid #d0cfcf">공지</td>
+			<td onclick="notice_go()" style="border-right: 1px solid #d0cfcf">공지</td>
 			<td>공지사항입니다.</td>
 
 		</tr>
@@ -438,90 +444,111 @@ div.tipContent {
 </div>
 <!-- 공지 끝 -->
 
+<form id='actionForm' action="/board/list" method="get">
+	<!-- 인기 게시글 -->
+	<div style="clear: both; margin-top: 50px">
+		<div class="title">
+			<h3>인기 게시글</h3>
+		</div>
+		<c:forEach var="view" items="${hit}">
+		<table class="rankTable">
+			<colgroup>
+				<col style="width: 80px">
+				<col style="width: auto">
+			</colgroup>
 
-<!-- 인기 게시글 -->
-<div style="clear: both; margin-top: 50px">
-	<div class="title">
-		<h3>인기 게시글</h3>
+			<tr>
+				<td style="font-size: 40px"><a class='move'
+					href='<c:out value = "${view.bno }"/>'> ${view.bno }</td>
+			</tr>
+			<tr>
+
+				<td><img src="../resources/images/community/reply.png"
+					alt="..." width="15px" height="14px">&nbsp;&nbsp;${view.replyCnt}</td>
+				<td><img src="../resources/images/community/hit.png" alt="..."
+					width="16px" height="13px">&nbsp;&nbsp;${view.hit}</td>
+			</tr>
+			<tr>
+				<td><a class='move' href='<c:out value = "${view.bno }"/>'>
+						${view.userId} </td>
+
+				<td><a class='move' href='<c:out value = "${view.bno }"/>'>
+						<fmt:formatDate pattern="yyyy-MM-dd HH:MM:ss"
+							value="${view.boardUpdateDate}" /></td>
+			</tr>
+</c:forEach>
+		</table>
 	</div>
-	<table class="rankTable">
-		<colgroup>
-			<col style="width: 92px">
-			<col style="width: auto">
-		</colgroup>
-
-		<tr>
-			<td style="font-size: 30px">1</td>
-			<td>공지사항입니다.<br> 작성자 조회수 좋아요
-
-			</td>
-		</tr>
-
-		<tr>
-			<td style="font-size: 30px">2</td>
-			<td>공지사항입니다.<br> 작성자 조회수 좋아요
-
-			</td>
-		</tr>
+	
+</form>
+<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
+	<!-- 인기 게시글 끝 -->
 
 
-		<tr>
-			<td style="font-size: 30px">3</td>
-			<td>공지사항입니다.<br> 작성자 조회수 좋아요
+	<!-- 상식팁 -->
+	<div style="clear: both; margin-top: 50px">
+		<div class="title">
+			<h3>오늘의 상식 TIP!</h3>
+		</div>
+		<div class="tip">
+			<div class="tipContent">
+				<img src="resources/images/tip/apple.jpg">
+				<div class="tip_desc">강아지 사과 먹어도 될까?</div>
+			</div>
+			<div class="tipContent">
+				<img src="resources/images/tip/burdock.jpg">
+				<div class="tip_desc">강아지 우엉 먹어도 될까?</div>
+			</div>
+			<div class="tipContent">
+				<img src="resources/images/tip/dog.jpg">
+				<div class="tip_desc">혓바닥 색으로 알아보는 강아지의 건강 상태</div>
+			</div>
+			<div class="tipContent">
+				<img src="resources/images/tip/dog1.PNG">
+				<div class="tip_desc">강아지와 여행 가기</div>
+			</div>
+			<div class="tipContent">
+				<img src="resources/images/tip/dog2.jpg">
+				<div class="tip_desc">강아지가 아플 때 보내는 신호</div>
+			</div>
 
-			</td>
-		</tr>
-	</table>
-</div>
-
-<!-- 인기 게시글 끝 -->
 
 
-<!-- 상식팁 -->
-<div style="clear: both; margin-top: 50px">
-	<div class="title">
-		<h3>오늘의 상식 TIP!</h3>
+
+		</div>
 	</div>
-	<div class="tip">
-		<div class="tipContent">
-			<img src="resources/images/tip/apple.jpg">
-			<div class="tip_desc">강아지 사과 먹어도 될까?</div>
-		</div>
-		<div class="tipContent">
-			<img src="resources/images/tip/burdock.jpg">
-			<div class="tip_desc">강아지 우엉 먹어도 될까?</div>
-		</div>
-		<div class="tipContent">
-			<img src="resources/images/tip/dog.jpg">
-			<div class="tip_desc">혓바닥 색으로 알아보는 강아지의 건강 상태</div>
-		</div>
-		<div class="tipContent">
-			<img src="resources/images/tip/dog1.PNG">
-			<div class="tip_desc">강아지와 여행 가기</div>
-		</div>
-		<div class="tipContent">
-			<img src="resources/images/tip/dog2.jpg">
-			<div class="tip_desc">강아지가 아플 때 보내는 신호</div>
-		</div>
 
-
-
-
-	</div>
-</div>
-
-<!-- 상식팁 끝  -->
+	<!-- 상식팁 끝  -->
 
 
 
 
 
-<script>
-	function category(number) {
-		document.location.href = "location?category=" + number;
-	};
-</script>
+	<script>
+		function category(number) {
+			document.location.href = "location?category=" + number;
+		};
+		var actionForm = $("#actionForm");
+		$(document).ready(
+				function() {
+					$(".move")
+					.on(
+							"click",
+							function(e) {
+								e.preventDefault();
+								//console.log('click');
+								actionForm
+										.append("<input type = 'hidden' name = 'bno' value = '"
+												+ $(this).attr(
+														"href")
+												+ "'>");
+								actionForm.attr("action",
+										"/board/get");
+								actionForm.submit();
+							});
 
-<%@include file="layout/footer.jsp"%>
+		});//end javascript
+				
+	</script>
 
-
+	<%@include file="layout/footer.jsp"%>

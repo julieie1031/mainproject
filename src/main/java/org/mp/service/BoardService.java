@@ -5,6 +5,7 @@ import java.util.List;
 import org.mp.domain.BoardAttachVO;
 import org.mp.domain.BoardVO;
 import org.mp.domain.Criteria;
+import org.mp.domain.MainCriteria;
 
 public interface BoardService {
 	public void register(BoardVO board);
@@ -20,7 +21,7 @@ public interface BoardService {
 	
 	public List<BoardAttachVO> getAttachList(Long bno);
 	
-	public List<BoardVO> getHitList();
+	public List<BoardVO> getHitList(MainCriteria cri); 
 	
 	
 }

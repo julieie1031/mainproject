@@ -84,8 +84,5 @@ public class BoardServiceTest {
 		log.info("REMOVE RESULT : " + service.remove(6L));
 	}
 	
-	@Test
-	public void testGetHitList() {
-		service.getHitList().forEach(board -> log.info(board));
-	}
+	
 }

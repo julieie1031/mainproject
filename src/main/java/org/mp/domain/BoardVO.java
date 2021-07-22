@@ -12,7 +12,7 @@ public class BoardVO {
 	private String title;
 	private String content;
 	private int hit;
-	private int good;
+	//private int good;
 	private Date boardDate;
 	private Date boardUpdateDate;
 	private int replyCnt;

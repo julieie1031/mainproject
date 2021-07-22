@@ -5,6 +5,7 @@ import java.util.List;
 import org.mp.domain.BoardAttachVO;
 import org.mp.domain.BoardVO;
 import org.mp.domain.Criteria;
+import org.mp.domain.MainCriteria;
 import org.mp.mapper.BoardAttachMapper;
 import org.mp.mapper.BoardMapper;
 import org.mp.mapper.ReplyMapper;
@@ -99,7 +100,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> getHitList() {
-		return mapper.getHitList();   
+	public List<BoardVO> getHitList(MainCriteria cri) {  
+		return mapper.getHitList(cri);     
 	}
 }

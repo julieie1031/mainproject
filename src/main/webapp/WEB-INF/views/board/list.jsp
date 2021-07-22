@@ -232,15 +232,18 @@ margin-left: 15px;
 							<fmt:formatDate pattern="yyyy-MM-dd HH:MM:ss" value="${listView.boardUpdateDate}" /></td>
 				</tr>
 				<tr>
+					
+					<%-- 좋아요..
 					<td width="15%"><img
 						src="../resources/images/community/heart.png" alt="..."
-						width="14px" height="13px">&nbsp;&nbsp;${listView.good}</td>
-					<td width="15%"><img
-						src="../resources/images/community/reply.png" alt="..."
-						width="14px" height="13px">&nbsp;&nbsp;${listView.replyCnt}</td>
-					<td width="15%"><img
-						src="../resources/images/community/hit.png" alt="..." width="14px"
+						width="14px" height="13px">&nbsp;&nbsp;${listView.good}</td> --%>
+							<td width="18%"><img
+						src="../resources/images/community/hit.png" alt="..." width="16px"
 						height="13px">&nbsp;&nbsp;${listView.hit}</td>
+					<td width="18%"><img
+						src="../resources/images/community/reply.png" alt="..."
+						width="15px" height="14px">&nbsp;&nbsp;${listView.replyCnt}</td>
+				
 				</tr>
 
 				<tr>

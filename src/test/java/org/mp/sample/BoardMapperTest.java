@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mp.domain.BoardVO;
 import org.mp.domain.Criteria;
+import org.mp.domain.MainCriteria;
 import org.mp.mapper.BoardMapper;
 import org.mp.mapper.MemberMapper;
 import org.mp.service.BoardService;
@@ -61,10 +62,7 @@ public class BoardMapperTest {
 		mapper.getList().forEach(board->log.info(board));
 	}
 	
-	@Test
-	public void testHitRead() {
-		mapper.getHitList().forEach(board->log.info(board));
-	}
+	
 	
 	@Test
 	public void testInsert() {
@@ -73,7 +71,7 @@ public class BoardMapperTest {
 		board.setTitle("새로 작성");
 		board.setContent("새로 작성한 내용");
 		board.setHit(2);
-		board.setGood(2);
+		
 		
 		mapper.insert(board);
 		
@@ -117,6 +115,13 @@ public class BoardMapperTest {
 		cri.setAmount(5);
 		
 		List<BoardVO> list = mapper.getListWithPaging(cri);
+		list.forEach(board->log.info(board));
+	}
+	
+	@Test
+	public void testPaging1() {
+		MainCriteria cri = new MainCriteria();
+		List<BoardVO> list = mapper.getHitList(cri);
 		list.forEach(board->log.info(board));
 	}
 	

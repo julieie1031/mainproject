@@ -3,7 +3,7 @@
 <mapper namespace = "org.mp.mapper.BoardMapper">
 
   <select id = "getList" resultType = "org.mp.domain.BoardVO">
-  select bno, USER_ID as userId, title, content, hit, good, BOARD_DATE as boardDate,
+  select bno, USER_ID as userId, title, content, hit, BOARD_DATE as boardDate,
   BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
   from board where bno > 0
   </select>
@@ -22,7 +22,7 @@ values(#{bno}, #{userId}, #{title}, #{content})
 </insert>
   
   <select id = "read" resultType = "org.mp.domain.BoardVO">
-select bno, USER_ID as userId, title, content, hit, good, BOARD_DATE as boardDate,
+select bno, USER_ID as userId, title, content, hit, BOARD_DATE as boardDate,
   BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
    from board where bno=#{bno} 
 </select>
@@ -51,12 +51,12 @@ WHERE BNO = #{bno}
 	<select id="getListWithPaging"	resultType="org.mp.domain.BoardVO">
    <![CDATA[
     select
-	bno, userId, title, content, hit, good, boardDate, boardUpdateDate, replyCnt
+	bno, userId, title, content, hit, boardDate, boardUpdateDate, replyCnt
 	from
 	(
    		 select
    		 /*+index_desc(board pk_board1)*/
-    	 rownum rn, bno, USER_ID as userId, title, content, hit, good, 
+    	 rownum rn, bno, USER_ID as userId, title, content, hit, 
     	 BOARD_DATE as boardDate, BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
    		 from board
 			where
@@ -69,7 +69,7 @@ WHERE BNO = #{bno}
 	rownum <=#{pageNum}*#{amount}
 	)
 	where rn >(#{pageNum}-1)*#{amount} 
-   
+   	order by hit desc
    ]]>
 	
 	</select>
@@ -112,10 +112,22 @@ select REPLY_CNT as replyCnt from board where bno = #{bno}
   </select>
   
  <select id = "getHitList" resultType = "org.mp.domain.BoardVO">
-select bno, USER_ID as userId, title, content, hit, good, BOARD_DATE as boardDate,
+ <![CDATA[
+ select bno, userId, title, content, hit, boardDate, boardUpdateDate, replyCnt
+ from
+ (
+select 
+/*+index_desc(board pk_board1)*/
+rownum rn,bno, USER_ID as userId, title, content, hit, BOARD_DATE as boardDate,
   BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
-   from board order by hit desc
-</select>
-  
+   from board where
+    rownum <= #{pageNum}*#{amount} 
+    )
+	where rn > (#{pageNum}-1)*#{amount} order by hit desc
+	
+    ]]>
+    
+   </select>
+
   
 </mapper>
