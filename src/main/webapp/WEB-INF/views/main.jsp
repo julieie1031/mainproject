@@ -303,16 +303,17 @@ div.test {
 
 .rankTable {
 	font-size: 15px;
-	float: left;
-	width: 450px;
-	height: 30px;
-	margin-left: 26px;
+	width: 385px;
 	text-align: center;
-	margin-bottom: 15px;
+	padding: 5px 0px 5px 0px;
+	border-bottom: 1px solid #dddbdb;
+}
+
+.rankTable tr{
+	padding-bottom:5px;
 }
 
 .rankTable td, a {
-	border-bottom: 1px solid #d0cfcf;
 	text-align: left;
 	text-decoration:none;
 	color : black;
@@ -343,6 +344,17 @@ div.tipContent {
 .tip_desc {
 	padding: 10px;
 	font-size: 13px;
+}
+
+.rankNum{
+	width: 50px;
+    float: left;
+    height: 400px;
+    margin-left: 25px;
+    font-size: 25px;
+    color: #407f42;
+    font-weight: bolder;
+
 }
 </style>
 <script>
@@ -450,16 +462,21 @@ div.tipContent {
 		<div class="title">
 			<h3>인기 게시글</h3>
 		</div>
+		<div class='rankNum'>
+			<table>
+				 <c:forEach var="i" begin="1" end="5" step="1"> 
+				<tr>
+					<td style=" padding-top: 20px; padding-bottom: 19px; border-bottom: 1px solid #d9d9d9; width: 50px;">${i }</td>
+				</tr>
+				</c:forEach>
+			</table>
+		</div>
+		<div style="    width: 400px;
+    height: 300px;
+    margin-left: 60px;">
 		<c:forEach var="view" items="${hit}" begin="0" end="4">
 		<table class="rankTable">
-			<colgroup>
-				<col style="width: 80px">
-				<col style="width: auto">
-			</colgroup>
-
 			<tr>
-				<td style="font-size: 40px"><a class='move'
-					href='<c:out value = "${view.bno }"/>'> ${view.bno }</td>
 					<td><a class='move'
 						href='<c:out value = "${view.bno }"/>'> <c:out
 								value="${view.title }" /></a></td>
@@ -467,20 +484,24 @@ div.tipContent {
 			<tr>
 
 				<td><img src="../resources/images/community/reply.png"
-					alt="..." width="15px" height="14px">&nbsp;&nbsp;${view.replyCnt}</td>
-				<td><img src="../resources/images/community/hit.png" alt="..."
-					width="16px" height="13px">&nbsp;&nbsp;${view.hit}</td>
+					alt="..." width="15px" height="14px">&nbsp;&nbsp;${view.replyCnt}
+					<img src="../resources/images/community/hit.png" alt="..."
+					width="16px" height="13px">&nbsp;&nbsp;${view.hit}
+					
+				</td>
 			</tr>
 			<tr>
 				<td><a class='move' href='<c:out value = "${view.bno }"/>'>
-						${view.userId} </td>
-
-				<td><a class='move' href='<c:out value = "${view.bno }"/>'>
+						${view.userId} 
+				<a class='move' href='<c:out value = "${view.bno }"/>'>
 						<fmt:formatDate pattern="yyyy-MM-dd HH:MM:ss"
-							value="${view.boardUpdateDate}" /></td>
+							value="${view.boardUpdateDate}" />		
+				</td>
 			</tr>
-</c:forEach>
+
 		</table>
+		</c:forEach>
+		</div>
 	</div>
 	
 </form>
