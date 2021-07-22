@@ -212,13 +212,9 @@ margin-left: 15px;
 			<table
 				style="text-align: left; width: 500px; font-size: 13px; padding: 15 0 15 15;border-bottom: 1px solid #dddbdb;">
 				
-				<colgroup>
-					<col width="20px"/>
-					<col width="100px"/>
-				</colgroup>
 				<tr class="line">
 					<td 
-						style="text-align: left; font-size: 30px; vertical-align: top;"><a class='move'
+						style="text-align: left; width:35px; font-size: 25px; vertical-align: top;"><a class='move'
 						href='<c:out value = "${listView.bno }"/>'> ${listView.bno } </td>
 
 					<td><a class='move'
