@@ -210,28 +210,30 @@ margin-left: 15px;
 	<div>
 		<c:forEach var="listView" items="${list}">
 			<table
-				style="text-align: right; width: 500px; font-size: 13px; padding-left: 15px; padding-right: 15px;">
+				style="text-align: left; width: 500px; font-size: 13px; padding: 15 0 15 15;border-bottom: 1px solid #dddbdb;">
+				
+				<colgroup>
+					<col width="20px"/>
+					<col width="100px"/>
+				</colgroup>
 				<tr class="line">
-					<td rowspan="5" width="100"
-						style="text-align: left; font-size: 50px;"><a class='move'
+					<td 
+						style="text-align: left; font-size: 30px; vertical-align: top;"><a class='move'
 						href='<c:out value = "${listView.bno }"/>'> ${listView.bno } </td>
 
-				</tr>
-				<tr>
-					<td colspan="5" style="padding-bottom: 25px;"><a class='move'
+					<td><a class='move'
 						href='<c:out value = "${listView.bno }"/>'> <c:out
-								value="${listView.title }" /></a></td>
-				</tr>
-				<tr>
-					<td colspan="5" style="padding-bottom: 25px;"><a class='move'
-						href='<c:out value = "${listView.bno }"/>'> ${listView.userId}</td>
-				</tr>
-				<tr>
-					<td colspan="5" style="padding-bottom: 25px;"><a class='move'
+								value="${listView.title }" /></a>
+								<br><a class='move'
+						href='<c:out value = "${listView.bno }"/>'> ${listView.userId}
+						<a class='move'
 						href='<c:out value = "${listView.bno }"/>'>
-							<fmt:formatDate pattern="yyyy-MM-dd HH:MM:ss" value="${listView.boardUpdateDate}" /></td>
-				</tr>
-				<tr>
+							<fmt:formatDate pattern="yyyy-MM-dd HH:MM:ss" value="${listView.boardUpdateDate}" />
+						
+						</td>
+				
+	
+				
 					
 					<%-- 좋아요..
 					<td width="15%"><img
@@ -239,16 +241,13 @@ margin-left: 15px;
 						width="14px" height="13px">&nbsp;&nbsp;${listView.good}</td> --%>
 							<td width="18%"><img
 						src="../resources/images/community/hit.png" alt="..." width="16px"
-						height="13px">&nbsp;&nbsp;${listView.hit}</td>
-					<td width="18%"><img
+						height="13px">&nbsp;&nbsp;${listView.hit}
+					<img
 						src="../resources/images/community/reply.png" alt="..."
 						width="15px" height="14px">&nbsp;&nbsp;${listView.replyCnt}</td>
 				
 				</tr>
 
-				<tr>
-					<td class="line" colspan="5"></td>
-				</tr>
 
 				</c:forEach>
 
