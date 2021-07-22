@@ -123,7 +123,7 @@ padding-top: 10px;
 .searchdiv .icon{
   position: absolute;
   left: 143px;
-  margin-top: 13px;
+ margin-top: 10px;
   z-index: 1;
   color: #4f5b66;
 }

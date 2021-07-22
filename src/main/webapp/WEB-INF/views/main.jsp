@@ -484,9 +484,9 @@ div.tipContent {
 			<tr>
 
 				<td><img src="../resources/images/community/reply.png"
-					alt="..." width="15px" height="14px">&nbsp;&nbsp;${view.replyCnt}
+					alt="..." width="13px" height="14px">&nbsp;&nbsp;${view.replyCnt}
 					<img src="../resources/images/community/hit.png" alt="..."
-					width="16px" height="13px">&nbsp;&nbsp;${view.hit}
+					width="15px" height="14px" style="padding-left: 7px">&nbsp;&nbsp;${view.hit}
 					
 				</td>
 			</tr>
