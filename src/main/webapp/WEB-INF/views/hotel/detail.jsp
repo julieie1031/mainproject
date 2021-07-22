@@ -361,7 +361,8 @@ text-align:center;
 						str += '<div id="starView">★★★★★</div>'
 					}
 					str += "<div><div class='reviewerDiv'><strong>"+list[i].reviewer+"</strong>";
-					str += "<small class='reviewDateDiv'>"+reviewService.timeForToday(list[i].reviewDate)+"</small></div>";
+					str += "<small class='reviewDateDiv'>"+reviewService.timeForToday(list[i].reviewDate)
+							+"</small></div>";
 					str += "<p class='reviewDiv'>"+list[i].review+"</p></div><hr></li>";
 				}
 				
@@ -521,7 +522,8 @@ text-align:center;
 		
 		//리뷰 수정,삭제 이벤트 처리
 		modalModBtn.on("click",function(e){
-			var review= {reno:modal.data("reno"), review:modalInputReview.val(),star:starValue,reviewer:originalReviewer};
+			var review= {reno:modal.data("reno"), review:modalInputReview.val(),
+					star:starValue,reviewer:originalReviewer};
 			
 			reviewService.update(review,function(result){
 			

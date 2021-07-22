@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.mp.mapper.AdReserMapper">
+    <!-- 예약 목록 -->
+    <select id="adReserList" resultType="org.mp.domain.ReservationVO">
+        select 
+	RESER_ID AS reserId,
+	ROOM_NAME AS roomName,
+	ROOM_PEOPLE AS roomPeople,
+	ROOM_PRICE AS roomPrice,
+	REST_PHONE AS restPhone,
+	DOG_TYPE AS dogType,
+	DOG_NUMBER AS dogNumber,
+	REST_NAME AS restName,
+	START_DATE AS startDate,
+	END_DATE AS endDate,
+	USER_ID AS userId,
+	REST_ID AS restId        
+	FROM RESERVATION
+    </select>
+    
+</mapper>

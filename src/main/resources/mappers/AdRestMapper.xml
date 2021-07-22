@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.mp.mapper.AdRestMapper">
+    <!-- 숙소 목록 -->
+    <select id="adRestList" resultType="org.mp.domain.RestVO">
+        SELECT  
+            rest_id AS restId,
+            rest_name AS restName,
+            rest_phone AS restPhone,
+            rest_address AS restAddress,
+            rest_content AS restContent,
+            rest_image AS restImage,
+            star_avg as starAvg
+        FROM rest
+    </select>
+    
+
+    
+    
+    <!-- 숙소 삭제 -->
+    <delete id="restDelete">
+	 	delete from rest where rest_id = #{restId}
+	</delete>
+
+</mapper>
