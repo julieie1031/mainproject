@@ -60,6 +60,11 @@ public class BoardControllerTest {
 	}
 	
 	@Test
+	public void testList1() throws Exception {
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/main")).andReturn().getModelAndView().getModelMap());
+	}
+	
+	@Test
 	public void testRegister() throws Exception {
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register").param("title", "애견호텔 추천 좀 해주세요")
 			.param("content", "추천부탁드려요").param("userId", "11233")).andReturn().getModelAndView().getViewName();
@@ -68,7 +73,7 @@ public class BoardControllerTest {
 	
 	@Test
 	public void testGet() throws Exception {
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/get").param("bno", "541")).andReturn()
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/get").param("bno", "202")).andReturn()
 				.getModelAndView().getModelMap());
 	}
 	
@@ -95,4 +100,6 @@ public class BoardControllerTest {
 				.param("amount", "50"))
 				.andReturn().getModelAndView().getModelMap());
 	}
+	
+	
 }

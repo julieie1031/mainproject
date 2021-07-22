@@ -111,7 +111,11 @@ where bno = #{bno}
 select REPLY_CNT as replyCnt from board where bno = #{bno}
   </select>
   
-
+ <select id = "getHitList" resultType = "org.mp.domain.BoardVO">
+select bno, USER_ID as userId, title, content, hit, good, BOARD_DATE as boardDate,
+  BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
+   from board order by hit desc
+</select>
   
   
 </mapper>

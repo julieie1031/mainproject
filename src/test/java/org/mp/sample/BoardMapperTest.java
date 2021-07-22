@@ -62,6 +62,11 @@ public class BoardMapperTest {
 	}
 	
 	@Test
+	public void testHitRead() {
+		mapper.getHitList().forEach(board->log.info(board));
+	}
+	
+	@Test
 	public void testInsert() {
 		BoardVO board = new BoardVO();
 		board.setUserId("작성자 02");

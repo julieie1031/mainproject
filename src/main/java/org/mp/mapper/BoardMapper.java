@@ -20,5 +20,8 @@ public interface BoardMapper {
 	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
 	public List<BoardVO> getReply(Long bno);
 	
+	//main 게시판 출력
+	public List<BoardVO> getHitList();
+	
 	
 }

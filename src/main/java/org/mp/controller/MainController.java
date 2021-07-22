@@ -1,6 +1,8 @@
 package org.mp.controller;
 
+import org.mp.service.BoardService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.log4j.Log4j;
@@ -8,10 +10,13 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 public class MainController {
+	private BoardService service;
 	
 	@GetMapping("/main")
-	public void main() {
+	
+	public void main(Model model) {
 		log.info("main");
+		model.addAttribute("hit", service.getHitList());
 	}
 
 }

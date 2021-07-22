@@ -98,11 +98,8 @@ public class BoardServiceImpl implements BoardService{
 		return attachMapper.findByBno(bno);
 	}
 
-	
-
-
-
-
-
-
+	@Override
+	public List<BoardVO> getHitList() {
+		return mapper.getHitList();   
+	}
 }

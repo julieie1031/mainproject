@@ -20,7 +20,7 @@ public interface BoardService {
 	
 	public List<BoardAttachVO> getAttachList(Long bno);
 	
-
+	public List<BoardVO> getHitList();
 	
 	
 }
