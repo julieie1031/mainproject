@@ -69,7 +69,7 @@ WHERE BNO = #{bno}
 	rownum <=#{pageNum}*#{amount}
 	)
 	where rn >(#{pageNum}-1)*#{amount} 
-   	order by hit desc
+   
    ]]>
 	
 	</select>
@@ -113,17 +113,10 @@ select REPLY_CNT as replyCnt from board where bno = #{bno}
   
  <select id = "getHitList" resultType = "org.mp.domain.BoardVO">
  <![CDATA[
- select bno, userId, title, content, hit, boardDate, boardUpdateDate, replyCnt
- from
- (
-select 
-/*+index_desc(board pk_board1)*/
-rownum rn,bno, USER_ID as userId, title, content, hit, BOARD_DATE as boardDate,
+select bno, USER_ID as userId, title, content, hit, BOARD_DATE as boardDate,
   BOARD_UPDATE_DATE as boardUpdateDate, REPLY_CNT as replyCnt
-   from board where
-    rownum <= #{pageNum}*#{amount} 
-    )
-	where rn > (#{pageNum}-1)*#{amount} order by hit desc
+ from board
+ order by hit desc
 	
     ]]>
     

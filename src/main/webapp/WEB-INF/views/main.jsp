@@ -450,7 +450,7 @@ div.tipContent {
 		<div class="title">
 			<h3>인기 게시글</h3>
 		</div>
-		<c:forEach var="view" items="${hit}">
+		<c:forEach var="view" items="${hit}" begin="0" end="4">
 		<table class="rankTable">
 			<colgroup>
 				<col style="width: 80px">
@@ -460,6 +460,9 @@ div.tipContent {
 			<tr>
 				<td style="font-size: 40px"><a class='move'
 					href='<c:out value = "${view.bno }"/>'> ${view.bno }</td>
+					<td><a class='move'
+						href='<c:out value = "${view.bno }"/>'> <c:out
+								value="${view.title }" /></a></td>
 			</tr>
 			<tr>
 
