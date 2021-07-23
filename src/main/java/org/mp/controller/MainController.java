@@ -1,6 +1,5 @@
 package org.mp.controller;
 
-import org.mp.domain.MainCriteria;
 import org.mp.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +16,9 @@ public class MainController {
 	
 	@GetMapping("/main")
 	
-	public void main(MainCriteria cri, Model model) {
+	public void main(Model model) {
 		log.info("main");
-		model.addAttribute("hit", service.getHitList(cri));
+		model.addAttribute("hit", service.getHitList());
 	
 	}
 

@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mp.domain.BoardVO;
 import org.mp.domain.Criteria;
-import org.mp.domain.MainCriteria;
 import org.mp.mapper.BoardMapper;
 import org.mp.mapper.MemberMapper;
 import org.mp.service.BoardService;
@@ -120,8 +119,8 @@ public class BoardMapperTest {
 	
 	@Test
 	public void testPaging1() {
-		MainCriteria cri = new MainCriteria();
-		List<BoardVO> list = mapper.getHitList(cri);
+		
+		List<BoardVO> list = mapper.getHitList();
 		list.forEach(board->log.info(board));
 	}
 	
