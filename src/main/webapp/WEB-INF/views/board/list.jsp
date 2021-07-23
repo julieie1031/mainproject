@@ -193,7 +193,7 @@ a {
 				<td style="padding-left: 77px;"><a href="/board/register"><img
 						src="../resources/images/community/register.png" alt="..."
 						width="40px" height="39px"
-						style="margin-right: 10px; margin-top: 2px;"></a></td>
+						style="margin-right: 10px; margin-top: 3px;"></a></td>
 
 			</tr>
 
@@ -235,9 +235,9 @@ a {
 						width="14px" height="13px">&nbsp;&nbsp;${listView.good}</td> --%>
 				<td width="18%"><img
 					src="../resources/images/community/reply.png" alt="..."
-					width="13px" height="12px" >&nbsp;&nbsp;${listView.replyCnt}
+					width="11px" height="12px" >&nbsp;&nbsp;${listView.replyCnt}
 					<img src="../resources/images/community/hit.png" alt="..."
-					width="15px" height="12px" style="padding-left: 6px">&nbsp;&nbsp;${listView.hit}
+					width="13px" height="12px" style="padding-left: 4px">&nbsp;&nbsp;${listView.hit}
 				</td>
 
 			</tr>

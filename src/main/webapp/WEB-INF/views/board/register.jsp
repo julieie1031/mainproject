@@ -32,30 +32,30 @@ a {
 }
 
 .table1 {
-	/* border-top: 1px solid #444444; */
-	border-bottom: 1px solid #444444;
+	margin-left:15px;
+	margin-right: 15px;
+
 }
 
 input {
 	border: none;
 	border-right: 0px;
 	border-top: 0px;
-	width: 500px;
+	width: 470px;
 	height: 30px;
 	font-size: 15px;
 }
 
 textarea {
-	border: none;
-	border-right: 0px;
-	border-top: 0px;
-	boder-left: 0px;
-	boder-bottom: 0px;
-	width: 500px;
-	height: 50px;
-	resize: none;
-	font-size: 15px;
-}
+	 height: 300px;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
+  width:470px;
+  }
 
 .btn_submit {
 	background-image: url('../resources/images/community/submit.png');
@@ -83,22 +83,19 @@ textarea:focus {
 	width: 42px;
 	height: 42px;
 	margin-left: 10px;
+	
 }
 
 input[type=text] {
-	width: 100%;
-	padding: 12px 20px;
+	width: 470px;
+	
 	margin: 8px 0;
 	box-sizing: border-box;
 }
 
-.inputstyle {
-	border-radius: 5px;
-	background-color: white;
-}
 
 textarea {
-	padding: 12px 20px;
+	padding: 12px 0px;
 	box-sizing: border-box;
 	border: 2px solid white;
 	border-radius: 4px;
@@ -139,30 +136,32 @@ cursor : pointer;
 <div class="carousel-item active"></div>
 
 <form role="form" action="/board/register" method="post">
-	<!-- <img src="../resources/images/community/submit.png" alt="..."
-		width="40px" height="40px" align="right" class = "img1" type = "submit"> -->
+	
 
 	<input type="submit" value="" class="btn_submit">
-	<div class="inputstyle">
-		<table class="table1">
-			<tr>
-				<td height=50><input type="text" name="title"
-					placeholder="제목을 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td><textarea style="height: 300px; font-size: 15px;"
-						name="content" placeholder="내용을 입력해주세요"></textarea></td>
-			</tr>
+	
+		     
+	<table class="table1">
 
-			<tr>
-				<td><input type="text" name="userId" placeholder="아이디를 입력해주세요" value = '<sec:authentication
-				property = "principal.username"/>' readonly = "readonly"></td>
-			</tr>
+		<tr>
+			<td style="font-weight: bold;"><input type="text" name="title" style = "font-size: 28px; margin-top:33px"
+				placeholder = "제목을 입력해주세요"></td>
+		</tr>
+		<tr>
+			<td style="border-bottom: 1px solid #dddbdb; width :470px;">
+			<input type="hidden" name="userId" value='<sec:authentication
+				property = "principal.username"/>' ></td>
+		</tr>
+		<tr>
+			<td><textarea name="content" placeholder = "내용을 입력해주세요" style = "border-bottom: 1px solid #dddbdb;"><c:out
+						value="${board.content }" /></textarea></td>
+		</tr>
 
-		</table>
+
+	</table>
 		<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-	</div>
+	
 	<table style = "height : 150px;">
 		<tr>
 			<td><a id="" href="javascript:fnUpload();"><img

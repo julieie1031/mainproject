@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
 <link href="/resources/css/w3school.css" rel="stylesheet"
@@ -37,17 +38,24 @@ a {
 }
 
 .table1 {
-	border-bottom: 1px solid #444444;
-	margin-top: 87px;
+	border-bottom: 1px solid #dddbdb;
+	margin-top: 88px;
 	margin-bottom: 10px;
-	width: 500px;
+	width: 470px;
+	margin-left: 15px;
+	margin-right: 15px;
 }
 
 .table2 {
-	margin-bottom: 20px;
-	width: 500px;
+	margin-bottom:20px;
+	width: 480px;
+	margin-left: 10px;
+	margin-right: 10px;
+	
+	margin-top: 10px;
 }
 
+}
 input {
 	border: none;
 	border-right: 0px;
@@ -93,8 +101,8 @@ textarea:focus {
 	position: relative;
 	float: right;
 	margin-top: 15px;
-	margin-right: 7px;
-	margin-bottom: 6px;
+	margin-right: 9px;
+	margin-bottom: 8px;
 }
 
 .img2 {
@@ -102,6 +110,15 @@ textarea:focus {
 	float: right;
 	margin-top: 10px;
 	margin-right: 10px;
+}
+
+input {
+	border: none;
+	border-right: 0px;
+	border-top: 0px;
+	width: 500px;
+	height: 30px;
+	font-size: 15px;
 }
 
 input[type=text] {
@@ -194,7 +211,7 @@ textarea {
 	transition-duration: 0.4s;
 	cursor: pointer;
 	float: right;
-	background : #f1f1f1;
+	background: #f1f1f1;
 }
 
 .uploadResult {
@@ -205,7 +222,7 @@ textarea {
 	display: flex;
 	flex-flow: column;
 	justify-content: center;
-	align-items: center;
+	
 }
 
 .uploadResult ul li {
@@ -214,8 +231,8 @@ textarea {
 }
 
 .uploadResult ul li img {
-	width: 450px;
-	height: 300px;
+	width: 445px;
+	height: 320px;
 }
 </style>
 
@@ -229,33 +246,39 @@ textarea {
 		width="40px" height="40px" align="right" class = "img1" type = "submit"> -->
 
 
-<sec:authentication property = "principal" var = "pinfo"/>
-<sec:authorize access = "isAuthenticated()">
-<c:if test = "${pinfo.username eq board.userId }">
-<a href="#"><img src="../resources/images/community/register.png"
-	alt="..." width="40px" height="39px" class="img1" data-oper='modify'></a>
-</c:if>
+<sec:authentication property="principal" var="pinfo" />
+<sec:authorize access="isAuthenticated()">
+	<c:if test="${pinfo.username eq board.userId }">
+		<a href="#"><img src="../resources/images/community/register.png"
+			alt="..." width="40px" height="39px" class="img1" data-oper='modify'></a>
+	</c:if>
 </sec:authorize>
 
 
 <table class="table1">
 	<tr style="margin-top: 10px;">
-		<td style="padding-bottom: 15px;">${board.title }</td>
+		<td style="font-weight: bold; font-size: 28px;">${board.title }</td>
 	</tr>
-
 	<tr>
-		<td width=500px><div class="uploadResult">
+		<td style ="padding-top:15px;">${board.userId }&nbsp;&nbsp;&nbsp;<img src="../resources/images/community/hit.png" alt="..."
+			width="15px" height="15px" style="padding-left: 4px;">&nbsp;&nbsp;${board.hit}</td>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-bottom: 1px solid #d9d9d9; padding-bottom: 15px; padding-top:15px;">
+			
+			<fmt:formatDate
+				pattern="yyyy-MM-dd HH:MM:ss" value="${board.boardUpdateDate}" />
+		</td>
+	</tr>
+	<tr>
+		<td style="width: 500px; padding-bottom: 15px;"><div
+				class="uploadResult">
 				<ul></ul>
 			</div>${board.content }</td>
 	</tr>
 	</div>
-	<%-- <tr>
-			<td><input type="text" name="userId" readonly = "readonly" value = '<c:out value = "${board.userId }"/>'></td>
-		</tr> --%>
-	<!-- 
-		<tr>
-		<td><input type="file" name='uploadFile' multiple></td>
-		</tr> -->
+
 
 
 </table>
@@ -266,20 +289,20 @@ textarea {
 		<tr>
 
 			<td>댓글&nbsp;<c:out value="${getReply.replyCnt }" /></td>
-			<sec:authorize access = "isAuthenticated()">
-			<td><button id="addReplyBtn" style="float: right;"
-					class="button button1"
-					onclick="document.getElementById('id01').style.display='block'">댓글
-					작성</button></td>
-					</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+				<td><button id="addReplyBtn"
+						style="float: right;" class="button button1"
+						onclick="document.getElementById('id01').style.display='block'">댓글
+						작성</button></td>
+			</sec:authorize>
 		</tr>
 
 
 	</table>
 </c:forEach>
-<hr>
+
 <div style="font-size: 15px;">
-	<ul class="chat">
+	<ul class="chat" style="margin-left: 15px; margin-right: 15px;">
 
 		<!-- start reply -->
 		<li class="left clearfix" data-rno='12'>
@@ -336,13 +359,13 @@ textarea {
 		<br />
 
 		<footer class="w3-container w3-teal">
-			<sec:authentication property = "principal" var = "pinfo"/>
-	<sec:authorize access = "isAuthenticated()">
-	<c:if test = "${pinfo.username eq board.userId }">	
-			<button id='modalModBtn' type="button" class="button2">수정</button>
-			<button id='modalRemoveBtn' type="button" class="button2">삭제</button>
-			</c:if>
-	</sec:authorize>
+			<sec:authentication property="principal" var="pinfo" />
+			<sec:authorize access="isAuthenticated()">
+				<c:if test="${pinfo.username eq board.userId }">
+					<button id='modalModBtn' type="button" class="button2">수정</button>
+					<button id='modalRemoveBtn' type="button" class="button2">삭제</button>
+				</c:if>
+			</sec:authorize>
 			<button id='modalRegisterBtn' type="button" class="button2">등록</button>
 			<!-- <button id='modalCloseBtn' type="button" >닫기</button> -->
 

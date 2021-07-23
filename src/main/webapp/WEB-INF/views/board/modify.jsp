@@ -3,8 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
-<meta name="_csrf" content="${_csrf.token}">
-<meta name="_csrf_header" content="${_csrf.headerName}">
 <link href="/resources/css/w3school.css" rel="stylesheet" type="text/css" />
 <style>
 * {
@@ -35,14 +33,17 @@ a {
 }
 
 .table1 {
-	border-bottom: 1px solid #444444;
+	border-bottom: 1px solid #dddbdb;
+	margin-left: 15px;
+	margin-right: 15px;
+	width:470px;
 }
 
 input {
 	border: none;
 	border-right: 0px;
 	border-top: 0px;
-	width: 500px;
+	width: 470px;
 	height: 30px;
 	font-size: 15px;
 }
@@ -53,10 +54,11 @@ textarea {
 	border-top: 0px;
 	boder-left: 0px;
 	boder-bottom: 0px;
-	width: 500px;
+	width: 470px;
 	height: 50px;
 	resize: none;
 	font-size: 15px;
+	margin-top:10px;
 }
 
 .btn_submit {
@@ -96,7 +98,7 @@ textarea:focus {
 	outline: none;
 }
 input[type=text] {
-  width: 100%;
+ 
   font-size : 16px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -116,6 +118,7 @@ textarea {
   background-color: white;
   font-size: 16px;
   resize: none;
+  width:470px;
 }
 .uploadResult {
 	width: 100%;
@@ -176,26 +179,23 @@ cursor : pointer;
 		<input type = 'hidden' name = 'keyword' value = '<c:out value = "${cri.keyword }"/>'>
         <input type = 'hidden' name = 'type' value = '<c:out value = "${cri.type }"/>'>
         
-        
 	<table class="table1">
 
 		<tr>
-			<td height=100;><input type="text" name="title"
+			<td style="font-weight: bold; border-bottom: 1px solid #dddbdb;">
+			<input type="text" name="title" style = "font-size: 28px; margin-top:33px"
 				value='<c:out value = "${board.title }"/>'></td>
 		</tr>
+	
 		<tr>
 			<td><textarea name="content"><c:out
 						value="${board.content }" /></textarea></td>
 		</tr>
 
-		<%-- <tr>
-			<td><input type="text" name="userId" readonly = "readonly" value = '<c:out value = "${board.userId }"/>'></td>
-		</tr> --%>
-		
-		
-		
 
 	</table>
+
+	
 	<table style = "height : 150px;">
 		<tr>
 			<td><a id="" href="javascript:fnUpload();"><img
@@ -392,13 +392,7 @@ function fnUpload() {
 			
 		});//end javascript
 	
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		$(document).ajaxSend(function(e, xhr, options) 
-		{ 
-		   xhr.setRequestHeader(header, token); 
-		});
-
+	
 </script>
 
 </body>
