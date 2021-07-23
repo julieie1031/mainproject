@@ -183,7 +183,7 @@ cursor : pointer;
 
 		<tr>
 			<td style="font-weight: bold; border-bottom: 1px solid #dddbdb;">
-			<input type="text" name="title" style = "font-size: 28px; margin-top:33px"
+			<input type="text" name="title" style = "font-size: 20px; margin-top:33px"
 				value='<c:out value = "${board.title }"/>'></td>
 		</tr>
 	

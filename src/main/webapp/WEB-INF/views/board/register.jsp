@@ -144,7 +144,7 @@ cursor : pointer;
 	<table class="table1">
 
 		<tr>
-			<td style="font-weight: bold;"><input type="text" name="title" style = "font-size: 28px; margin-top:33px"
+			<td style="font-weight: bold;"><input type="text" name="title" style = "font-size: 20px; margin-top:33px"
 				placeholder = "제목을 입력해주세요"></td>
 		</tr>
 		<tr>

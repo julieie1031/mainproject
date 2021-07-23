@@ -257,15 +257,15 @@ textarea {
 
 <table class="table1">
 	<tr style="margin-top: 10px;">
-		<td style="font-weight: bold; font-size: 28px;">${board.title }</td>
+		<td style="font-weight: bold; font-size: 20px;">${board.title }</td>
 	</tr>
 	<tr>
-		<td style ="padding-top:15px;">${board.userId }&nbsp;&nbsp;&nbsp;<img src="../resources/images/community/hit.png" alt="..."
+		<td style ="padding-top:5px; font-size:15px;">${board.userId }&nbsp;&nbsp;&nbsp;<img src="../resources/images/community/hit.png" alt="..."
 			width="15px" height="15px" style="padding-left: 4px;">&nbsp;&nbsp;${board.hit}</td>
 		</td>
 	</tr>
 	<tr>
-		<td style="border-bottom: 1px solid #d9d9d9; padding-bottom: 15px; padding-top:15px;">
+		<td style="border-bottom: 1px solid #d9d9d9; padding-bottom: 15px; font-size:15px;">
 			
 			<fmt:formatDate
 				pattern="yyyy-MM-dd HH:MM:ss" value="${board.boardUpdateDate}" />
