@@ -2,6 +2,7 @@ package org.mp.controller;
 
 import java.util.List;
 
+import org.mp.domain.MemberVO;
 import org.mp.domain.ReservationVO;
 import org.mp.mapper.ReservationMapper;
 import org.mp.service.MemberService;
@@ -52,11 +53,31 @@ public class SessionsController {
 		return "/users/userDelete"; 
 	}
 	@RequestMapping(value="/roomList", method= {RequestMethod.GET, RequestMethod.POST})
-	public void roomList(@RequestParam(value = "userId",required=false) String userId,Model model) {
+	public String roomList(@RequestParam(value = "userId",required=false) String userId,Model model) {
 		log.info("roomList requested");
 		List<ReservationVO> list = service.reservationList(userId);
 		log.info("roomList_OK3");	
 		model.addAttribute("list",list);
+		return "/users/roomList"; 
 	}
-	
+	@ResponseBody
+	@RequestMapping(value="/idCheck", method = RequestMethod.POST)
+	public String idCheck(String userId) throws Exception {
+		log.info("memberIdChk() 진입");
+		
+		int result = service.idCheck(userId);
+		
+		log.info("결과값 = " + result);
+		
+		if(result != 0) {
+			
+			return "fail";	// 중복 아이디가 존재
+			
+		} else {
+			
+			return "success";	// 중복 아이디 x
+			
+		}
+	}
+		  
 }

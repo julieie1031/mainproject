@@ -133,7 +133,7 @@ a {
 			</div>
 
 			<div class="log">
-				<input type="submit" id="login" value="LOGIN" style="border: none;">
+				<input type="submit" id="login" value="LOGIN" style="border: none; cursor:pointer;">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 			</div>
@@ -142,7 +142,7 @@ a {
 		<div class="log">
 
 			<a href="/join"><input type="submit" id="join" value="JOIN"
-				style="border: none;"></a>
+				style="border: none; cursor:pointer;"></a>
 		</div>
 
 <%@include file="../layout/footer.jsp"%>

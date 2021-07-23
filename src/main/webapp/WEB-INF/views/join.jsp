@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -52,9 +54,40 @@
 			}
 
 		});
+		$(function () {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			$(document).ajaxSend(function(e, xhr, options) {
+			    xhr.setRequestHeader(header, token);
+			});
 
-	})
+		   })
+		$('#userId').on("propertychange change keyup paste input", function() {
+
+			var userId = $('#userId').val(); // .id_input에 입력되는 값
+			var data = {userId : userId } // '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+
+			$.ajax({
+				type : "POST",
+				url : "/users/idCheck",
+				data : data,
+				success : function(result) {
+					// console.log("성공 여부" + result);
+					if (result != 'fail') {
+						$('.id_input_re_1').css("display", "inline-block");
+						$('.id_input_re_2').css("display", "none");
+					} else {
+						$('.id_input_re_2').css("display", "inline-block");
+						$('.id_input_re_1').css("display", "none");
+					}
+				}// success 종료
+			}); // ajax 종료
+		});// function 종료
+
+	});
 </script>
+
+
 
 <script>
 	$(document)
@@ -169,29 +202,27 @@
 				}).open();
 	}
 </script>
-<script> 
-$(".idCheck").click(function(){
- 
- var query = {userId : $("#userId").val()};
- 
- $.ajax({
-  url : "/member/idCheck",
-  type : "post",
-  data : query,
-  success : function(data) {
-  
-   if(data == 1) {
-    $(".result .msg").text("사용 불가");
-    $(".result .msg").attr("style", "color:#f00");    
-   } else {
-    $(".result .msg").text("사용 가능");
-    $(".result .msg").attr("style", "color:#00f");
-   }
-  }
- });  // ajax 끝
-});
-</script>
+
 <style>
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1 {
+	color: green;
+	display: none;
+	font-family: 'S-CoreDream-3Light';
+	font-size: 10px;
+	position: absolute;
+    bottom: 150px;
+}
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2 {
+	color: red;
+	display: none;
+	font-family: 'S-CoreDream-3Light';
+	font-size: 10px;
+	position: absolute;
+    bottom: 150px;
+}
+
 .homie {
 	position: relative;
 	bottom: 455px;
@@ -704,22 +735,22 @@ a {
 			<p>
 			<div class="user">
 
-				<p><input type="text" id="userId" name="userId" maxlength='20' 
-					placeholder="아이디를 입력해주세요" style="border: none; font-size: 12px;">
-				<f:errors path="userId" element="div" cssClass="alert text-danger" />
-				<%-- <button type = "button" class = "idCheck">아이디 중복 확인</button></p>
-				<p class = "result">
-					<span class = "msg">아이디를 확인해주십시오.</span>
-				</p> --%>
-				<f:password path="userPwd" id="userPwd" name="userPwd" maxlength='20'
-					placeholder="비밀번호를 입력해주세요" style="border: none; font-size: 12px;" />
-				<f:errors path="userPwd" element="div" cssClass="alert text-danger" />
-				<input type="text" id="userName" name="userName" maxlength='10'
-					placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
+				<p>
+					<input type="text" id="userId" name="userId"
+					 maxlength='20' placeholder="아이디를 입력해주세요" style="border: none; font-size: 12px;">
+					<f:errors path="userId" element="div" cssClass="alert text-danger" />
+					<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
+					<span class="id_input_re_2">아이디가 이미 존재합니다.</span></p>
+					<f:password path="userPwd" id="userPwd" name="userPwd"
+						maxlength='20' placeholder="비밀번호를 입력해주세요"
+						style="border: none; font-size: 12px;" />
+					<f:errors path="userPwd" element="div" cssClass="alert text-danger" />
+					<input type="text" id="userName" name="userName" maxlength='10'
+						placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
 			</div>
 
 			<div class="phone1">
-				<select id="phone1" name="phone" style="border: none">
+				<select id="phone1" name="phone" style="border: none; cursor:pointer;">
 					<option value="010">010</option>
 					<option value="011">011</option>
 					<option value="017">017</option>
@@ -733,12 +764,12 @@ a {
 				<p>-</p>
 			</div>
 			<div class="phone2">
-				<input type="text" class="frontNum" id="phone2" name="phone" maxlength='4'
-					style="border: none">
+				<input type="text" class="frontNum" id="phone2" name="phone"
+					maxlength='4' style="border: none">
 			</div>
 			<div class="phone3">
-				<input type="text" class="backNum" id="phone2" name="phone" maxlength='4'
-					style="border: none">
+				<input type="text" class="backNum" id="phone2" name="phone"
+					maxlength='4' style="border: none">
 			</div>
 
 			<div class="emailtxt">
@@ -752,7 +783,7 @@ a {
 			<div class='atsign'>@</div>
 			<div class="Eselect">
 				<select id="Eselect" id="email" name="email"
-					style="border: none; font-size: 12px;">
+					style="border: none; cursor:pointer; font-size: 12px;">
 					<option value="">이메일주소</option>
 					<option value="@naver.com">naver.com</option>
 					<option value="@daum.net">daum.net</option>
@@ -782,31 +813,31 @@ a {
 				<p>주소</p>
 			</div>
 			<div class="add">
-				<input type="text" id="postcode" name = "address" placeholder="우편번호"
+				<input type="text" id="postcode" name="address" placeholder="우편번호"
 					style="border: none; font-size: 12px;">
 			</div>
 			<div class="add1">
-				<input type="button" class="addbtn" name = "address" onclick="execDaumPostcode()"
-					value="우편번호" style="border: none; font-size: 9px;"><br>
+				<input type="button" class="addbtn" name="address"
+					onclick="execDaumPostcode()" value="우편번호"
+					style="border: none; cursor:pointer; font-size: 9px;"><br>
 			</div>
 			<div class="add2">
-				<input type="text" id="roadAddress" name = "address" placeholder="도로명주소"
-					style="border: none; font-size: 12px;"><br>
+				<input type="text" id="roadAddress" name="address"
+					placeholder="도로명주소" style="border: none; font-size: 12px;"><br>
 			</div>
 			<input type="hidden" id="jibunAddress" placeholder="지번주소">
 			<span id="guide" style="color: #999; display: none"></span>
 			<div class="add3">
-				<input type="text" id="detailAddress" name = "address" placeholder="상세주소"
-					style="border: none; font-size: 12px;"><br>
+				<input type="text" id="detailAddress" name="address"
+					placeholder="상세주소" style="border: none; font-size: 12px;"><br>
 			</div>
 			<input type="hidden" id="extraAddress" placeholder="참고항목">
 			<input type="hidden" id="engAddress" placeholder="영문주소">
 			<br>
 
-		<s:csrfInput />
+			<s:csrfInput />
 			<div class="join">
-				<input type="submit" id="join" value="회원가입"
-					style="border: none;">
+				<input type="submit" id="join" value="회원가입" style="border: none; cursor:pointer;">
 			</div>
 		</f:form>
 

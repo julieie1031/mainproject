@@ -42,4 +42,7 @@
 		delete from members
 		where userId = #{userId}
 	</delete>
+	<select id="idCheck" resultType="int">
+ select count(*) from members where userId = #{userId}
+</select>
 </mapper>

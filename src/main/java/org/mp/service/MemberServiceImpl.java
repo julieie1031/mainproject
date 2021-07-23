@@ -3,8 +3,6 @@ package org.mp.service;
 import java.util.List;
 
 import org.mp.domain.AuthVO;
-import org.mp.domain.BoardVO;
-import org.mp.domain.Criteria;
 import org.mp.domain.MemberVO;
 import org.mp.domain.ReservationVO;
 import org.mp.mapper.MemberMapper;
@@ -14,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /*import org.springframework.security.crypto.password.PasswordEncoder;*/
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -49,7 +46,6 @@ public class MemberServiceImpl implements MemberService {
 		mapper.insertAuth(vo);
 		
 	}
-	@Transactional
 	@Override
 	public void delete(String userId) {
 		// TODO Auto-generated method stub
@@ -74,7 +70,11 @@ public class MemberServiceImpl implements MemberService {
 		log.info("roomList_ok2");
 		return resermapper.reservationList(userId);
 	}
-
+	@Override
+	public int idCheck(String userId) throws Exception {
+		log.info("id check ok2");
+		return mapper.idCheck(userId);
+	}
 	
 	@Override
 	public BCryptPasswordEncoder getPwencoder() {

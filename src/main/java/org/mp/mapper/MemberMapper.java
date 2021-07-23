@@ -19,6 +19,6 @@ public interface MemberMapper {
 	public void delete(String userId);
 	
 	//아이디 체크
-	public MemberVO idCheck(String userId);
+	public int idCheck(String userId) throws Exception;
 
 }

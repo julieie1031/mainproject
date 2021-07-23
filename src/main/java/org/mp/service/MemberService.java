@@ -17,6 +17,7 @@ public interface MemberService {
 	//암호화
 	public BCryptPasswordEncoder getPwencoder();
 	public List<ReservationVO> reservationList(String userId);
+	public int idCheck(String userId) throws Exception;
 	
 
 }
