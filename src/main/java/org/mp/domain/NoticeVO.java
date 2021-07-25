@@ -9,8 +9,8 @@ import lombok.Data;
 public class NoticeVO {
 private Long nno;
 private String userId;
-private String ntitle;	
-private String ncontent;
-private Date ndate;
-private Date nupdateDate;
+private String noticeTitle;	
+private String noticeContent;
+private Date noticeDate;
+private Date noticeUpdateDate;
 }

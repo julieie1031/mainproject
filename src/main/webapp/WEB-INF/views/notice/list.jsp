@@ -1,21 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<script>
-$(document).ready(function(){
-	$('.adminregister img').on("click",function(){
-		alert("hi")
-	})
-})
-</script>
+<title>공지글 알려줄개</title>
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+	crossorigin="anonymous">
+	</script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>	
 <style>
 .carousel {
 	position: relative;
@@ -260,6 +261,7 @@ $(document).ready(function(){
 	outline: 0;
 	opacity: 0.9;
 }
+/* 배너 */
 
 .notice-board {
 	width: 100%;
@@ -272,6 +274,7 @@ $(document).ready(function(){
 	padding-left: 30px;
 	padding-top: 7px;
 	border-bottom: 1px solid #d0cfcf;
+	cursor: pointer;
 }
 
 .notice-body p {
@@ -292,12 +295,71 @@ $(document).ready(function(){
 	display: flex;
 	z-index:3;
 }
+.ul {
+	list-style: none;
+	float: right;
+	display: inline;
+	margin-top: 25px;
+}
+
+#li {
+	float: left;
+	margin-left: 4px;
+}
+
+.a {
+	float: left;
+	padding: 8px;
+	margin-right: 5px;
+	margin-bottom: 20px;
+	width: 25px;
+	height: 20px;
+	color: #000;
+	font: bold 15px tahoma;
+	border: 1px solid #eee;
+	text-align: center;
+	text-decoration: none;
+}
+
+.a:hover, .a:focus {
+	color: #fff;
+	border: 1px solid #B0B0B0;
+	background-color: #B0B0B0;
+}
+
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.adminregister img').on("click",function(){
+		location.href="register"
+	})
+	var result = '<c:out value = "${result}"/>';
+
+	var actionForm = $("#actionForm");
+	$(".paginate_button a").on("click",function(e) {
+				e.preventDefault();
+				console.log('click');
+				actionForm.find("input[name='pageNum']")
+						.val($(this).attr("href"));
+				actionForm.submit();
+			});
+	
+	$(".notice-body").on("click",function(e) {
+		e.preventDefault();
+		actionForm.append("<input type = 'hidden' name = 'nno' value = '"+ $(this).attr("id")+ "'>");
+		actionForm.attr("action","/notice/get");
+		actionForm.submit();
+		});
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+
+})
+</script>
 <body>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-		crossorigin="anonymous"></script>
 	<%@include file="../layout/header2.jsp"%>
 	<!-- 배너 -->
 	<div id="carouselExampleControls" class="carousel slide"
@@ -335,14 +397,51 @@ $(document).ready(function(){
 		<!-- 공지판 시작 -->
 	<div class="notice-board">
 		<c:forEach var="list" items="${list}">
-			<div class="notice-body">
-				${list.ntitle}<br>
-				 <p>${list.ndate}</p> 
-			</div>
+			<div class="notice-body" id=${list.nno }>
+				${list.noticeTitle}
+			<br>
+				 <p><fmt:formatDate
+								pattern="yyyy-MM-dd HH:MM:ss"
+								value="${list.noticeUpdateDate}" /></p> 
+		</div>
 		</c:forEach>
 	</div>
 	<!-- 배너 끝 -->
+	<!-- 페이징 처리 -->
+	<table style="float: center; width: 500px;">
+	<tr>
+		<td>
+			<ul class="ul">
+				<c:if test="${pageMaker.prev }">
+					<li class="paginate_button" id="li"><a class="a"
+						href="${pageMaker.startPage-1 }">&laquo;&laquo;</a></li>
+				</c:if>
+
+
+				<c:forEach var="num" begin="${pageMaker.startPage }"
+					end="${pageMaker.endPage }">
+					<li class="paginate_button ${pageMaker.cri.pageNum==num?"
+						active":""}" id="li"><a class="a" href="${num }">${num }</a></li>
+				</c:forEach>
+				<c:if test="${pageMaker.next }">
+					<li class="paginate_button" id="li"><a class="a"
+						href="${pageMaker.endPage+1 }">&raquo;&raquo;</a></li>
+				</c:if>
+			</ul>
+		</td>
+	</tr>
+</table>
+<!-- 페이징 처리 끝 -->
 
 	<%@include file="../layout/footer.jsp"%>
+		<!-- 히든 -->
+	<form id='actionForm' action="/notice/list" method="get">
+		<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
+		<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
+		<input type='hidden' name='keyword'
+			value='<c:out value = "${pageMaker.cri.keyword }"/>'> <input
+			type='hidden' name='type'
+			value='<c:out value = "${pageMaker.cri.type }"/>'>
+	</form>
 </body>
 </html>
