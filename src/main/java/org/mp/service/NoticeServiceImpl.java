@@ -2,6 +2,7 @@ package org.mp.service;
 
 import java.util.List;
 
+import org.mp.domain.BoardVO;
 import org.mp.domain.CriteriaNotice;
 import org.mp.domain.NoticeVO;
 import org.mp.mapper.NoticeMapper;
@@ -41,6 +42,10 @@ public class NoticeServiceImpl implements NoticeService{
 	public boolean remove(Long nno) {
 		log.info("remove....."+nno);
 		return mapper.delete(nno) == 1;
+	}
+	@Override
+	public List<NoticeVO> mainNotice() {  
+		return mapper.mainNotice();     
 	}
 
 	@Override

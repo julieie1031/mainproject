@@ -91,5 +91,16 @@ nno > 0
 
 </select>
 
+<select id = "mainNotice" resultType = "org.mp.domain.NoticeVO">
+ <![CDATA[
+select nno, USER_ID as userId, NOTICE_TITLE as noticeTitle, NOTICE_CONTENT as noticeContent, NOTICE_DATE as noticeDate,
+  NOTICE_UPDATE_DATE as noticeUpdateDate
+ from notice
+ order by nno desc
+	
+    ]]>
+    
+   </select>
+
 
 </mapper>
