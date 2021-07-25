@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "org.mp.mapper.TipMapper">
+
+  <select id = "getList" resultType = "org.mp.domain.TipVO">
+  select tno, USER_ID as userId, TIP_TITLE as tipTitle, TIP_CONTENT as tipContent, TIP_DATE as tipDate,
+  TIP_UPDATE_DATE as tipUpdateDate
+  from commontip where tno > 0
+  </select>
+    
+<insert id = "insert">
+insert into commontip(tno, USER_ID, TIP_TITLE, TIP_CONTENT)
+values(SEQ_TIP.nextval, #{userId}, #{tipTitle}, #{tipContent})
+</insert>
+
+<insert id = "insertSelectkey">
+<selectKey keyProperty = "tno" order = "BEFORE" resultType = "long">
+select seq_tip.nextval from dual 
+</selectKey>
+insert into commontip(tno, USER_ID, TIP_TITLE, TIP_CONTENT)
+values(#{tno}, #{userId}, #{tipTitle}, #{tipContent})
+</insert>
+  
+  <select id = "read" resultType = "org.mp.domain.TipVO">
+select tno, USER_ID as userId, TIP_TITLE as tipTitle, TIP_CONTENT as tipContent, TIP_DATE as tipDate,
+   TIP_UPDATE_DATE as tipUpdateDate
+   from commontip where tno=#{tno} 
+</select>
+  
+<delete id = "delete">
+delete from commontip where tno=#{tno}
+</delete>
+
+<update id = "update">
+update commontip set 
+USER_ID=#{userId},
+TIP_TITLE=#{tipTitle}, 
+TIP_CONTENT=#{tipContent},
+TIP_UPDATE_DATE = sysdate
+where tno=#{tno}
+</update>
+
+	<select id="getListWithPaging"	resultType="org.mp.domain.TipVO">
+   <![CDATA[
+    select
+	tno, userId, tipTitle, tipContent, tipDate, tipUpdateDate
+	from
+	(
+   		 select
+   		 /*+index_desc(board pk_tip)*/
+    	 rownum rn, tno, USER_ID as userId, TIP_TITLE as tipTitle, TIP_CONTENT as tipContent, 
+    	 TIP_DATE as tipDate, TIP_UPDATE_DATE as tipUpdateDate
+   		 from commontip
+			where
+    	 ]]>
+ 	
+	<include refid="criteriaTip"></include>
+	
+	<![CDATA[
+	
+	rownum <=#{pageNum}*#{amount}
+	)
+	where rn >(#{pageNum}-1)*#{amount} 
+   
+   ]]>
+	
+	</select>
+
+<select id = "getTotalCount" resultType = "int">
+select count(*) from commontip
+where
+
+<include refid="criteriaTip"></include>
+
+tno > 0
+
+</select>
+
+<sql id = "criteriaTip">
+</sql>
+  
+</mapper>

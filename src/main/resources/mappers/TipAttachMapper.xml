@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "org.mp.mapper.TipAttachMapper">
+
+<insert id = "insert">
+		insert into tipattach (uuid, UPLOAD_PATH, FILE_NAME, FILE_TYPE, tno)
+		values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{tno})
+	</insert>
+	
+	<delete id = "delete">
+		delete from tipattach where uuid = #{uuid}
+	</delete>
+	
+	<delete id = "deleteAll">
+		delete from tipattach where bno = #{bno}
+	</delete>
+	
+	<delete id = "deleteAttach">
+delete from tipattach where tno=#{tno}
+</delete>
+	<select id = "findByTno" resultType="org.mp.domain.TipAttachVO">
+		select uuid, UPLOAD_PATH as uploadPath, FILE_NAME as fileName, FILE_TYPE as fileType, tno
+		 from tipattach where tno = #{tno}
+	</select>
+	
+<select id = "getOldFiles" resultType = "org.mp.domain.TipAttachVO">
+		select * from tipattach where UPLOAD_PATH = to_char(sysdate-1, 'yyyy\mm\dd')
+	</select>
+	
+	
+	
+</mapper>
