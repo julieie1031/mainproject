@@ -356,7 +356,22 @@ $(document).ready(function(){
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
+	var searchForm = $("#searchForm");
 
+	$("#searchForm table tbody tr.img1 td:nth-child(3) button img").on("click",function(e) {
+		if (!searchForm.find("option:selected").val()) {
+			alert("검색종류를 선택하세요");
+			return false;
+			}
+
+			if (!searchForm.find("input[name='keyword']").val()) {
+				alert("키워드를 입력하세요");
+				return false;
+				}
+			searchForm.find("input[name='pageNum']").val("1");
+			e.preventDefault();
+			searchForm.submit();
+	});
 })
 </script>
 <body>
@@ -389,8 +404,51 @@ $(document).ready(function(){
 				class="visually-hidden">Next</span>
 		</button>
 		<!-- 배너 끝 -->
+		<div class="searchDiv">
+	<form id='searchForm' action="/notice/list" method='get'>
+		<table>
+			<tr class="img1">
+				<td><select name='type'
+					style="width: 110px; height: 30px; border: none; font-size: 10pt; color: #787878; background: #f4f4f4;">
+						<option value=""
+							<c:out value = "${pageMaker.cri.type==null?'selected':'' }"/>>--</option>
+						<option value="T"
+							<c:out value = "${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
+						<option value="C"
+							<c:out value = "${pageMaker.cri.type eq 'C'?'selected':'' }"/>>내용</option>
+						<option value="W"
+							<c:out value = "${pageMaker.cri.type eq 'W'?'selected':'' }"/>>작성자</option>
+						<option value="TC"
+							<c:out value = "${pageMaker.cri.type eq 'TC'?'selected':'' }"/>>제목
+							or 내용</option>
+						<option value="TW"
+							<c:out value = "${pageMaker.cri.type eq 'TW'?'selected':'' }"/>>제목
+							or 작성자</option>
+				</select></td>
+				<span class="icon"><i class="fa fa-search"
+					style="margin-left: 10px; margin-top: 3px"></i></span>
+				<td><input type="text" name='keyword' class="searchBar"
+					placeholder="검색어를 입력해주세요"
+					value='<c:out value = "${pageMaker.cri.keyword }"/>' /> <input
+					type='hidden' name='pageNum'
+					value='<c:out value = "${pageMaker.cri.pageNum }"/>' /> <input
+					type='hidden' name='amount'
+					value='<c:out value = "${pageMaker.cri.amount }"/>' />
+
+
+
+					</form>
+
+			</tr>
+
+			<!-- <tr class="img2">
+			<td><img src="../resources/images/banner2.png" alt="..."
+				width="500px" height="150px"></td>
+		</tr> -->
+		</table>
+</div>
 	</div>
-	<!-- admin전용 글작성 버튼 보이기! -->
+	<!-- 전용 글작성 버튼 보이기 -->
 		<div class="adminregister">
 			<img src="/resources/images/community/register.png" />
 		</div>
