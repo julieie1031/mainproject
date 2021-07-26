@@ -59,8 +59,8 @@ public class NoticeMapperTest {
 	public void testInsert() {
 		NoticeVO notice = new NoticeVO();
 		notice.setUserId("admin2");
-		notice.setNtitle("새로운 공지");
-		notice.setNcontent("새로운 공지글:");
+		notice.setNoticeTitle("새로운 공지");
+		notice.setNoticeContent("새로운 공지글:");
 		
 		mapper.insert(notice);
 		log.info(notice);
@@ -70,8 +70,8 @@ public class NoticeMapperTest {
 	public void testInsertSelectkey() {
 		NoticeVO notice = new NoticeVO();
 		notice.setUserId("admin3");
-		notice.setNtitle("새로운 공지+");
-		notice.setNcontent("새로운 공지글++");
+		notice.setNoticeTitle("새로운 공지+");
+		notice.setNoticeContent("새로운 공지글++");
 		
 		mapper.insertSelectkey(notice);
 		log.info(notice);
@@ -89,8 +89,8 @@ public class NoticeMapperTest {
 	@Test
 	public void testUpdate() {
 		NoticeVO notice = new NoticeVO();
-		notice.setNtitle("수정된 공지사항");
-		notice.setNcontent("수정수정");
+		notice.setNoticeTitle("수정된 공지사항");
+		notice.setNoticeContent("수정수정");
 		notice.setNno(9L);
 		
 		int count = mapper.update(notice);

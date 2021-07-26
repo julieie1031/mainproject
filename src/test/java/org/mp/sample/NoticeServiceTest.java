@@ -30,8 +30,8 @@ public class NoticeServiceTest {
 	public void testReigster() {
 		NoticeVO notice = new NoticeVO();
 		notice.setUserId("admin4");
-		notice.setNtitle("서비스 공지글");
-		notice.setNcontent("입니다랑");
+		notice.setNoticeTitle("서비스 공지글");
+		notice.setNoticeContent("입니다랑");
 		
 		service.register(notice);
 		log.info("생성 번호"+notice.getNno());
