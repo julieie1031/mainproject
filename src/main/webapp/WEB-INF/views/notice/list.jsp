@@ -9,6 +9,7 @@
 <title>공지글 알려줄개</title>
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
@@ -294,6 +295,7 @@
 	margin-left: 445px;
 	display: flex;
 	z-index:3;
+	cursor: pointer;
 }
 .ul {
 	list-style: none;
@@ -325,6 +327,37 @@
 	color: #fff;
 	border: 1px solid #B0B0B0;
 	background-color: #B0B0B0;
+}
+
+.searchDiv {
+	padding-top: 10px;
+	font-size: 13px;
+	clear: both;
+	text-align: center;
+}
+
+.searchbar {
+	width: 230px;
+	height: 30px;
+	background: #f4f4f4;
+	border: none;
+	font-size: 10pt;
+	color: #787878;
+	padding-left: 45px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.searchDiv .icon {
+	position: absolute;
+    left: 134px;
+    margin-top: 7px;
+	z-index: 1;
+	color: #4f5b66;
+}
+
+#searchForm table {
+	margin-left: 15px;
 }
 
 </style>
@@ -403,6 +436,7 @@ $(document).ready(function(){
 			<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
 				class="visually-hidden">Next</span>
 		</button>
+			</div>
 		<!-- 배너 끝 -->
 		<div class="searchDiv">
 	<form id='searchForm' action="/notice/list" method='get'>
@@ -427,7 +461,7 @@ $(document).ready(function(){
 				</select></td>
 				<span class="icon"><i class="fa fa-search"
 					style="margin-left: 10px; margin-top: 3px"></i></span>
-				<td><input type="text" name='keyword' class="searchBar"
+				<td><input type="text" name='keyword' class="searchbar"
 					placeholder="검색어를 입력해주세요"
 					value='<c:out value = "${pageMaker.cri.keyword }"/>' /> <input
 					type='hidden' name='pageNum'
@@ -447,7 +481,6 @@ $(document).ready(function(){
 		</tr> -->
 		</table>
 </div>
-	</div>
 	<!-- 전용 글작성 버튼 보이기 -->
 		<div class="adminregister">
 			<img src="/resources/images/community/register.png" />
