@@ -851,7 +851,7 @@ a {
 					<li><a href="/home"><img src="resources/images/logo2.png"></a></li>
 					<li><a href="/community"><img
 							src="resources/images/community.png"></a></li>
-					<li><a href="/login"><img src="resources/images/login.png"></a></li>
+					<li><a href="/${path}users/mypage"><img src="resources/images/login.png"></a></li>
 				</ul>
 
 
