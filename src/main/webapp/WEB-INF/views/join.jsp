@@ -14,6 +14,8 @@
 <title>Insert title here</title>
 
 <script type="text/javascript">
+	var code = ""; //이메일전송 인증번호 저장위한 코드
+
 	$(document).ready(function() {
 
 		$("#join").on("click", function() {
@@ -54,18 +56,20 @@
 			}
 
 		});
-		$(function () {
+		$(function() {
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			$(document).ajaxSend(function(e, xhr, options) {
-			    xhr.setRequestHeader(header, token);
+				xhr.setRequestHeader(header, token);
 			});
 
-		   })
+		})
 		$('#userId').on("propertychange change keyup paste input", function() {
 
 			var userId = $('#userId').val(); // .id_input에 입력되는 값
-			var data = {userId : userId } // '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+			var data = {
+				userId : userId
+			} // '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
 
 			$.ajax({
 				type : "POST",
@@ -83,6 +87,46 @@
 				}// success 종료
 			}); // ajax 종료
 		});// function 종료
+
+		/* 인증번호 이메일 전송 */
+		$(".mail_check_button").click(function() {
+			var email1 = $("#email").val(); // 입력한 이메일
+			var email2 = $(".Ese option:selected").val(); // 입력한 이메일
+			var email = email1 + email2
+			var cehckBox = $(".mail_check_input"); // 인증번호 입력란
+			var boxWrap = $(".mail_check_input_box"); // 인증번호 입력란 박스
+
+			$.ajax({
+
+				type : "GET",
+				url : "mailCheck?email=" + email,
+				success : function(data) {
+
+					/*  console.log("data : " + data); */
+					cehckBox.attr("disabled", false);
+					boxWrap.attr("id", "mail_check_input_box_true");
+					code = data;
+				}
+
+			});
+		});
+		/* 인증번호 비교 */
+		$(".mail_check_input").blur(function() {
+
+			var inputCode = $(".mail_check_input").val(); // 입력코드    
+			var checkResult = $("#mail_check_input_box_warn"); // 비교 결과 
+			
+
+			if (inputCode == code) { // 일치할 경우
+				checkResult.html("인증번호가 일치합니다.");
+				checkResult.attr("class", "correct");
+				$("#join").attr("disabled", false);
+			} else { // 일치하지 않을 경우
+				checkResult.html("인증번호를 다시 확인해주세요.");
+				checkResult.attr("class", "incorrect");
+			}
+
+		});
 
 	});
 </script>
@@ -211,7 +255,7 @@
 	font-family: 'S-CoreDream-3Light';
 	font-size: 10px;
 	position: absolute;
-    bottom: 150px;
+	bottom: 150px;
 }
 /* 중복아이디 존재하는 경우 */
 .id_input_re_2 {
@@ -220,7 +264,7 @@
 	font-family: 'S-CoreDream-3Light';
 	font-size: 10px;
 	position: absolute;
-    bottom: 150px;
+	bottom: 150px;
 }
 
 .homie {
@@ -508,7 +552,7 @@ input::placeholder {
 	left: 73px;
 }
 
-#email {
+.inemail {
 	font-family: 'S-CoreDream-3Light';
 	width: 140px;
 	padding: 15px;
@@ -518,11 +562,11 @@ input::placeholder {
 
 .Eselect {
 	position: relative;
-	bottom: 2759px;
+	bottom: 2760px;
 	left: 285px;
 }
 
-#Eselect {
+.Ese {
 	font-family: 'S-CoreDream-3Light';
 	width: 140px;
 	padding: 12px;
@@ -543,7 +587,7 @@ input::placeholder {
 
 .add {
 	position: absolute;
-	top: 835px;
+	top: 895px;
 	left: 72px;
 }
 
@@ -568,7 +612,7 @@ input::placeholder {
 
 .add1 {
 	position: absolute;
-	top: 833px;
+	top: 893px;
 	left: 255px;
 }
 
@@ -584,13 +628,13 @@ input::placeholder {
 
 .add2 {
 	position: absolute;
-	top: 890px;
+	top: 945px;
 	left: 72px;
 }
 
 .add3 {
 	position: absolute;
-	top: 945px;
+	top: 995px;
 	left: 72px;
 }
 
@@ -606,7 +650,7 @@ input::placeholder {
 
 .addresstxt {
 	position: absolute;
-	top: 795px;
+	top: 856px;
 	left: 65px;
 	color: #7D7D7D;
 	font-family: 'S-CoreDream-3Light';
@@ -616,7 +660,7 @@ input::placeholder {
 
 .join {
 	position: absolute;
-	top: 1050px;
+	top: 1100px;
 	left: 102px;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 15px;
@@ -688,12 +732,35 @@ a {
 
 .stars6 {
 	position: relative;
-	bottom: 2952px;
+	bottom: 2894px;
 	left: 93px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 12px;
 	font-weight: bold;
+}
+
+#mail_check_input_box_false {
+	background-color: #ebebe4;
+}
+
+#mail_check_input_box_true {
+	background-color: white;
+}
+
+.mail_check_wrap {
+	font-family: 'S-CoreDream-3Light';
+	font-size: 12px;
+}
+
+.correct {
+	color: green;
+
+}
+
+.incorrect {
+	color: red;
+
 }
 </style>
 </head>
@@ -736,21 +803,23 @@ a {
 			<div class="user">
 
 				<p>
-					<input type="text" id="userId" name="userId"
-					 maxlength='20' placeholder="아이디를 입력해주세요" style="border: none; font-size: 12px;">
+					<input type="text" id="userId" name="userId" maxlength='20'
+						placeholder="아이디를 입력해주세요" style="border: none; font-size: 12px;">
 					<f:errors path="userId" element="div" cssClass="alert text-danger" />
-					<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
-					<span class="id_input_re_2">아이디가 이미 존재합니다.</span></p>
-					<f:password path="userPwd" id="userPwd" name="userPwd"
-						maxlength='20' placeholder="비밀번호를 입력해주세요"
-						style="border: none; font-size: 12px;" />
-					<f:errors path="userPwd" element="div" cssClass="alert text-danger" />
-					<input type="text" id="userName" name="userName" maxlength='10'
-						placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
+					<span class="id_input_re_1">사용 가능한 아이디입니다.</span> <span
+						class="id_input_re_2">아이디가 이미 존재합니다.</span>
+				</p>
+				<f:password path="userPwd" id="userPwd" name="userPwd"
+					maxlength='20' placeholder="비밀번호를 입력해주세요"
+					style="border: none; font-size: 12px;" />
+				<f:errors path="userPwd" element="div" cssClass="alert text-danger" />
+				<input type="text" id="userName" name="userName" maxlength='10'
+					placeholder="성명을 입력해주세요" style="border: none; font-size: 12px;">
 			</div>
 
 			<div class="phone1">
-				<select id="phone1" name="phone" style="border: none; cursor:pointer;">
+				<select id="phone1" name="phone"
+					style="border: none; cursor: pointer;">
 					<option value="010">010</option>
 					<option value="011">011</option>
 					<option value="017">017</option>
@@ -775,22 +844,33 @@ a {
 			<div class="emailtxt">
 				<p>이메일</p>
 			</div>
+
 			<div class="email">
-				<input type="text" id="email" name="email" placeholder="이메일을 입력해주세요"
+				<input type="text" class ="inemail" id="email" name="email" placeholder="이메일을 입력해주세요"
 					style="border: none; font-size: 12px;">
 				<f:errors path="email" element="div" cssClass="alert text-danger" />
 			</div>
 			<div class='atsign'>@</div>
 			<div class="Eselect">
-				<select id="Eselect" id="email" name="email"
-					style="border: none; cursor:pointer; font-size: 12px;">
+				<select class="Ese" id="email" name="email"
+					style="border: none; cursor: pointer; font-size: 12px;">
 					<option value="">이메일주소</option>
 					<option value="@naver.com">naver.com</option>
 					<option value="@daum.net">daum.net</option>
 					<option value="@gmail.com">gmail.com</option>
 				</select>
 			</div>
-
+			<div class="mail_check_wrap">
+				<div class="mail_check_input_box" id="mail_check_input_box_false"
+					style="position: absolute; top: 799px; left: 73px;">
+					<input class="mail_check_input" disabled="disabled" style = "padding: 6px; width: 240px;">
+				</div>
+				<div class="mail_check_button"
+					style="position: absolute; top: 799px; left: 345px;">
+					<input type="button" value="인증번호 전송" style = "border : none; font-size : 8px; padding : 9px; cursor: pointer;">
+				</div>
+				<span id="mail_check_input_box_warn" style = "position: absolute; top: 835px; left: 74px;"></span>
+			</div>
 			<div class="stars1">
 				<p>*</p>
 			</div>
@@ -819,7 +899,7 @@ a {
 			<div class="add1">
 				<input type="button" class="addbtn" name="address"
 					onclick="execDaumPostcode()" value="우편번호"
-					style="border: none; cursor:pointer; font-size: 9px;"><br>
+					style="border: none; cursor: pointer; font-size: 9px;"><br>
 			</div>
 			<div class="add2">
 				<input type="text" id="roadAddress" name="address"
@@ -837,7 +917,8 @@ a {
 
 			<s:csrfInput />
 			<div class="join">
-				<input type="submit" id="join" value="회원가입" style="border: none; cursor:pointer;">
+				<input type="submit" id="join" value="회원가입"
+					style="border: none; cursor: pointer;"disabled="disabled">
 			</div>
 		</f:form>
 
@@ -851,7 +932,8 @@ a {
 					<li><a href="/home"><img src="resources/images/logo2.png"></a></li>
 					<li><a href="/community"><img
 							src="resources/images/community.png"></a></li>
-					<li><a href="/${path}users/mypage"><img src="resources/images/login.png"></a></li>
+					<li><a href="/${path}users/mypage"><img
+							src="resources/images/login.png"></a></li>
 				</ul>
 
 
