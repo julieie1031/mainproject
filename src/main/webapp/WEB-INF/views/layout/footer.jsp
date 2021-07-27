@@ -29,7 +29,7 @@
 	<div class="footer">
 		<div class="bottom_bar">
 			<ul>
-				<li><a href="/category"><img
+				<li><a href="/tip/list"><img
 						src="/resources/images/category.png"></a></li>
 				<li><a href="/hotel/list"><img src="/resources/images/hotel.png"></a></li>
 				<li><a href="/main"><img src="/resources/images/logo2.png"></a></li>

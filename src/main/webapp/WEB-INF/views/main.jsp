@@ -356,11 +356,29 @@ div.tipContent {
     font-weight: bolder;
 
 }
+.notice{cursor: pointer;}
+.title{cursor: pointer;}
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	function notice_go() {
 		location.href = "notice/list"
 	}
+	function tip_go() {
+		location.href = "tip/list"
+	}
+	var noticeForm = $("#noticeForm");
+	$(document).ready(
+			function() {
+				$(".mainNotice").on("click",function(e) {
+					e.preventDefault();
+					noticeForm.append("<input type = 'hidden' name = 'nno' value = '"+ $(this).attr("id")+ "'>");
+					noticeForm.attr("action","/notice/get");
+					noticeForm.submit();
+				});
+
+	});//end javascript
 </script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
@@ -437,23 +455,27 @@ div.tipContent {
 <!-- 카테고리 끝 -->
 
 <!-- 공지 -->
+<form id='noticeForm' action="/notice/list" method="get">
+	<div>
+		<table class="noticeTable">
+			<colgroup>
+				<col style="width: 92px">
+				<col style="width: auto">
 
-<div>
-	<table class="noticeTable">
-		<colgroup>
-			<col style="width: 92px">
-			<col style="width: auto">
 
+			</colgroup>
 
-		</colgroup>
+			<tr>
+				<td class="notice" onclick="notice_go()"
+					style="border-right: 1px solid #d0cfcf">공지</td>
+				<c:forEach var="one" items="${notice}"
+						begin="0" end="0"><td class="mainNotice" id=${one.nno }>
+			${one.noticeTitle }</td></c:forEach>
 
-		<tr>
-			<td onclick="notice_go()" style="border-right: 1px solid #d0cfcf">공지</td>
-			<td>공지사항입니다.</td>
-
-		</tr>
-	</table>
-</div>
+			</tr>
+		</table>
+	</div>
+</form>
 <!-- 공지 끝 -->
 
 <form id='actionForm' action="/board/list" method="get">
@@ -511,15 +533,20 @@ div.tipContent {
 
 	<!-- 상식팁 -->
 	<div style="clear: both; margin-top: 50px">
-		<div class="title">
+		<div class="title"
+		onclick="tip_go()">
 			<h3>오늘의 상식 TIP!</h3>
 		</div>
 		<div class="tip">
+		  <c:forEach var="tip" items="${tip}"
+						begin="1" end="6">
 			<div class="tipContent">
-				<img src="resources/images/tip/apple.jpg">
-				<div class="tip_desc">강아지 사과 먹어도 될까?</div>
+			<c:url value="/display" var="url"> <c:param name="fileName" value="${tip.attachList[0].uploadPath}/s_${tip.attachList[0].uuid}_${tip.attachList[0].fileName}" /></c:url>
+				<img src="${url }"/> 
+				<div class="tip_desc">${tip.tipTitle }</div>
 			</div>
-			<div class="tipContent">
+			</c:forEach>
+		<!-- 	<div class="tipContent">
 				<img src="resources/images/tip/burdock.jpg">
 				<div class="tip_desc">강아지 우엉 먹어도 될까?</div>
 			</div>
@@ -535,7 +562,7 @@ div.tipContent {
 				<img src="resources/images/tip/dog2.jpg">
 				<div class="tip_desc">강아지가 아플 때 보내는 신호</div>
 			</div>
-
+ -->
 
 
 

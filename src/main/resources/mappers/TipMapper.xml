@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace = "org.mp.mapper.TipMapper">
+ <resultMap type="org.mp.domain.TipVO" id="tipMap">
+  <result property="userId" column="userId"/>
+  <result property="tno" column="tno"/>
+  <result property="tipContent" column="tipContent"/>
+  <result property="tipTitle" column="tipTitle"/>
+  <result property="tipDate" column="tipDate"/>
+  <result property="tipUpdateDate" column="tipUpdateDate"/>
+  <collection property="attachList" resultMap="attachMap"></collection> 
+</resultMap>
 
+<resultMap type="org.mp.domain.TipAttachVO" id="attachMap">
+<result property="fileName" column="fileName"/>
+  <result property="uuid" column="uuid"/>
+  <result property="uploadPath" column="uploadPath"/>
+   
+</resultMap>
+ 
   <select id = "getList" resultType = "org.mp.domain.TipVO">
   select tno, USER_ID as userId, TIP_TITLE as tipTitle, TIP_CONTENT as tipContent, TIP_DATE as tipDate,
   TIP_UPDATE_DATE as tipUpdateDate
@@ -40,21 +56,21 @@ TIP_UPDATE_DATE = sysdate
 where tno=#{tno}
 </update>
 
-	<select id="getListWithPaging"	resultType="org.mp.domain.TipVO">
+	<select id="getListWithPaging"	resultType="org.mp.domain.TipVO" resultMap="tipMap">
    <![CDATA[
     select
-	tno, userId, tipTitle, tipContent, tipDate, tipUpdateDate
+	tno, userId, tipTitle, tipContent, tipDate, tipUpdateDate, uuid, uploadPath, fileName
 	from
 	(
    		 select
    		 /*+index_desc(board pk_tip)*/
-    	 rownum rn, tno, USER_ID as userId, TIP_TITLE as tipTitle, TIP_CONTENT as tipContent, 
-    	 TIP_DATE as tipDate, TIP_UPDATE_DATE as tipUpdateDate
-   		 from commontip
+    	 rownum rn, commontip.tno, commontip.USER_ID as userId, TIP_TITLE as tipTitle, TIP_CONTENT as tipContent, 
+    	 TIP_DATE as tipDate, TIP_UPDATE_DATE as tipUpdateDate, uuid, upload_path uploadPath, file_name fileName
+   		 from commontip left outer join tipattach on commontip.tno = tipattach.tno
 			where
     	 ]]>
  	
-	<include refid="criteriaTip"></include>
+<!-- 	<include refid="criteriaTip"></include> -->
 	
 	<![CDATA[
 	
@@ -70,13 +86,13 @@ where tno=#{tno}
 select count(*) from commontip
 where
 
-<include refid="criteriaTip"></include>
+<!-- <include refid="criteriaTip"></include> -->
 
 tno > 0
 
 </select>
 
-<sql id = "criteriaTip">
-</sql>
+<!-- <sql id = "criteriaTip"> -->
+<!-- </sql> -->
   
 </mapper>

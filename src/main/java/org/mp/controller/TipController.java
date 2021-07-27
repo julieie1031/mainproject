@@ -36,8 +36,10 @@ public class TipController {
 
 	@GetMapping("/list")
 	public void list(CriteriaTip cri, Model model) {
-		log.info("list :" + cri);
-		model.addAttribute("list", service.getList(cri));
+		log.info("list_aaaa :" + cri);
+		List<TipVO> list = service.getList(cri);
+		/* log.info("aaaaaaa"+list.get(0).getAttachList().get(0).getFileName()); */
+		model.addAttribute("list", list);
 		int total = service.getTotal(cri);
 		log.info("total : " + total);
 		model.addAttribute("pageMaker", new TipPageDTO(cri,123));
@@ -63,7 +65,7 @@ public class TipController {
 		model.addAttribute("tip", service.get(tno));
 	}
 
-	@PreAuthorize("principal.username == #board.userId")
+	@PreAuthorize("principal.username == #tip.userId")
 	@PostMapping("/modify")
 	public String modify(TipVO tip, @ModelAttribute("cri") CriteriaTip cri, RedirectAttributes rttr) {
 		log.info("modify" + tip);

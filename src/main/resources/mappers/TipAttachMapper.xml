@@ -12,7 +12,7 @@
 	</delete>
 	
 	<delete id = "deleteAll">
-		delete from tipattach where bno = #{bno}
+		delete from tipattach where tno = #{tno}
 	</delete>
 	
 	<delete id = "deleteAttach">

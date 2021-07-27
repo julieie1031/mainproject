@@ -407,35 +407,7 @@ $(document).ready(function(){
 	});
 var tnoValue = '<c:out value="${tip.tno}"/>';
 
-	
-	var tno = '<c:out value = "${tip.tno}"/>';
-    $.getJSON("/tip/getAttachList", {tno : 22}, function(arr) {
-    	console.log(arr);
-    	
-    	 var str = "";
-			$(arr).each(function(i, obj) {
-				if(!obj.fileType) {
-					
-					  var fileCallPath = encodeURIComponent( obj.uploadPath+ "/"+obj.uuid +"_"+obj.fileName);
-					  str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
-			          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";
-			          str += "<img src='/resources/images/attach.png'>";
-			          str += "</div></li>";
-			        
-		    		   
-				} else {
-					
-					  var fileCallPath = encodeURIComponent( obj.uploadPath+"/s_"+ obj.uuid +"_"+obj.fileName);            
-			          var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-			          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
-			          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";				          
-			          str += "<img src='/display?fileName="+ fileCallPath +"'>";
-			          str += "</div></li>";
-				}
-			});
-			$(".tipContent ul").html(str);
-    	
-    });
+
 })
 </script>
 
@@ -483,7 +455,8 @@ var tnoValue = '<c:out value="${tip.tno}"/>';
 		<div class="tip">
 		<c:forEach var="list" items="${list}">
 			<div class="tipContent" id=${list.tno }>
-				<ul></ul>
+			<c:url value="/display" var="url"> <c:param name="fileName" value="${list.attachList[0].uploadPath}/s_${list.attachList[0].uuid}_${list.attachList[0].fileName}" /></c:url>
+				<img src="${url }"/> 
 				<div class="tip_desc">${list.tipTitle }</div>
 			</div>
 		<!-- 	<div class="tipContent">
