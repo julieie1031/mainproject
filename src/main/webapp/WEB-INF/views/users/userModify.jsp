@@ -24,11 +24,6 @@
 				$("#userName").focus();
 				return false;
 			}
-			if ($("#email").val() == "") {
-				alert("이메일을 입력해주세요.");
-				$("#email").focus();
-				return false;
-			}
 			if ($("#phone2").val() == "") {
 				alert("전화번호를 입력해주세요.");
 				$("#phone").focus();
@@ -485,7 +480,7 @@ input::placeholder {
 
 .add {
 	position: absolute;
-	top: 835px;
+	top: 730px;
 	left: 72px;
 }
 
@@ -510,7 +505,7 @@ input::placeholder {
 
 .add1 {
 	position: absolute;
-	top: 833px;
+	top: 729px;
 	left: 255px;
 }
 
@@ -526,13 +521,13 @@ input::placeholder {
 
 .add2 {
 	position: absolute;
-	top: 890px;
+	top: 780px;
 	left: 72px;
 }
 
 .add3 {
 	position: absolute;
-	top: 945px;
+	top: 830px;
 	left: 72px;
 }
 
@@ -548,7 +543,7 @@ input::placeholder {
 
 .addresstxt {
 	position: absolute;
-	top: 795px;
+	top: 690px;
 	left: 65px;
 	color: #7D7D7D;
 	font-family: 'S-CoreDream-3Light';
@@ -558,7 +553,7 @@ input::placeholder {
 
 .modify {
 	position: absolute;
-	top: 1050px;
+	top: 940px;
 	left: 102px;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 15px;
@@ -580,7 +575,7 @@ a {
 
 .stars1 {
 	position: relative;
-	bottom: 3330px;
+	bottom: 1930px;
 	left: 105px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
@@ -590,7 +585,7 @@ a {
 
 .stars2 {
 	position: relative;
-	bottom: 3270px;
+	bottom: 1870px;
 	left: 116px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
@@ -600,7 +595,7 @@ a {
 
 .stars3 {
 	position: relative;
-	bottom: 3202px;
+	bottom: 1800px;
 	left: 94px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
@@ -610,7 +605,7 @@ a {
 
 .stars4 {
 	position: relative;
-	bottom: 3141px;
+	bottom: 1740px;
 	left: 116px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
@@ -618,19 +613,10 @@ a {
 	font-weight: bold;
 }
 
-.stars5 {
-	position: relative;
-	bottom: 3047px;
-	left: 104px;
-	color: #FF0000;
-	font-family: 'S-CoreDream-3Light';
-	font-size: 12px;
-	font-weight: bold;
-}
 
 .stars6 {
 	position: relative;
-	bottom: 2952px;
+	bottom: 1640px;
 	left: 93px;
 	color: #FF0000;
 	font-family: 'S-CoreDream-3Light';
@@ -709,24 +695,7 @@ a {
 					style="border: none">
 			</div>
 
-			<div class="emailtxt">
-				<p>이메일</p>
-			</div>
-			<div class="email">
-				<input type="text" id="email" name="email" placeholder="이메일을 입력해주세요"
-					style="border: none; font-size: 12px;">
-				<f:errors path="email" element="div" cssClass="alert text-danger" />
-			</div>
-			<div class='atsign'>@</div>
-			<div class="Eselect">
-				<select id="Eselect" id="email" name="email"
-					style="border: none; font-size: 12px;">
-					<option value="">이메일주소</option>
-					<option value="@naver.com">naver.com</option>
-					<option value="@daum.net">daum.net</option>
-					<option value="@gmail.com">gmail.com</option>
-				</select>
-			</div>
+			
 
 			<div class="stars1">
 				<p>*</p>
@@ -738,9 +707,6 @@ a {
 				<p>*</p>
 			</div>
 			<div class="stars4">
-				<p>*</p>
-			</div>
-			<div class="stars5">
 				<p>*</p>
 			</div>
 			<div class="stars6">
