@@ -368,17 +368,6 @@ div.tipContent {
 	function tip_go() {
 		location.href = "tip/list"
 	}
-	var noticeForm = $("#noticeForm");
-	$(document).ready(
-			function() {
-				$(".mainNotice").on("click",function(e) {
-					e.preventDefault();
-					noticeForm.append("<input type = 'hidden' name = 'nno' value = '"+ $(this).attr("id")+ "'>");
-					noticeForm.attr("action","/notice/get");
-					noticeForm.submit();
-				});
-
-	});//end javascript
 </script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
@@ -532,6 +521,7 @@ div.tipContent {
 
 
 	<!-- 상식팁 -->
+	<form id='tipForm' action="/tip/list" method="get">
 	<div style="clear: both; margin-top: 50px">
 		<div class="title"
 		onclick="tip_go()">
@@ -540,7 +530,7 @@ div.tipContent {
 		<div class="tip">
 		  <c:forEach var="tip" items="${tip}"
 						begin="1" end="6">
-			<div class="tipContent">
+			<div class="tipContent" id=${tip.tno }>
 			<c:url value="/display" var="url"> <c:param name="fileName" value="${tip.attachList[0].uploadPath}/s_${tip.attachList[0].uuid}_${tip.attachList[0].fileName}" /></c:url>
 				<img src="${url }"/> 
 				<div class="tip_desc">${tip.tipTitle }</div>
@@ -568,7 +558,7 @@ div.tipContent {
 
 		</div>
 	</div>
-
+</form>
 	<!-- 상식팁 끝  -->
 
 
@@ -580,6 +570,8 @@ div.tipContent {
 			document.location.href = "location?category=" + number;
 		};
 		var actionForm = $("#actionForm");
+		var noticeForm = $("#noticeForm");
+		var tipForm = $("#tipForm");
 		$(document).ready(
 				function() {
 					$(".move")
@@ -597,6 +589,19 @@ div.tipContent {
 										"/board/get");
 								actionForm.submit();
 							});
+					$(".mainNotice").on("click",function(e) {
+						e.preventDefault();
+						noticeForm.append("<input type = 'hidden' name = 'nno' value = '"+ $(this).attr("id")+ "'>");
+						noticeForm.attr("action","/notice/get");
+						noticeForm.submit();
+					});
+					$(".tipContent").on("click",function(e) {
+						e.preventDefault();
+						noticeForm.append("<input type = 'hidden' name = 'tno' value = '"+ $(this).attr("id")+ "'>");
+						noticeForm.attr("action","/tip/get");
+						noticeForm.submit();
+					});
+					
 
 		});//end javascript
 				
