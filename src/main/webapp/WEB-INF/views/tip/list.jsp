@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>공지글 알려줄개</title>
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
@@ -19,7 +16,9 @@
 	</script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>	
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 <style>
 .carousel {
 	position: relative;
@@ -297,7 +296,6 @@
 	margin-left: 445px;
 	display: flex;
 	z-index:3;
-	cursor: pointer;
 }
 .ul {
 	list-style: none;
@@ -330,40 +328,56 @@
 	border: 1px solid #B0B0B0;
 	background-color: #B0B0B0;
 }
+.tip {
+	width: 100%;
+	height: 430px;
+	margin: 10px;
+}
 
-.searchDiv {
-	padding-top: 10px;
+div.tipContent {
+	margin: 10px;
+	padding-left: 5px;
+	padding-bottom: 40px;
+	float: left;
+	width: 130px;
+	height: 130px;
+}
+
+/* .tipContent img {
+	display: block;
+	width: 130px;
+	height: 130px;
+	margin-left: 4px
+} */
+
+.tip_desc {
+	padding: 10px;
 	font-size: 13px;
-	clear: both;
-	text-align: center;
+}
+.tipContent {
+	width: 100%;
 }
 
-.searchbar {
-	width: 230px;
-	height: 30px;
-	background: #f4f4f4;
-	border: none;
-	font-size: 10pt;
-	color: #787878;
-	padding-left: 45px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
+.tipContent ul {
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	
 }
 
-.searchDiv .icon {
-	position: absolute;
-    left: 134px;
-    margin-top: 7px;
-	z-index: 1;
-	color: #4f5b66;
+.tipContent ul li {
+	list-style: none;
+	padding: 10px;
 }
 
-#searchForm table {
-	margin-left: 15px;
+.tipContent ul li img {
+	width: 150px;
+	height: 150px;
+	margin:-20px;
 }
 
 </style>
-<script type="text/javascript">
+<script>
 $(document).ready(function(){
 	$('.adminregister img').on("click",function(){
 		location.href="register"
@@ -379,10 +393,10 @@ $(document).ready(function(){
 				actionForm.submit();
 			});
 	
-	$(".notice-body").on("click",function(e) {
+	$(".tipContent").on("click",function(e) {
 		e.preventDefault();
-		actionForm.append("<input type = 'hidden' name = 'nno' value = '"+ $(this).attr("id")+ "'>");
-		actionForm.attr("action","/notice/get");
+		actionForm.append("<input type = 'hidden' name = 'tno' value = '"+ $(this).attr("id")+ "'>");
+		actionForm.attr("action","/tip/get");
 		actionForm.submit();
 		});
 
@@ -391,26 +405,42 @@ $(document).ready(function(){
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
-	var searchForm = $("#searchForm");
+var tnoValue = '<c:out value="${tip.tno}"/>';
 
-	$("#searchForm table tbody tr.img1 td:nth-child(3) button img").on("click",function(e) {
-		if (!searchForm.find("option:selected").val()) {
-			alert("검색종류를 선택하세요");
-			return false;
-			}
-
-			if (!searchForm.find("input[name='keyword']").val()) {
-				alert("키워드를 입력하세요");
-				return false;
+	
+	var tno = '<c:out value = "${tip.tno}"/>';
+    $.getJSON("/tip/getAttachList", {tno : 22}, function(arr) {
+    	console.log(arr);
+    	
+    	 var str = "";
+			$(arr).each(function(i, obj) {
+				if(!obj.fileType) {
+					
+					  var fileCallPath = encodeURIComponent( obj.uploadPath+ "/"+obj.uuid +"_"+obj.fileName);
+					  str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
+			          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";
+			          str += "<img src='/resources/images/attach.png'>";
+			          str += "</div></li>";
+			        
+		    		   
+				} else {
+					
+					  var fileCallPath = encodeURIComponent( obj.uploadPath+"/s_"+ obj.uuid +"_"+obj.fileName);            
+			          var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+			          str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='"
+			          + obj.fileName + "'data-type='" + obj.fileType + "'><div>";				          
+			          str += "<img src='/display?fileName="+ fileCallPath +"'>";
+			          str += "</div></li>";
 				}
-			searchForm.find("input[name='pageNum']").val("1");
-			e.preventDefault();
-			searchForm.submit();
-	});
+			});
+			$(".tipContent ul").html(str);
+    	
+    });
 })
 </script>
+
 <body>
-	<%@include file="../layout/header2.jsp"%>
+<%@include file="../layout/header2.jsp"%>
 	<!-- 배너 -->
 	<div id="carouselExampleControls" class="carousel slide"
 		data-bs-ride="carousel">
@@ -438,72 +468,47 @@ $(document).ready(function(){
 			<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
 				class="visually-hidden">Next</span>
 		</button>
-			</div>
 		<!-- 배너 끝 -->
-		<div class="searchDiv">
-	<form id='searchForm' action="/notice/list" method='get'>
-		<table>
-			<tr class="img1">
-				<td><select name='type'
-					style="width: 110px; height: 30px; border: none; font-size: 10pt; color: #787878; background: #f4f4f4;">
-						<option value=""
-							<c:out value = "${pageMaker.cri.type==null?'selected':'' }"/>>--</option>
-						<option value="T"
-							<c:out value = "${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
-						<option value="C"
-							<c:out value = "${pageMaker.cri.type eq 'C'?'selected':'' }"/>>내용</option>
-						<option value="W"
-							<c:out value = "${pageMaker.cri.type eq 'W'?'selected':'' }"/>>작성자</option>
-						<option value="TC"
-							<c:out value = "${pageMaker.cri.type eq 'TC'?'selected':'' }"/>>제목
-							or 내용</option>
-						<option value="TW"
-							<c:out value = "${pageMaker.cri.type eq 'TW'?'selected':'' }"/>>제목
-							or 작성자</option>
-				</select></td>
-				<span class="icon"><i class="fa fa-search"
-					style="margin-left: 10px; margin-top: 3px"></i></span>
-				<td><input type="text" name='keyword' class="searchbar"
-					placeholder="검색어를 입력해주세요"
-					value='<c:out value = "${pageMaker.cri.keyword }"/>' /> <input
-					type='hidden' name='pageNum'
-					value='<c:out value = "${pageMaker.cri.pageNum }"/>' /> <input
-					type='hidden' name='amount'
-					value='<c:out value = "${pageMaker.cri.amount }"/>' />
-
-
-
-					</form>
-
-			</tr>
-
-			<!-- <tr class="img2">
-			<td><img src="../resources/images/banner2.png" alt="..."
-				width="500px" height="150px"></td>
-		</tr> -->
-		</table>
-</div>
-	<!-- 전용 글작성 버튼 보이기 -->
-		
-
-<sec:authorize access="hasRole('ROLE_ADMIN')"><div class="adminregister">
+		<sec:authorize access="hasRole('ROLE_ADMIN')"><div class="adminregister">
 			<img src="/resources/images/community/register.png" />
 		</div></sec:authorize>
-		<!-- 공지판 시작 -->
-	<div class="notice-board">
-		<c:forEach var="list" items="${list}">
-			<div class="notice-body" id=${list.nno }>
-				${list.noticeTitle}
-			<br>
-				 <p><fmt:formatDate
-								pattern="yyyy-MM-dd HH:MM:ss"
-								value="${list.noticeUpdateDate}" /></p> 
+		
+		
+		
+		<div style="clear: both; margin-top: 50px">
+		<div class="title"
+		onclick="tip_go()">
+			
 		</div>
+		<div class="tip">
+		<c:forEach var="list" items="${list}">
+			<div class="tipContent" id=${list.tno }>
+				<ul></ul>
+				<div class="tip_desc">${list.tipTitle }</div>
+			</div>
+		<!-- 	<div class="tipContent">
+				<img src="/resources/images/tip/burdock.jpg">
+				<div class="tip_desc">강아지 우엉 먹어도 될까?</div>
+			</div>
+			<div class="tipContent">
+				<img src="/resources/images/tip/dog.jpg">
+				<div class="tip_desc">혓바닥 색으로 알아보는 강아지의 건강 상태</div>
+			</div>
+			<div class="tipContent">
+				<img src="/resources/images/tip/dog1.PNG">
+				<div class="tip_desc">강아지와 여행 가기</div>
+			</div>
+			<div class="tipContent">
+				<img src="/resources/images/tip/dog2.jpg">
+				<div class="tip_desc">강아지가 아플 때 보내는 신호</div>
+			</div> -->
+
+
+
+
 		</c:forEach>
-	</div>
-	<!-- 배너 끝 -->
-	<!-- 페이징 처리 -->
-	<table style="float: center; width: 500px;">
+		</div>
+		<table style="float: center; width: 500px;">
 	<tr>
 		<td>
 			<ul class="ul">
@@ -526,11 +531,9 @@ $(document).ready(function(){
 		</td>
 	</tr>
 </table>
-<!-- 페이징 처리 끝 -->
-
-	<%@include file="../layout/footer.jsp"%>
-		<!-- 히든 -->
-	<form id='actionForm' action="/notice/list" method="get">
+	</div>
+	
+	<form id='actionForm' action="/tip/list" method="get">
 		<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
 		<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
 		<input type='hidden' name='keyword'
@@ -538,5 +541,6 @@ $(document).ready(function(){
 			type='hidden' name='type'
 			value='<c:out value = "${pageMaker.cri.type }"/>'>
 	</form>
+		<%@include file="../layout/footer.jsp"%>
 </body>
 </html>
