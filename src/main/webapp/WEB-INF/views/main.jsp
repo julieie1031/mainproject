@@ -305,7 +305,7 @@ div.test {
 	font-size: 15px;
 	width: 385px;
 	text-align: center;
-	padding: 5px 0px 5px 0px;
+	padding: 0px 0px 4.5px 0px;
 	border-bottom: 1px solid #dddbdb;
 }
 
