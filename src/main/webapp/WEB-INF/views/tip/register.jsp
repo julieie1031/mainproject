@@ -3,7 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
-
+<!DOCTYPE html>
+<html>
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 <style>
 * {
 	margin: 0;
@@ -131,7 +138,6 @@ outline : 0;
 cursor : pointer;
 }
 </style>
-<%@include file="../layout/header2.jsp"%>
 <script>
 function fnUpload() {
 	$('#fileUpload').click();
@@ -256,10 +262,9 @@ $(document).ready(function() {
 	});
 });
 </script>
-
-
-<div>
-
+<body>
+<%@include file="../layout/header2.jsp"%>
+<div class="carousel-item active"></div>
 
 <form role="form" action="/tip/register" method="post">
 	
@@ -301,7 +306,5 @@ $(document).ready(function() {
 						</tr>
 	</table>
 	</form>
-	
-</div>
 </body>
 </html>

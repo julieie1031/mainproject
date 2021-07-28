@@ -47,7 +47,6 @@ a {
 	width: 470px;
 	margin-left: 15px;
 	margin-right: 15px;
-	font-size: 17px;
 }
 
 .table2 {

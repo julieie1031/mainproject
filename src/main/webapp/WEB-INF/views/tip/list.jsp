@@ -4,7 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-
+<!DOCTYPE html>
+<html>
+<head>
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
 <script
@@ -12,7 +14,11 @@
 	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
 	crossorigin="anonymous">
 	</script>
-<%@include file="../layout/header2.jsp"%>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 <style>
 .carousel {
 	position: relative;
@@ -371,14 +377,11 @@ div.tipContent {
 }
 
 </style>
-
-
-<body>
 <script>
 $(document).ready(function(){
 	$('.adminregister img').on("click",function(){
 		location.href="register"
-	});
+	})
 	var result = '<c:out value = "${result}"/>';
 
 	var actionForm = $("#actionForm");
@@ -408,6 +411,8 @@ var tnoValue = '<c:out value="${tip.tno}"/>';
 })
 </script>
 
+<body>
+<%@include file="../layout/header2.jsp"%>
 	<!-- 배너 -->
 	<div id="carouselExampleControls" class="carousel slide"
 		data-bs-ride="carousel">
@@ -435,7 +440,6 @@ var tnoValue = '<c:out value="${tip.tno}"/>';
 			<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
 				class="visually-hidden">Next</span>
 		</button>
-	</div>
 		<!-- 배너 끝 -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')"><div class="adminregister">
 			<img src="/resources/images/community/register.png" />
