@@ -867,7 +867,7 @@ a {
 				</div>
 				<div class="mail_check_button"
 					style="position: absolute; top: 799px; left: 345px;">
-					<input type="button" value="인증번호 전송" style = "border : none; font-size : 8px; padding : 9px; cursor: pointer;">
+					<input type="button" onClick="alert('인증 메일이 발송되었습니다. 인증메일을 통해서 회원가입을 진행해 주세요.')" value="인증번호 전송" style = "border : none; font-size : 8px; padding : 9px; cursor: pointer;">
 				</div>
 				<span id="mail_check_input_box_warn" style = "position: absolute; top: 835px; left: 74px;"></span>
 			</div>
