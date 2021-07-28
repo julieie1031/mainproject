@@ -47,6 +47,7 @@ a {
 	width: 470px;
 	margin-left: 15px;
 	margin-right: 15px;
+	font-size: 17px;
 }
 
 .table2 {
@@ -309,8 +310,7 @@ $(document).ready(function() {
 		<td style="font-weight: bold; font-size: 20px;">${tip.tipTitle }</td>
 	</tr>
 	<tr>
-		<td style ="padding-top:5px; font-size:15px;">${tip.userId }&nbsp;&nbsp;&nbsp;<img src="../resources/images/community/hit.png" alt="..."
-			width="15px" height="15px" style="padding-left: 4px;">&nbsp;&nbsp;</td>
+		<td style ="padding-top:5px; font-size:15px;">${tip.userId }</td>
 		</td>
 	</tr>
 	<tr>
