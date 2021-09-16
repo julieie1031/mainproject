@@ -52,12 +52,12 @@ public class MemberTest {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(2, pwencoder.encode("pw"+i));
             if(i<10) {
-               pstmt.setString(1, "user"+i);pstmt.setString(3, "�Ϲݻ����"+i);
+               pstmt.setString(1, "user"+i);pstmt.setString(3, "일반 유저"+i);
 
             }else if(i<20) {
-               pstmt.setString(1, "manager"+i);pstmt.setString(3, "���"+i);
+               pstmt.setString(1, "member"+i);pstmt.setString(3, "멤버"+i);
             }else {
-               pstmt.setString(1, "admin"+i);pstmt.setString(3, "������"+i);
+               pstmt.setString(1, "admin"+i);pstmt.setString(3, "관리자"+i);
             }
             pstmt.executeUpdate();
          } catch (SQLException e) {}
@@ -66,7 +66,7 @@ public class MemberTest {
             }
          }
       }
-   //�ܷ�Ű �߰�
+   
    @Test
    public void testInsertAuth() {
 	   String sql = "insert into authorities(userid,authority) values(?,?)";
@@ -84,7 +84,7 @@ public class MemberTest {
 	          
 	        }else if (i <20) {
 	          
-	          pstmt.setString(1, "manager"+i);
+	          pstmt.setString(1, "member"+i);
 	          pstmt.setString(2,"ROLE_MEMBER");
 	          
 	        }else {
@@ -99,7 +99,7 @@ public class MemberTest {
 	      }catch(Exception e) {
 	        e.printStackTrace();
 	      }finally {
-	    	  //?��?��?���?
+	  
 	        if(pstmt != null) { try { pstmt.close();  } catch(Exception e) {} }
 	        if(conn != null) { try { conn.close();  } catch(Exception e) {} }
 	        
